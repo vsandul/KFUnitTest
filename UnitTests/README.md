@@ -9,8 +9,8 @@
 
 2. #### Install and run KFUnitTest
      - 2.1 Download KFUnitTest
-     - 2.2 Download (or generate) MC data and save it to "MCData/your_data/" folder
-     - 2.3 Unpack it and go to the folder ".../KFUnitTest/UnitTests"
+     - 2.2 Unpack it and go to the folder ".../KFUnitTest/UnitTests"
+     - 2.3 Download (or generate) MC data and save it to "MCData/your_data/" folder
      - 2.4 Modify ConfigConstants.h file if it is necessary
      - 2.5 root RunKFUnitTestMacro.cxx
 
