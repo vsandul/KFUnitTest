@@ -4,8 +4,8 @@
      - 1.3 mkdir build && cd build
      - 1.4 cmake ..
      - 1.5 make
-     - 1.6 make DESTDIR=../install install
-     - 1.7 cd ../ && export $KFPARTICLE_DIR=$(pwd)
+     - 1.6 make DESTDIR=<your_install_dir> install
+     - 1.7 cd <your_install_dir> && export $KFPARTICLE_DIR=$(pwd)
 
 2. #### Install and run KFUnitTest
      - 2.1 Download KFUnitTest
