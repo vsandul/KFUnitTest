@@ -17,9 +17,9 @@ struct MCParticle{
     float ndf;
     float chi2;
 
-    float pT(){return pX*pX+pY*pY;}
-    float p(){return pX*pX+pY*pY+pZ*pZ;}
-    float e(){return pX*pX+pY*pY+pZ*pZ+mass*mass;}
+    float pT(){return sqrt(pX*pX+pY*pY);}
+    float p(){return sqrt(pX*pX+pY*pY+pZ*pZ);}
+    float e(){return sqrt(pX*pX+pY*pY+pZ*pZ+mass*mass);}
     float eta(){return 0.5*log((p()+pZ)/(p()-pZ));}
     float phi(){return atan2(pY, pX);}
     float theta(){return atan2(pT(), pZ);}

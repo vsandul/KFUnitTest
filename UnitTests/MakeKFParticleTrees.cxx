@@ -411,7 +411,7 @@ void MakeKFParticleTrees(){
         }
             
         /// Create KFParticles from MCParticles
-            float params_M[6] = {mother_MC.x,mother_MC.y,mother_MC.z,mother_MC.pX,mother_MC.pY,mother_MC.pZ};
+           float params_M[6] = {mother_MC.x,mother_MC.y,mother_MC.z,mother_MC.pX,mother_MC.pY,mother_MC.pZ};
             std::vector<float> covmat_vec_ = MakeCovMatALICE(mother_MC.pT(),6);
             float covmat_M[21];
             std::copy(covmat_vec_.begin(), covmat_vec_.end(), covmat_M);
@@ -419,7 +419,7 @@ void MakeKFParticleTrees(){
             float chi2_ = mother_MC.chi2;
             int ndf_ = mother_MC.ndf;
             float mass_ = mother_MC.mass;
-            mother_KF.Create(params_M,covmat_M,charge_,chi2_,ndf_,mass_);
+            //mother_KF.Create(params_M,covmat_M,charge_,chi2_,ndf_,mass_);
             mother_KF.SetId(mother_MC.trackID);
             mother_KF.SetPDG(mother_MC.pdg);
 
@@ -436,7 +436,9 @@ void MakeKFParticleTrees(){
             daughters_KF[i].SetId(daughters_MC[i].trackID);
             daughters_KF[i].SetPDG(daughters_MC[i].pdg);
         }
-
+        //KFParticle mother_KF(daughters_KF[0],daughters_KF[1]);
+        //mother_KF.SetId(mother_MC.trackID);
+        //mother_KF.SetPDG(mother_MC.pdg);
         // Fill KFBR tree
         nTracks_KFBR = NUM_OF_MOTHERS+NUM_OF_DAUGHTERS;
         numOfMCEvent_KFBR = iEvent;
@@ -544,8 +546,9 @@ void MakeKFParticleTrees(){
 
         // do particle reconstruction here
         mother_KF.SetConstructMethod(CONSTRUCT_METHOD_NUMBER);
+        
         if (SET_MASS_CONSTRAINT_MOTHER)
-            mother_KF.SetMassConstraint(mother_KF.GetMassHypo());
+            mother_KF.SetMassConstraint(mother_MC.mass);
         if (SET_TOPOLOGICAL_CONSTRAINT_MOTHER){
             // IMPLEMENT CODE HERE...
         }
@@ -662,7 +665,7 @@ void MakeKFParticleTrees(){
             pZErr_KFAR[j] = daughters_KF[i].GetErrPz();
             eErr_KFAR[j] = daughters_KF[i].GetErrE();
             sErr_KFAR[j] = daughters_KF[i].GetErrS();
-         }
+        }
         
         treeKFBR.Fill();
         treeKFAR.Fill();

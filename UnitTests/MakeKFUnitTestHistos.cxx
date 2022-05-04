@@ -4,9 +4,9 @@
 #include "./ConfigConstants.h"
 
 /////
-float pT(float px, float py){return px*px+py*py;}
-float p(float px, float py, float pz){return px*px+py*py+pz*pz;}
-float e(float px, float py, float pz, float mass){return px*px+py*py+pz*pz+mass*mass;}
+float pT(float px, float py){return sqrt(px*px+py*py);}
+float p(float px, float py, float pz){return sqrt(px*px+py*py+pz*pz);}
+float e(float px, float py, float pz, float mass){return sqrt(px*px+py*py+pz*pz+mass*mass);}
 float eta(float px, float py, float pz){return 0.5*log((p(px,py,pz)+pz)/(p(px,py,pz)-pz));}
 float phi(float px, float py){return atan2(py, px);}
 float theta(float px, float py, float pz){return atan2(pT(px,py), pz);}
@@ -265,11 +265,11 @@ void MakeKFUnitTestHistos(){
     TH2F *fHistPtXResidMother = new TH2F("fHistPtXResidMother", "Pt-X Resid histo; p_{T}, GeV; X residual, #mu",50,0,15, 100,-1e3,1e3);
     TH2F *fHistPtYResidMother = new TH2F("fHistPtYResidMother", "Pt-Y Resid histo; p_{T}, GeV; Y residual, #mu",50,0,15, 100,-1e3,1e3);
     TH2F *fHistPtZResidMother = new TH2F("fHistPtZResidMother", "Pt-Z Resid histo; p_{T}, GeV; Z residual, #mu",50,0,15, 100,-1e3,1e3);
-    TH2F *fHistPtPxResidMother = new TH2F("fHistPtPxResidMother", "Pt-Px Resid histo; p_{T}, GeV; Px residual, GeV",50,0,10, 50,-1.5,1.5);
-    TH2F *fHistPtPyResidMother = new TH2F("fHistPtPyResidMother", "Pt-Py Resid histo; p_{T}, GeV; Py residual, GeV",50,0,10, 50,-1.5,1.5);
-    TH2F *fHistPtPzResidMother = new TH2F("fHistPtPzResidMother", "Pt-Pz Resid histo; p_{T}, GeV; Pz residual, GeV",50,0,10, 50,-15,15);
-    TH2F *fHistPtPtResidMother = new TH2F("fHistPtPtResidMother", "Pt-Pt Resid histo; p_{T}, GeV; Pt residual, GeV",50,0,10, 50,-10,10);
-    TH2F *fHistPtMassResidMother = new TH2F("fHistPtMassResidMother", "Pt-Mass Resid histo; p_{T}, GeV; Mass residual, GeV",50,0,10, 50,-10,10);
+    TH2F *fHistPtPxResidMother = new TH2F("fHistPtPxResidMother", "Pt-Px Resid histo; p_{T}, GeV; Px residual, GeV",50,0,10, 50,-0.1,0.1);
+    TH2F *fHistPtPyResidMother = new TH2F("fHistPtPyResidMother", "Pt-Py Resid histo; p_{T}, GeV; Py residual, GeV",50,0,10, 50,-0.1,0.1);
+    TH2F *fHistPtPzResidMother = new TH2F("fHistPtPzResidMother", "Pt-Pz Resid histo; p_{T}, GeV; Pz residual, GeV",50,0,10, 50,-0.1,0.1);
+    TH2F *fHistPtPtResidMother = new TH2F("fHistPtPtResidMother", "Pt-Pt Resid histo; p_{T}, GeV; Pt residual, GeV",50,0,10, 50,-0.1,0.1);
+    TH2F *fHistPtMassResidMother = new TH2F("fHistPtMassResidMother", "Pt-Mass Resid histo; p_{T}, GeV; Mass residual, GeV",50,0,10, 50,-0.1,0.1);
     std::array<TH2F*, NUM_OF_DAUGHTERS> fHistPtXResidDaughter;
     std::array<TH2F*, NUM_OF_DAUGHTERS> fHistPtYResidDaughter;
     std::array<TH2F*, NUM_OF_DAUGHTERS> fHistPtZResidDaughter;
@@ -294,11 +294,11 @@ void MakeKFUnitTestHistos(){
     TH2F *fHistPtXPullMother = new TH2F("fHistPtXPullMother", "Pt-X Pull histo; p_{T}, GeV; X Pull, #mu",50,0,15, 100,-10,10);
     TH2F *fHistPtYPullMother = new TH2F("fHistPtYPullMother", "Pt-Y Pull histo; p_{T}, GeV; Y Pull, #mu",50,0,15, 100,-10,10);
     TH2F *fHistPtZPullMother = new TH2F("fHistPtZPullMother", "Pt-Z Pull histo; p_{T}, GeV; Z Pull, #mu",50,0,15, 100,-10,10);
-    TH2F *fHistPtPxPullMother = new TH2F("fHistPtPxPullMother", "Pt-Px Pull histo; p_{T}, GeV; Px Pull, GeV",50,0,10, 50,-150,150);
-    TH2F *fHistPtPyPullMother = new TH2F("fHistPtPyPullMother", "Pt-Py Pull histo; p_{T}, GeV; Py Pull, GeV",50,0,10, 50,-150,150);
-    TH2F *fHistPtPzPullMother = new TH2F("fHistPtPzPullMother", "Pt-Pz Pull histo; p_{T}, GeV; Pz Pull, GeV",50,0,10, 50,-150,150);
-    TH2F *fHistPtPtPullMother = new TH2F("fHistPtPtPullMother", "Pt-Pt Pull histo; p_{T}, GeV; Pt Pull, GeV",50,0,10, 50,-150,150);
-    TH2F *fHistPtMassPullMother = new TH2F("fHistPtMassPullMother", "Pt-Mass Pull histo; p_{T}, GeV; Mass Pull, GeV",50,0,10, 50,-300,300);
+    TH2F *fHistPtPxPullMother = new TH2F("fHistPtPxPullMother", "Pt-Px Pull histo; p_{T}, GeV; Px Pull, GeV",50,0,10, 50,-15,15);
+    TH2F *fHistPtPyPullMother = new TH2F("fHistPtPyPullMother", "Pt-Py Pull histo; p_{T}, GeV; Py Pull, GeV",50,0,10, 50,-15,15);
+    TH2F *fHistPtPzPullMother = new TH2F("fHistPtPzPullMother", "Pt-Pz Pull histo; p_{T}, GeV; Pz Pull, GeV",50,0,10, 50,-15,15);
+    TH2F *fHistPtPtPullMother = new TH2F("fHistPtPtPullMother", "Pt-Pt Pull histo; p_{T}, GeV; Pt Pull, GeV",50,0,10, 50,-15,15);
+    TH2F *fHistPtMassPullMother = new TH2F("fHistPtMassPullMother", "Pt-Mass Pull histo; p_{T}, GeV; Mass Pull, GeV",50,0,10, 50,-15,15);
     std::array<TH2F*, NUM_OF_DAUGHTERS> fHistPtXPullDaughter;
     std::array<TH2F*, NUM_OF_DAUGHTERS> fHistPtYPullDaughter;
     std::array<TH2F*, NUM_OF_DAUGHTERS> fHistPtZPullDaughter;
@@ -493,6 +493,9 @@ void MakeKFUnitTestHistos(){
         fGraphPtMassPullWidthDaughter[i] = new TGraphErrors();
     }
 
+
+    // other histos and plots
+    TH2F* fHistPtPtErrMother = new TH2F("fHistPtPtErrMother","fHistPtPtErrMother",50,0,10,100,-0.04,0.04);
     ////////////////////////////////////////////////////////////////////////
     ////////////////// end of histogram block
     ////////////////////////////////////////////////////////////////////////
@@ -1053,7 +1056,7 @@ void MakeKFUnitTestHistos(){
                 float px_resid_ = finalPX_MC[iTrack_MC] - pX_KFAR[iTrack];
                 float py_resid_ = finalPY_MC[iTrack_MC] - pY_KFAR[iTrack];
                 float pz_resid_ = finalPZ_MC[iTrack_MC] - pZ_KFAR[iTrack];
-                float pt_resid_ = pt_MC_ - pt_KFAR_;
+                float pt_resid_ = pt_MC_ - pT_KFAR[iTrack];
                 float mass_resid_ = mass_MC[iTrack_MC] - mass_KFAR[iTrack];
 
                 float x_pull_ = x_resid_/xErr_KFAR[iTrack];
@@ -1082,6 +1085,8 @@ void MakeKFUnitTestHistos(){
                 fHistPtPzPullMother -> Fill(pt_MC_,pz_pull_);
                 fHistPtPtPullMother -> Fill(pt_MC_,pt_pull_);
                 fHistPtMassPullMother -> Fill(pt_MC_,mass_pull_);
+
+                fHistPtPtErrMother -> Fill(pt_MC_, pTErr_KFAR[iTrack]);
 
                 motherCounter++; 
             }
@@ -1645,6 +1650,9 @@ void MakeKFUnitTestHistos(){
             fGraphPtPtPullWidthDaughter[i] -> Write();
             fGraphPtMassPullWidthDaughter[i] -> Write();
     }
+
+    OtherHistos -> cd();
+        fHistPtPtErrMother -> Write();
 
 
     outputFile.Close();
