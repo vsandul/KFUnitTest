@@ -22,6 +22,8 @@ TGraphErrors *MakeSigmaGraphFromTH2(T fHisto2D);
 
 void MakeKFUnitTestHistos(){
 
+    cout << "\n Staring MakeKFUnitTestHistos macro \n";
+
     TFile outputFile( KFHistoOutputFile, "RECREATE" );
 
     ///////////////////////////////////////////////////////////
@@ -107,22 +109,22 @@ void MakeKFUnitTestHistos(){
     ////////////// Beginning of histograms block
     ////////////////////////////////////////////////////////
 
-    TH1F *fHistXMotherMC = new TH1F("fHistXMotherMC", "X MC; #mu; counts", 1000, -1e5, 1e5);
-    TH1F *fHistYMotherMC = new TH1F("fHistYMotherMC", "Y MC; #mu; counts",1000, -1e5, 1e5);
-    TH1F *fHistZMotherMC = new TH1F("fHistZMotherMC", "Z MC; #mu; counts",1000, -3e5, 3e5);
-    TH1F *fHistPxMotherMC = new TH1F("fHistPxMotherMC", "Px MC; GeV; counts", 1000, -10, 10);
-    TH1F *fHistPyMotherMC = new TH1F("fHistPyMotherMC", "Py MC; GeV; counts",1000, -10, 10);
-    TH1F *fHistPzMotherMC = new TH1F("fHistPzMotherMC", "Pz MC; GeV; counts",1000, -10, 10);
-    TH1I *fHistChargeMotherMC = new TH1I("fHistChargeMotherMC", "Charge MC; ; counts",50, -25, 25);
-    TH1I *fHistPDGMotherMC = new TH1I("fHistPDGMotherMC", "PDG MC; ; counts",2000, -1000, 1000);
-    TH1F *fHistPtMotherMC = new TH1F("fHistPtMotherMC", "Pt MC; GeV; counts",1000,0.,10.);
-    TH1F *fHistOneOverPtMotherMC = new TH1F("fHistOneOverPtMotherMC", "1/Pt MC; GeV^{-1}",1000,0.,20.);
-    TH1F *fHistPMotherMC = new TH1F("fHistPMotherMC", "P MC; GeV; counts",1000,0.,30.);    
-    TH1F *fHistEMotherMC = new TH1F("fHistEMotherMC", "E MC; GeV; counts",1000,0.,30.);
-    TH1F *fHistMassMotherMC = new TH1F("fHistMassMotherMC", "Mass MC; GeV; counts",1000,0.,10.);
-    TH1F *fHistEtaMotherMC = new TH1F("fHistEtaMotherMC", "Eta MC; ; counts",1000, -10, 10);
-    TH1F *fHistPhiMotherMC = new TH1F("fHistPhiMotherMC", "Phi MC; ; counts",1000, -6.5, 6.5);
-    TH1F *fHistChi2MotherMC = new TH1F("fHistChi2MotherMC", "Chi2 MC; ; counts",1000, -10, 10);
+    TH1F *fHistXMotherMC = new TH1F("fHistXMotherMC", "X MC; x, #mu; counts", 1000, -1e5, 1e5);
+    TH1F *fHistYMotherMC = new TH1F("fHistYMotherMC", "Y MC; y, #mu; counts",1000, -1e5, 1e5);
+    TH1F *fHistZMotherMC = new TH1F("fHistZMotherMC", "Z MC; z, #mu; counts",1000, -3e5, 3e5);
+    TH1F *fHistPxMotherMC = new TH1F("fHistPxMotherMC", "Px MC; Px, GeV; counts", 1000, -10, 10);
+    TH1F *fHistPyMotherMC = new TH1F("fHistPyMotherMC", "Py MC; Py, GeV; counts",1000, -10, 10);
+    TH1F *fHistPzMotherMC = new TH1F("fHistPzMotherMC", "Pz MC; Pz, GeV; counts",1000, -10, 10);
+    TH1I *fHistChargeMotherMC = new TH1I("fHistChargeMotherMC", "Charge MC; Q; counts",50, -25, 25);
+    TH1I *fHistPDGMotherMC = new TH1I("fHistPDGMotherMC", "PDG MC; PDG; counts",2000, -1000, 1000);
+    TH1F *fHistPtMotherMC = new TH1F("fHistPtMotherMC", "Pt MC; p_{T}, GeV; counts",1000,0.,10.);
+    TH1F *fHistOneOverPtMotherMC = new TH1F("fHistOneOverPtMotherMC", "1/Pt MC; 1/Pt, GeV^{-1}",1000,0.,20.);
+    TH1F *fHistPMotherMC = new TH1F("fHistPMotherMC", "P MC; P, GeV; counts",1000,0.,30.);    
+    TH1F *fHistEMotherMC = new TH1F("fHistEMotherMC", "E MC; E, GeV; counts",1000,0.,30.);
+    TH1F *fHistMassMotherMC = new TH1F("fHistMassMotherMC", "Mass MC; M, GeV; counts",1000,0.,10.);
+    TH1F *fHistEtaMotherMC = new TH1F("fHistEtaMotherMC", "Eta MC; #eta; counts",1000, -10, 10);
+    TH1F *fHistPhiMotherMC = new TH1F("fHistPhiMotherMC", "Phi MC; #varphi; counts",1000, -6.5, 6.5);
+    TH1F *fHistChi2MotherMC = new TH1F("fHistChi2MotherMC", "Chi2 MC; #xi^{2}; counts",1000, -10, 10);
     std::array<TH1F*, NUM_OF_DAUGHTERS> fHistXDaughterMC;
     std::array<TH1F*, NUM_OF_DAUGHTERS> fHistYDaughterMC;
     std::array<TH1F*, NUM_OF_DAUGHTERS> fHistZDaughterMC;
@@ -140,40 +142,41 @@ void MakeKFUnitTestHistos(){
     std::array<TH1F*, NUM_OF_DAUGHTERS> fHistPhiDaughterMC;
     std::array<TH1F*, NUM_OF_DAUGHTERS> fHistChi2DaughterMC;
     for (int i = 0; i < NUM_OF_DAUGHTERS; i++) {
-        fHistXDaughterMC[i] = new TH1F(Form("fHistXDaughterMC%i",i+1), "X MC; #mu; counts", 1000, -1e5, 1e5);
-        fHistYDaughterMC[i] = new TH1F(Form("fHistYDaughterMC%i",i+1), "Y MC; #mu; counts",1000, -1e5, 1e5);
-        fHistZDaughterMC[i] = new TH1F(Form("fHistZDaughterMC%i",i+1), "Z MC; #mu; counts",1000, -3e5, 3e5);
-        fHistPxDaughterMC[i] = new TH1F(Form("fHistPxDaughterMC%i",i+1), "Px MC; GeV; counts", 1000, -10, 10);
-        fHistPyDaughterMC[i] = new TH1F(Form("fHistPyDaughterMC%i",i+1), "Py MC; GeV; counts",1000, -10, 10);
-        fHistPzDaughterMC[i] = new TH1F(Form("fHistPzDaughterMC%i",i+1), "Pz MC; GeV; counts",1000, -10, 10);
-        fHistChargeDaughterMC[i] = new TH1I(Form("fHistChargeDaughterMC%i",i+1), "Charge MC; ; counts",50, -25, 25);
-        fHistPDGDaughterMC[i] = new TH1I(Form("fHistPDGDaughterMC%i",i+1), "PDG MC; ; counts",2000, -1000, 1000);
-        fHistPtDaughterMC[i] = new TH1F(Form("fHistPtDaughterMC%i",i+1), "Pt MC; GeV; counts",1000,0.,10.);
-        fHistOneOverPtDaughterMC[i] = new TH1F(Form("fHistOveOverPtDaughterMC%i",i+1), "1/Pt MC; GeV^{-1}",1000,0.,20.);
-        fHistPDaughterMC[i] = new TH1F(Form("fHistPDaughterMC%i",i+1), "P MC; GeV; counts",1000,0.,30.); 
-        fHistEDaughterMC[i] = new TH1F(Form("fHistEDaughterMC%i",i+1), "E MC; GeV; counts",1000,0.,30.);
-        fHistMassDaughterMC[i] = new TH1F(Form("fHistMassDaughterMC%i",i+1), "Mass MC; GeV; counts",1000,0.,10.);
-        fHistEtaDaughterMC[i] = new TH1F(Form("fHistEtaDaughterMC%i",i+1), "Eta MC; ; counts",1000,-10,10.);
-        fHistPhiDaughterMC[i] = new TH1F(Form("fHistPhiDaughterMC%i",i+1), "Phi MC; ; counts",1000,-6.5,6.5);
-        fHistChi2DaughterMC[i] = new TH1F(Form("fHistChi2DaughterMC%i",i+1), "Chi2 MC; ; counts",1000, -10, 10);
+        fHistXDaughterMC[i] = new TH1F(Form("fHistXDaughterMC%i",i+1), "X MC; x, #mu; counts", 1000, -1e5, 1e5);
+        fHistYDaughterMC[i] = new TH1F(Form("fHistYDaughterMC%i",i+1), "Y MC; y, #mu; counts",1000, -1e5, 1e5);
+        fHistZDaughterMC[i] = new TH1F(Form("fHistZDaughterMC%i",i+1), "Z MC; z, #mu; counts",1000, -3e5, 3e5);
+        fHistPxDaughterMC[i] = new TH1F(Form("fHistPxDaughterMC%i",i+1), "Px MC; Px, GeV; counts", 1000, -10, 10);
+        fHistPyDaughterMC[i] = new TH1F(Form("fHistPyDaughterMC%i",i+1), "Py MC; Py, GeV; counts",1000, -10, 10);
+        fHistPzDaughterMC[i] = new TH1F(Form("fHistPzDaughterMC%i",i+1), "Pz MC; Pz, GeV; counts",1000, -10, 10);
+        fHistChargeDaughterMC[i] = new TH1I(Form("fHistChargeDaughterMC%i",i+1), "Charge MC; Q; counts",50, -25, 25);
+        fHistPDGDaughterMC[i] = new TH1I(Form("fHistPDGDaughterMC%i",i+1), "PDG MC; PDG; counts",2000, -1000, 1000);
+        fHistPtDaughterMC[i] = new TH1F(Form("fHistPtDaughterMC%i",i+1), "Pt MC; p_{T}, GeV; counts",1000,0.,10.);
+        fHistOneOverPtDaughterMC[i] = new TH1F(Form("fHistOveOverPtDaughterMC%i",i+1), "1/Pt MC; 1/Pt GeV^{-1}",1000,0.,20.);
+        fHistPDaughterMC[i] = new TH1F(Form("fHistPDaughterMC%i",i+1), "P MC; P, GeV; counts",1000,0.,30.); 
+        fHistEDaughterMC[i] = new TH1F(Form("fHistEDaughterMC%i",i+1), "E MC; E, GeV; counts",1000,0.,30.);
+        fHistMassDaughterMC[i] = new TH1F(Form("fHistMassDaughterMC%i",i+1), "Mass MC; M, GeV; counts",1000,0.,10.);
+        fHistEtaDaughterMC[i] = new TH1F(Form("fHistEtaDaughterMC%i",i+1), "Eta MC; #eta; counts",1000,-10,10.);
+        fHistPhiDaughterMC[i] = new TH1F(Form("fHistPhiDaughterMC%i",i+1), "Phi MC; #varphi; counts",1000,-6.5,6.5);
+        fHistChi2DaughterMC[i] = new TH1F(Form("fHistChi2DaughterMC%i",i+1), "Chi2 MC; #chi^{2}; counts",1000, -10, 10);
     }
 
-    TH1F *fHistXMotherKFBR = new TH1F("fHistXMotherKFBR", "X KFBR; #mu; counts", 1000, -1e5, 1e5);
-    TH1F *fHistYMotherKFBR = new TH1F("fHistYMotherKFBR", "Y KFBR; #mu; counts",1000, -1e5, 1e5);
-    TH1F *fHistZMotherKFBR = new TH1F("fHistZMotherKFBR", "Z KFBR; #mu; counts",1000, -3e5, 3e5);
-    TH1F *fHistPxMotherKFBR = new TH1F("fHistPxMotherKFBR", "Px KFBR; GeV; counts", 1000, -10, 10);
-    TH1F *fHistPyMotherKFBR = new TH1F("fHistPyMotherKFBR", "Py KFBR; GeV; counts",1000, -10, 10);
-    TH1F *fHistPzMotherKFBR = new TH1F("fHistPzMotherKFBR", "Pz KFBR; GeV; counts",1000, -10, 10);
-    TH1I *fHistChargeMotherKFBR = new TH1I("fHistChargeMotherKFBR", "Charge KFBR; ; counts",50, -25, 25);
-    TH1I *fHistPDGMotherKFBR = new TH1I("fHistPDGMotherKFBR", "PDG KFBR; ; counts",2000, -1000, 1000);
-    TH1F *fHistPtMotherKFBR = new TH1F("fHistPtMotherKFBR", "Pt KFBR; GeV; counts",1000,0.,10.);
-    TH1F *fHistOneOverPtMotherKFBR = new TH1F("fHistOneOverPtMotherKFBR", "1/Pt KFBR; GeV^{-1}",1000,0.,20.);
-    TH1F *fHistPMotherKFBR = new TH1F("fHistPMotherKFBR", "P KFBR; GeV; counts",1000,0.,30.);    
-    TH1F *fHistEMotherKFBR = new TH1F("fHistEMotherKFBR", "E KFBR; GeV; counts",1000,0.,30.);
-    TH1F *fHistMassMotherKFBR = new TH1F("fHistMassMotherKFBR", "Mass KFBR; GeV; counts",1000,0.,10.);
-    TH1F *fHistEtaMotherKFBR = new TH1F("fHistEtaMotherKFBR", "Eta KFBR; ; counts",1000,-10,10.);
-    TH1F *fHistPhiMotherKFBR = new TH1F("fHistPhiMotherKFBR", "Phi KFBR; ; counts",1000,-6.5,6.5);
-    TH1F *fHistChi2MotherKFBR = new TH1F("fHistChi2MotherKFBR", "Chi2 KFBR; ; counts",1000, -10, 10);
+    TH1F *fHistXMotherKFBR = new TH1F("fHistXMotherKFBR", "X KFBR; x, #mu; counts", 1000, -1e5, 1e5);
+    TH1F *fHistYMotherKFBR = new TH1F("fHistYMotherKFBR", "Y KFBR; y, #mu; counts",1000, -1e5, 1e5);
+    TH1F *fHistZMotherKFBR = new TH1F("fHistZMotherKFBR", "Z KFBR; z, #mu; counts",1000, -3e5, 3e5);
+    TH1F *fHistPxMotherKFBR = new TH1F("fHistPxMotherKFBR", "Px KFBR; Px, GeV; counts", 1000, -10, 10);
+    TH1F *fHistPyMotherKFBR = new TH1F("fHistPyMotherKFBR", "Py KFBR; Py, GeV; counts",1000, -10, 10);
+    TH1F *fHistPzMotherKFBR = new TH1F("fHistPzMotherKFBR", "Pz KFBR; Pz, GeV; counts",1000, -10, 10);
+    TH1I *fHistChargeMotherKFBR = new TH1I("fHistChargeMotherKFBR", "Charge KFBR; Q; counts",50, -25, 25);
+    TH1I *fHistPDGMotherKFBR = new TH1I("fHistPDGMotherKFBR", "PDG KFBR; PDG; counts",2000, -1000, 1000);
+    TH1F *fHistPtMotherKFBR = new TH1F("fHistPtMotherKFBR", "Pt KFBR; p_{T}, GeV; counts",1000,0.,10.);
+    TH1F *fHistOneOverPtMotherKFBR = new TH1F("fHistOneOverPtMotherKFBR", "1/Pt KFBR; 1/Pt, GeV^{-1}",1000,0.,20.);
+    TH1F *fHistPMotherKFBR = new TH1F("fHistPMotherKFBR", "P KFBR; P, GeV; counts",1000,0.,30.);    
+    TH1F *fHistEMotherKFBR = new TH1F("fHistEMotherKFBR", "E KFBR; E, GeV; counts",1000,0.,30.);
+    TH1F *fHistMassMotherKFBR = new TH1F("fHistMassMotherKFBR", "Mass KFBR; M, GeV; counts",1000,0.,10.);
+    TH1F *fHistEtaMotherKFBR = new TH1F("fHistEtaMotherKFBR", "Eta KFBR; #eta; counts",1000,-10,10.);
+    TH1F *fHistPhiMotherKFBR = new TH1F("fHistPhiMotherKFBR", "Phi KFBR; #varphi; counts",1000,-6.5,6.5);
+    TH1F *fHistChi2MotherKFBR = new TH1F("fHistChi2MotherKFBR", "Chi2 KFBR; #chi^{2}; counts",1000, -10, 10);
+    TH1F *fHistNDFMotherKFBR = new TH1F("fHistNDFMotherKFBR", "NDF KFBR; NDF; counts",1000, -10, 10);
     std::array<TH1F*, NUM_OF_DAUGHTERS> fHistXDaughterKFBR;
     std::array<TH1F*, NUM_OF_DAUGHTERS> fHistYDaughterKFBR;
     std::array<TH1F*, NUM_OF_DAUGHTERS> fHistZDaughterKFBR;
@@ -190,41 +193,44 @@ void MakeKFUnitTestHistos(){
     std::array<TH1F*, NUM_OF_DAUGHTERS> fHistEtaDaughterKFBR;
     std::array<TH1F*, NUM_OF_DAUGHTERS> fHistPhiDaughterKFBR;
     std::array<TH1F*, NUM_OF_DAUGHTERS> fHistChi2DaughterKFBR;
+    std::array<TH1F*, NUM_OF_DAUGHTERS> fHistNDFDaughterKFBR;
     for (int i = 0; i < NUM_OF_DAUGHTERS; i++) {
-        fHistXDaughterKFBR[i] = new TH1F(Form("fHistXDaughterKFBR%i",i+1), "X KFBR; #mu; counts", 1000, -1e5, 1e5);
-        fHistYDaughterKFBR[i] = new TH1F(Form("fHistYDaughterKFBR%i",i+1), "Y KFBR; #mu; counts",1000, -1e5, 1e5);
-        fHistZDaughterKFBR[i] = new TH1F(Form("fHistZDaughterKFBR%i",i+1), "Z KFBR; #mu; counts",1000, -3e5, 3e5);
-        fHistPxDaughterKFBR[i] = new TH1F(Form("fHistPxDaughterKFBR%i",i+1), "Px KFBR; GeV; counts", 1000, -10, 10);
-        fHistPyDaughterKFBR[i] = new TH1F(Form("fHistPyDaughterKFBR%i",i+1), "Py KFBR; GeV; counts",1000, -10, 10);
-        fHistPzDaughterKFBR[i] = new TH1F(Form("fHistPzDaughterKFBR%i",i+1), "Pz KFBR; GeV; counts",1000, -10, 10);
-        fHistChargeDaughterKFBR[i] = new TH1I(Form("fHistChargeDaughterKFBR%i",i+1), "Charge KFBR; ; counts",50, -25, 25);
-        fHistPDGDaughterKFBR[i] = new TH1I(Form("fHistPDGDaughterKFBR%i",i+1), "PDG KFBR; ; counts",2000, -1000, 1000);
-        fHistPtDaughterKFBR[i] = new TH1F(Form("fHistPtDaughterKFBR%i",i+1), "Pt KFBR; GeV; counts",1000,0.,10.);
-        fHistOneOverPtDaughterKFBR[i] = new TH1F(Form("fHistOveOverPtDaughterKFBR%i",i+1), "1/Pt KFBR; GeV^{-1}",1000,0.,20.);
-        fHistPDaughterKFBR[i] = new TH1F(Form("fHistPDaughterKFBR%i",i+1), "P KFBR; GeV; counts",1000,0.,30.); 
-        fHistEDaughterKFBR[i] = new TH1F(Form("fHistEDaughterKFBR%i",i+1), "E KFBR; GeV; counts",1000,0.,30.);
-        fHistMassDaughterKFBR[i] = new TH1F(Form("fHistMassDaughterKFBR%i",i+1), "Mass KFBR; GeV; counts",1000,0.,10.);
-        fHistEtaDaughterKFBR[i] = new TH1F(Form("fHistEtaDaughterKFBR%i",i+1), "Eta KFBR; ; counts",1000,-10.,10.);
-        fHistPhiDaughterKFBR[i] = new TH1F(Form("fHistPhiDaughterKFBR%i",i+1), "Phi KFBR; ; counts",1000,-6.5,6.5);
-        fHistChi2DaughterKFBR[i] = new TH1F(Form("fHistChi2DaughterKFBR%i",i+1), "Chi2 KFBR; ; counts",1000, -10, 10);
+        fHistXDaughterKFBR[i] = new TH1F(Form("fHistXDaughterKFBR%i",i+1), "X KFBR; x, #mu; counts", 1000, -1e5, 1e5);
+        fHistYDaughterKFBR[i] = new TH1F(Form("fHistYDaughterKFBR%i",i+1), "Y KFBR; y, #mu; counts",1000, -1e5, 1e5);
+        fHistZDaughterKFBR[i] = new TH1F(Form("fHistZDaughterKFBR%i",i+1), "Z KFBR; z, #mu; counts",1000, -3e5, 3e5);
+        fHistPxDaughterKFBR[i] = new TH1F(Form("fHistPxDaughterKFBR%i",i+1), "Px KFBR; Px, GeV; counts", 1000, -10, 10);
+        fHistPyDaughterKFBR[i] = new TH1F(Form("fHistPyDaughterKFBR%i",i+1), "Py KFBR; Py, GeV; counts",1000, -10, 10);
+        fHistPzDaughterKFBR[i] = new TH1F(Form("fHistPzDaughterKFBR%i",i+1), "Pz KFBR; Pz, GeV; counts",1000, -10, 10);
+        fHistChargeDaughterKFBR[i] = new TH1I(Form("fHistChargeDaughterKFBR%i",i+1), "Charge KFBR; Q; counts",50, -25, 25);
+        fHistPDGDaughterKFBR[i] = new TH1I(Form("fHistPDGDaughterKFBR%i",i+1), "PDG KFBR; PDG; counts",2000, -1000, 1000);
+        fHistPtDaughterKFBR[i] = new TH1F(Form("fHistPtDaughterKFBR%i",i+1), "Pt KFBR; p_{T}, GeV; counts",1000,0.,10.);
+        fHistOneOverPtDaughterKFBR[i] = new TH1F(Form("fHistOveOverPtDaughterKFBR%i",i+1), "1/Pt KFBR; 1/Pt, GeV^{-1}",1000,0.,20.);
+        fHistPDaughterKFBR[i] = new TH1F(Form("fHistPDaughterKFBR%i",i+1), "P KFBR; P, GeV; counts",1000,0.,30.); 
+        fHistEDaughterKFBR[i] = new TH1F(Form("fHistEDaughterKFBR%i",i+1), "E KFBR; E, GeV; counts",1000,0.,30.);
+        fHistMassDaughterKFBR[i] = new TH1F(Form("fHistMassDaughterKFBR%i",i+1), "Mass KFBR; M, GeV; counts",1000,0.,10.);
+        fHistEtaDaughterKFBR[i] = new TH1F(Form("fHistEtaDaughterKFBR%i",i+1), "Eta KFBR; #eta; counts",1000,-10.,10.);
+        fHistPhiDaughterKFBR[i] = new TH1F(Form("fHistPhiDaughterKFBR%i",i+1), "Phi KFBR; #varphi; counts",1000,-6.5,6.5);
+        fHistChi2DaughterKFBR[i] = new TH1F(Form("fHistChi2DaughterKFBR%i",i+1), "Chi2 KFBR; #chi2^{2}; counts",1000, -10, 10);
+        fHistNDFDaughterKFBR[i] = new TH1F(Form("fHistNDFDaughterKFBR%i",i+1), "NDF KFBR; NDF; counts",1000, -10, 10);
     }
 
-    TH1F *fHistXMotherKFAR = new TH1F("fHistXMotherKFAR", "X KFAR; #mu; counts", 1000, -1e5, 1e5);
-    TH1F *fHistYMotherKFAR = new TH1F("fHistYMotherKFAR", "Y KFAR; #mu; counts",1000, -1e5, 1e5);
-    TH1F *fHistZMotherKFAR = new TH1F("fHistZMotherKFAR", "Z KFAR; #mu; counts",1000, -3e5, 3e5);
-    TH1F *fHistPxMotherKFAR = new TH1F("fHistPxMotherKFAR", "Px KFAR; GeV; counts", 1000, -10, 10);
-    TH1F *fHistPyMotherKFAR = new TH1F("fHistPyMotherKFAR", "Py KFAR; GeV; counts",1000, -10, 10);
-    TH1F *fHistPzMotherKFAR = new TH1F("fHistPzMotherKFAR", "Pz KFAR; GeV; counts",1000, -10, 10);
-    TH1I *fHistChargeMotherKFAR = new TH1I("fHistChargeMotherKFAR", "Charge KFAR; ; counts",50, -25, 25);
-    TH1I *fHistPDGMotherKFAR = new TH1I("fHistPDGMotherKFAR", "PDG KFAR; ; counts",2000, -1000, 1000);
-    TH1F *fHistPtMotherKFAR = new TH1F("fHistPtMotherKFAR", "Pt KFAR; GeV; counts",1000,0.,10.);
-    TH1F *fHistOneOverPtMotherKFAR = new TH1F("fHistOneOverPtMotherKFAR", "1/Pt KFAR; GeV^{-1}",1000,0.,20.);
-    TH1F *fHistPMotherKFAR = new TH1F("fHistPMotherKFAR", "P KFAR; GeV; counts",1000,0.,30.);    
-    TH1F *fHistEMotherKFAR = new TH1F("fHistEMotherKFAR", "E KFAR; GeV; counts",1000,0.,30.);
-    TH1F *fHistMassMotherKFAR = new TH1F("fHistMassMotherKFAR", "Mass KFAR; GeV; counts",1000,0.,10.);
-    TH1F *fHistEtaMotherKFAR = new TH1F("fHistEtaMotherKFAR", "Eta KFAR; ; counts",1000,-10,10.);
-    TH1F *fHistPhiMotherKFAR = new TH1F("fHistPhiMotherKFAR", "Phi KFAR; ; counts",1000,-6.5,6.5);
-    TH1F *fHistChi2MotherKFAR = new TH1F("fHistChi2MotherKFAR", "Chi2 KFAR; ; counts",1000, -10, 10);
+    TH1F *fHistXMotherKFAR = new TH1F("fHistXMotherKFAR", "X KFAR; x, #mu; counts", 1000, -1e5, 1e5);
+    TH1F *fHistYMotherKFAR = new TH1F("fHistYMotherKFAR", "Y KFAR; y, #mu; counts",1000, -1e5, 1e5);
+    TH1F *fHistZMotherKFAR = new TH1F("fHistZMotherKFAR", "Z KFAR; z, #mu; counts",1000, -3e5, 3e5);
+    TH1F *fHistPxMotherKFAR = new TH1F("fHistPxMotherKFAR", "Px KFAR; Px, GeV; counts", 1000, -10, 10);
+    TH1F *fHistPyMotherKFAR = new TH1F("fHistPyMotherKFAR", "Py KFAR; Py, GeV; counts",1000, -10, 10);
+    TH1F *fHistPzMotherKFAR = new TH1F("fHistPzMotherKFAR", "Pz KFAR; Pz, GeV; counts",1000, -10, 10);
+    TH1I *fHistChargeMotherKFAR = new TH1I("fHistChargeMotherKFAR", "Charge KFAR; Q; counts",50, -25, 25);
+    TH1I *fHistPDGMotherKFAR = new TH1I("fHistPDGMotherKFAR", "PDG KFAR; PDG; counts",2000, -1000, 1000);
+    TH1F *fHistPtMotherKFAR = new TH1F("fHistPtMotherKFAR", "Pt KFAR; p_{T}, GeV; counts",1000,0.,10.);
+    TH1F *fHistOneOverPtMotherKFAR = new TH1F("fHistOneOverPtMotherKFAR", "1/Pt KFAR; 1/Pt, GeV^{-1}",1000,0.,20.);
+    TH1F *fHistPMotherKFAR = new TH1F("fHistPMotherKFAR", "P KFAR; P, GeV; counts",1000,0.,30.);    
+    TH1F *fHistEMotherKFAR = new TH1F("fHistEMotherKFAR", "E KFAR; E, GeV; counts",1000,0.,30.);
+    TH1F *fHistMassMotherKFAR = new TH1F("fHistMassMotherKFAR", "Mass KFAR; M, GeV; counts",1000,0.,10.);
+    TH1F *fHistEtaMotherKFAR = new TH1F("fHistEtaMotherKFAR", "Eta KFAR; #eta; counts",1000,-10,10.);
+    TH1F *fHistPhiMotherKFAR = new TH1F("fHistPhiMotherKFAR", "Phi KFAR; #varphi; counts",1000,-6.5,6.5);
+    TH1F *fHistChi2MotherKFAR = new TH1F("fHistChi2MotherKFAR", "Chi2 KFAR; #chi^{2}; counts",1000, -10, 10);
+    TH1F *fHistNDFMotherKFAR = new TH1F("fHistNDFMotherKFAR", "NDF KFAR; NDF; counts",1000, -10, 10);
     std::array<TH1F*, NUM_OF_DAUGHTERS> fHistXDaughterKFAR;
     std::array<TH1F*, NUM_OF_DAUGHTERS> fHistYDaughterKFAR;
     std::array<TH1F*, NUM_OF_DAUGHTERS> fHistZDaughterKFAR;
@@ -241,10 +247,11 @@ void MakeKFUnitTestHistos(){
     std::array<TH1F*, NUM_OF_DAUGHTERS> fHistEtaDaughterKFAR;
     std::array<TH1F*, NUM_OF_DAUGHTERS> fHistPhiDaughterKFAR;
     std::array<TH1F*, NUM_OF_DAUGHTERS> fHistChi2DaughterKFAR;
+    std::array<TH1F*, NUM_OF_DAUGHTERS> fHistNDFDaughterKFAR;
     for (int i = 0; i < NUM_OF_DAUGHTERS; i++) {
-        fHistXDaughterKFAR[i] = new TH1F(Form("fHistXDaughterKFAR%i",i+1), "X KFAR; X, #mu; counts", 1000, -1e5, 1e5);
-        fHistYDaughterKFAR[i] = new TH1F(Form("fHistYDaughterKFAR%i",i+1), "Y KFAR; Y, #mu; counts",1000, -1e5, 1e5);
-        fHistZDaughterKFAR[i] = new TH1F(Form("fHistZDaughterKFAR%i",i+1), "Z KFAR; Z, #mu; counts",1000, -3e5, 3e5);
+        fHistXDaughterKFAR[i] = new TH1F(Form("fHistXDaughterKFAR%i",i+1), "X KFAR; x, #mu; counts", 1000, -1e5, 1e5);
+        fHistYDaughterKFAR[i] = new TH1F(Form("fHistYDaughterKFAR%i",i+1), "Y KFAR; y, #mu; counts",1000, -1e5, 1e5);
+        fHistZDaughterKFAR[i] = new TH1F(Form("fHistZDaughterKFAR%i",i+1), "Z KFAR; z, #mu; counts",1000, -3e5, 3e5);
         fHistPxDaughterKFAR[i] = new TH1F(Form("fHistPxDaughterKFAR%i",i+1), "Px KFAR; Px, GeV; counts", 1000, -10, 10);
         fHistPyDaughterKFAR[i] = new TH1F(Form("fHistPyDaughterKFAR%i",i+1), "Py KFAR; Py, GeV; counts",1000, -10, 10);
         fHistPzDaughterKFAR[i] = new TH1F(Form("fHistPzDaughterKFAR%i",i+1), "Pz KFAR; Pz, GeV; counts",1000, -10, 10);
@@ -252,12 +259,13 @@ void MakeKFUnitTestHistos(){
         fHistPDGDaughterKFAR[i] = new TH1I(Form("fHistPDGDaughterKFAR%i",i+1), "PDG KFAR; PDG; counts",2000, -1000, 1000);
         fHistPtDaughterKFAR[i] = new TH1F(Form("fHistPtDaughterKFAR%i",i+1), "Pt KFAR; p_{T}, GeV; counts",1000,0.,10.);
         fHistOneOverPtDaughterKFAR[i] = new TH1F(Form("fHistOveOverPtDaughterKFAR%i",i+1), "1/Pt KFAR; 1/p_{T}, GeV^{-1}",1000,0.,20.);
-        fHistPDaughterKFAR[i] = new TH1F(Form("fHistPDaughterKFAR%i",i+1), "P KFAR; p, GeV; counts",1000,0.,30.); 
+        fHistPDaughterKFAR[i] = new TH1F(Form("fHistPDaughterKFAR%i",i+1), "P KFAR; P, GeV; counts",1000,0.,30.); 
         fHistEDaughterKFAR[i] = new TH1F(Form("fHistEDaughterKFAR%i",i+1), "E KFAR; E, GeV; counts",1000,0.,30.);
         fHistMassDaughterKFAR[i] = new TH1F(Form("fHistMassDaughterKFAR%i",i+1), "Mass KFAR; M, GeV; counts",1000,0.,10.);
         fHistEtaDaughterKFAR[i] = new TH1F(Form("fHistEtaDaughterKFAR%i",i+1), "Eta KFAR; #eta; counts",1000,-10.,10.);
-        fHistPhiDaughterKFAR[i] = new TH1F(Form("fHistPhiDaughterKFAR%i",i+1), "Phi KFAR; #phi; counts",1000,-6.5,6.5);
+        fHistPhiDaughterKFAR[i] = new TH1F(Form("fHistPhiDaughterKFAR%i",i+1), "Phi KFAR; #varphi; counts",1000,-6.5,6.5);
         fHistChi2DaughterKFAR[i] = new TH1F(Form("fHistChi2DaughterKFAR%i",i+1), "Chi2 KFAR; #xi^{2}; counts",1000, -10, 10);
+        fHistNDFDaughterKFAR[i] = new TH1F(Form("fHistNDFDaughterKFAR%i",i+1), "NDF KFAR; NDF; counts",1000, -10, 10);
     }
 
     /////////
@@ -270,6 +278,7 @@ void MakeKFUnitTestHistos(){
     TH2F *fHistPtPzResidMother = new TH2F("fHistPtPzResidMother", "Pt-Pz Resid histo; p_{T}, GeV; Pz residual, GeV",50,0,10, 50,-0.1,0.1);
     TH2F *fHistPtPtResidMother = new TH2F("fHistPtPtResidMother", "Pt-Pt Resid histo; p_{T}, GeV; Pt residual, GeV",50,0,10, 50,-0.1,0.1);
     TH2F *fHistPtMassResidMother = new TH2F("fHistPtMassResidMother", "Pt-Mass Resid histo; p_{T}, GeV; Mass residual, GeV",50,0,10, 50,-0.1,0.1);
+    TH2F *fHistPtEResidMother = new TH2F("fHistPtEResidMother", "Pt-E Resid histo; p_{T}, GeV; E residual, GeV",50,0,10, 50,-0.1,0.1);
     std::array<TH2F*, NUM_OF_DAUGHTERS> fHistPtXResidDaughter;
     std::array<TH2F*, NUM_OF_DAUGHTERS> fHistPtYResidDaughter;
     std::array<TH2F*, NUM_OF_DAUGHTERS> fHistPtZResidDaughter;
@@ -278,6 +287,7 @@ void MakeKFUnitTestHistos(){
     std::array<TH2F*, NUM_OF_DAUGHTERS> fHistPtPzResidDaughter;
     std::array<TH2F*, NUM_OF_DAUGHTERS> fHistPtPtResidDaughter;
     std::array<TH2F*, NUM_OF_DAUGHTERS> fHistPtMassResidDaughter;
+    std::array<TH2F*, NUM_OF_DAUGHTERS> fHistPtEResidDaughter;
     for (int i = 0; i < NUM_OF_DAUGHTERS; i++){
         fHistPtXResidDaughter[i] = new TH2F(Form("fHistPtXResidDaughter%i",i), "Pt-X Resid histo; p_{T}, GeV; X residual, #mu",50,0,15, 100,-1e3,1e3);
         fHistPtYResidDaughter[i] = new TH2F(Form("fHistPtYResidDaughter%i",i), "Pt-Y Resid histo; p_{T}, GeV; Y residual, #mu",50,0,15, 100,-1e3,1e3);
@@ -287,6 +297,7 @@ void MakeKFUnitTestHistos(){
         fHistPtPzResidDaughter[i] = new TH2F(Form("fHistPtPzResidDaughter%i",i), "Pt-Pz Resid histo; p_{T}, GeV; Pz residual, GeV",50,0,10, 50,-0.1,0.1);
         fHistPtPtResidDaughter[i] = new TH2F(Form("fHistPtPtResidDaughter%i",i), "Pt-Pt Resid histo; p_{T}, GeV; Pt residual, GeV",50,0,10, 50,-0.1,0.1);
         fHistPtMassResidDaughter[i] = new TH2F(Form("fHistPtMassResidDaughter%i",i), "Pt-Mass Resid histo; p_{T}, GeV; Mass residual, GeV",50,0,10, 50,-0.1,0.1);
+        fHistPtEResidDaughter[i] = new TH2F("fHistPtEResidMother", "Pt-E Resid histo; p_{T}, GeV; E residual, GeV",50,0,10, 50,-0.1,0.1);
     }
 
     //////////////////
@@ -298,7 +309,8 @@ void MakeKFUnitTestHistos(){
     TH2F *fHistPtPyPullMother = new TH2F("fHistPtPyPullMother", "Pt-Py Pull histo; p_{T}, GeV; Py Pull, GeV",50,0,10, 50,-15,15);
     TH2F *fHistPtPzPullMother = new TH2F("fHistPtPzPullMother", "Pt-Pz Pull histo; p_{T}, GeV; Pz Pull, GeV",50,0,10, 50,-15,15);
     TH2F *fHistPtPtPullMother = new TH2F("fHistPtPtPullMother", "Pt-Pt Pull histo; p_{T}, GeV; Pt Pull, GeV",50,0,10, 50,-15,15);
-    TH2F *fHistPtMassPullMother = new TH2F("fHistPtMassPullMother", "Pt-Mass Pull histo; p_{T}, GeV; Mass Pull, GeV",50,0,10, 50,-15,15);
+    TH2F *fHistPtMassPullMother = new TH2F("fHistPtMassPullMother", "Pt-Mass Pull histo; p_{T}, GeV; Mass Pull, GeV",50,0,10, 50,-5,5);
+    TH2F *fHistPtEPullMother = new TH2F("fHistPtEPullMother", "Pt-E Pull histo; p_{T}, GeV; E Pull, GeV",50,0,10, 50,-15,15);
     std::array<TH2F*, NUM_OF_DAUGHTERS> fHistPtXPullDaughter;
     std::array<TH2F*, NUM_OF_DAUGHTERS> fHistPtYPullDaughter;
     std::array<TH2F*, NUM_OF_DAUGHTERS> fHistPtZPullDaughter;
@@ -307,6 +319,7 @@ void MakeKFUnitTestHistos(){
     std::array<TH2F*, NUM_OF_DAUGHTERS> fHistPtPzPullDaughter;
     std::array<TH2F*, NUM_OF_DAUGHTERS> fHistPtPtPullDaughter;
     std::array<TH2F*, NUM_OF_DAUGHTERS> fHistPtMassPullDaughter;
+    std::array<TH2F*, NUM_OF_DAUGHTERS> fHistPtEPullDaughter;
     for (int i = 0; i < NUM_OF_DAUGHTERS; i++){
         fHistPtXPullDaughter[i] = new TH2F(Form("fHistPtXPullDaughter%i",i), "Pt-X Pull histo; p_{T}, GeV; X Pull, #mu",50,0,15, 100,-10,10);
         fHistPtYPullDaughter[i] = new TH2F(Form("fHistPtYPullDaughter%i",i), "Pt-Y Pull histo; p_{T}, GeV; Y Pull, #mu",50,0,15, 100,-10,10);
@@ -315,7 +328,8 @@ void MakeKFUnitTestHistos(){
         fHistPtPyPullDaughter[i] = new TH2F(Form("fHistPtPyPullDaughter%i",i), "Pt-Py Pull histo; p_{T}, GeV; Py Pull, GeV",50,0,10, 50,-15,15);
         fHistPtPzPullDaughter[i] = new TH2F(Form("fHistPtPzPullDaughter%i",i), "Pt-Pz Pull histo; p_{T}, GeV; Pz Pull, GeV",50,0,10, 50,-15,15);
         fHistPtPtPullDaughter[i] = new TH2F(Form("fHistPtPtPullDaughter%i",i), "Pt-Pt Pull histo; p_{T}, GeV; Pt Pull, GeV",50,0,10, 50,-15,15);
-        fHistPtMassPullDaughter[i] = new TH2F(Form("fHistPtMassPullDaughter%i",i), "Pt-Mass Pull histo; p_{T}, GeV; Mass Pull, GeV",50,0,10, 50,-0.1,0.1);
+        fHistPtMassPullDaughter[i] = new TH2F(Form("fHistPtMassPullDaughter%i",i), "Pt-Mass Pull histo; p_{T}, GeV; Mass Pull, GeV",50,0,10, 50,-0.4,0.4);
+        fHistPtEPullDaughter[i] = new TH2F("fHistPtEPullMother", "Pt-E Pull histo; p_{T}, GeV; E Pull, GeV",50,0,10, 50,-15,15);
     }
 
 
@@ -329,6 +343,7 @@ void MakeKFUnitTestHistos(){
     TH1D *fHistPzResidMother = new TH1D("fHistPzResidMother", "Pz Resid histo; Pz Resid, GeV; counts", 50,-0.15,0.15);
     TH1D *fHistPtResidMother = new TH1D("fHistPtResidMother", "Pt - Resid histo; Pt Resid, GeV; counts", 50,-0.15,0.15);
     TH1D *fHistMassResidMother = new TH1D("fHistMassResidMother", "Mass Resid histo; Mass Resid, GeV; counts", 50,-0.15,0.15);
+    TH1D *fHistEResidMother = new TH1D("fHistEResidMother", "E Resid histo; E Resid, GeV; counts", 50,-0.15,0.15);
     std::array<TH1D*, NUM_OF_DAUGHTERS> fHistXResidDaughter;
     std::array<TH1D*, NUM_OF_DAUGHTERS> fHistYResidDaughter;
     std::array<TH1D*, NUM_OF_DAUGHTERS> fHistZResidDaughter;
@@ -337,6 +352,7 @@ void MakeKFUnitTestHistos(){
     std::array<TH1D*, NUM_OF_DAUGHTERS> fHistPzResidDaughter;
     std::array<TH1D*, NUM_OF_DAUGHTERS> fHistPtResidDaughter;
     std::array<TH1D*, NUM_OF_DAUGHTERS> fHistMassResidDaughter;
+    std::array<TH1D*, NUM_OF_DAUGHTERS> fHistEResidDaughter;
     for (int i = 0; i < NUM_OF_DAUGHTERS; i++){
         fHistXResidDaughter[i] = new TH1D(Form("fHistXResidDaughter%i",i), "X Resid histo; X Resid, #mu; counts", 100,-1e3,1e3);
         fHistYResidDaughter[i] = new TH1D(Form("fHistYResidDaughter%i",i), "Y Resid histo; Y Resid, #mu; counts",100,-1e3,1e3);
@@ -346,6 +362,7 @@ void MakeKFUnitTestHistos(){
         fHistPzResidDaughter[i] = new TH1D(Form("fHistPzResidDaughter%i",i), "Pz Resid histo; Pz Resid, GeV; counts",50,-0.15,0.15);
         fHistPtResidDaughter[i] = new TH1D(Form("fHistPtResidDaughter%i",i), "Pt Resid histo;  Resid, GeV; counts",50,-0.15,0.15);
         fHistMassResidDaughter[i] = new TH1D(Form("fHistMassResidDaughter%i",i), "Mass Resid histo; Mass Resid, GeV; counts",50,-0.15,0.15);
+        fHistEResidDaughter[i] = new TH1D(Form("fHistEResidDaughter%i",i), "E Resid histo; E Resid, GeV; counts",50,-0.15,0.15);
     }
 
     /////////////
@@ -358,6 +375,7 @@ void MakeKFUnitTestHistos(){
     TH1D *fHistPzPullMother = new TH1D("fHistPzPullMother", "Pz Pull histo; Pz Pull, GeV; counts",50,-0.15,0.15);
     TH1D *fHistPtPullMother = new TH1D("fHistPtPullMother", "Pt - Pull histo; Pt Pull, GeV; counts",50,-0.15,0.15);
     TH1D *fHistMassPullMother = new TH1D("fHistMassPullMother", "Mass Pull histo; Mass Pull, GeV; counts",50,-0.15,0.15);
+    TH1D *fHistEPullMother = new TH1D("fHistEPullMother", "E Pull histo; E Pull, GeV; counts",50,-0.15,0.15);
     std::array<TH1D*, NUM_OF_DAUGHTERS> fHistXPullDaughter;
     std::array<TH1D*, NUM_OF_DAUGHTERS> fHistYPullDaughter;
     std::array<TH1D*, NUM_OF_DAUGHTERS> fHistZPullDaughter;
@@ -366,6 +384,7 @@ void MakeKFUnitTestHistos(){
     std::array<TH1D*, NUM_OF_DAUGHTERS> fHistPzPullDaughter;
     std::array<TH1D*, NUM_OF_DAUGHTERS> fHistPtPullDaughter;
     std::array<TH1D*, NUM_OF_DAUGHTERS> fHistMassPullDaughter;
+    std::array<TH1D*, NUM_OF_DAUGHTERS> fHistEPullDaughter;
     for (int i = 0; i < NUM_OF_DAUGHTERS; i++){
         fHistXPullDaughter[i] = new TH1D(Form("fHistXPullDaughter%i",i), "X Pull histo; X Pull, #mu; counts",100,-1e3,1e3);
         fHistYPullDaughter[i] = new TH1D(Form("fHistYPullDaughter%i",i), "Y Pull histo; Y Pull, #mu; counts",100,-1e3,1e3);
@@ -375,6 +394,7 @@ void MakeKFUnitTestHistos(){
         fHistPzPullDaughter[i] = new TH1D(Form("fHistPzPullDaughter%i",i), "Pz Pull histo; Pz Pull, GeV; counts",50,-0.15,0.15);
         fHistPtPullDaughter[i] = new TH1D(Form("fHistPtPullDaughter%i",i), "Pt Pull histo;  Pull, GeV; counts",50,-0.15,0.15);
         fHistMassPullDaughter[i] = new TH1D(Form("fHistMassPullDaughter%i",i), "Mass Pull histo; Mass Pull, GeV; counts",50,-0.15,0.15);
+        fHistEPullDaughter[i] = new TH1D(Form("fHistEPullDaughter%i",i), "E Pull histo; E Pull, GeV; counts",50,-0.15,0.15);
     }
 
     ///////////////////////////////////////////////////////////////
@@ -387,6 +407,7 @@ void MakeKFUnitTestHistos(){
     TGraphErrors *fGraphPtPzMeanResidMother = new TGraphErrors();
     TGraphErrors *fGraphPtPtMeanResidMother = new TGraphErrors();
     TGraphErrors *fGraphPtMassMeanResidMother = new TGraphErrors();
+    TGraphErrors *fGraphPtEMeanResidMother = new TGraphErrors();
     std::array<TGraphErrors*, NUM_OF_DAUGHTERS> fGraphPtXMeanResidDaughter;
     std::array<TGraphErrors*, NUM_OF_DAUGHTERS> fGraphPtYMeanResidDaughter;
     std::array<TGraphErrors*, NUM_OF_DAUGHTERS> fGraphPtZMeanResidDaughter;
@@ -395,6 +416,7 @@ void MakeKFUnitTestHistos(){
     std::array<TGraphErrors*, NUM_OF_DAUGHTERS> fGraphPtPzMeanResidDaughter;
     std::array<TGraphErrors*, NUM_OF_DAUGHTERS> fGraphPtPtMeanResidDaughter;
     std::array<TGraphErrors*, NUM_OF_DAUGHTERS> fGraphPtMassMeanResidDaughter;
+    std::array<TGraphErrors*, NUM_OF_DAUGHTERS> fGraphPtEMeanResidDaughter;
     for (int i = 0; i < NUM_OF_DAUGHTERS; i++){
         fGraphPtXMeanResidDaughter[i] = new TGraphErrors();
         fGraphPtYMeanResidDaughter[i] = new TGraphErrors();
@@ -404,6 +426,7 @@ void MakeKFUnitTestHistos(){
         fGraphPtPzMeanResidDaughter[i] = new TGraphErrors();
         fGraphPtPtMeanResidDaughter[i] = new TGraphErrors();
         fGraphPtMassMeanResidDaughter[i] = new TGraphErrors();
+        fGraphPtEMeanResidDaughter[i] = new TGraphErrors();
     }
 
     ///////////////////////////////////////////////////////////////
@@ -416,6 +439,7 @@ void MakeKFUnitTestHistos(){
     TGraphErrors *fGraphPtPzMeanPullMother = new TGraphErrors();
     TGraphErrors *fGraphPtPtMeanPullMother = new TGraphErrors();
     TGraphErrors *fGraphPtMassMeanPullMother = new TGraphErrors();
+    TGraphErrors *fGraphPtEMeanPullMother = new TGraphErrors();
     std::array<TGraphErrors*, NUM_OF_DAUGHTERS> fGraphPtXMeanPullDaughter;
     std::array<TGraphErrors*, NUM_OF_DAUGHTERS> fGraphPtYMeanPullDaughter;
     std::array<TGraphErrors*, NUM_OF_DAUGHTERS> fGraphPtZMeanPullDaughter;
@@ -424,6 +448,7 @@ void MakeKFUnitTestHistos(){
     std::array<TGraphErrors*, NUM_OF_DAUGHTERS> fGraphPtPzMeanPullDaughter;
     std::array<TGraphErrors*, NUM_OF_DAUGHTERS> fGraphPtPtMeanPullDaughter;
     std::array<TGraphErrors*, NUM_OF_DAUGHTERS> fGraphPtMassMeanPullDaughter;
+    std::array<TGraphErrors*, NUM_OF_DAUGHTERS> fGraphPtEMeanPullDaughter;
     for (int i = 0; i < NUM_OF_DAUGHTERS; i++){
         fGraphPtXMeanPullDaughter[i] = new TGraphErrors();
         fGraphPtYMeanPullDaughter[i] = new TGraphErrors();
@@ -433,6 +458,7 @@ void MakeKFUnitTestHistos(){
         fGraphPtPzMeanPullDaughter[i] = new TGraphErrors();
         fGraphPtPtMeanPullDaughter[i] = new TGraphErrors();
         fGraphPtMassMeanPullDaughter[i] = new TGraphErrors();
+        fGraphPtEMeanPullDaughter[i] = new TGraphErrors();
     }
 
     ///////////////////////////////////////////////////////////////
@@ -445,6 +471,7 @@ void MakeKFUnitTestHistos(){
     TGraphErrors *fGraphPtPzResolMother = new TGraphErrors();
     TGraphErrors *fGraphPtPtResolMother = new TGraphErrors();
     TGraphErrors *fGraphPtMassResolMother = new TGraphErrors();
+    TGraphErrors *fGraphPtEResolMother = new TGraphErrors();
     std::array<TGraphErrors*, NUM_OF_DAUGHTERS> fGraphPtXResolDaughter;
     std::array<TGraphErrors*, NUM_OF_DAUGHTERS> fGraphPtYResolDaughter;
     std::array<TGraphErrors*, NUM_OF_DAUGHTERS> fGraphPtZResolDaughter;
@@ -453,6 +480,7 @@ void MakeKFUnitTestHistos(){
     std::array<TGraphErrors*, NUM_OF_DAUGHTERS> fGraphPtPzResolDaughter;
     std::array<TGraphErrors*, NUM_OF_DAUGHTERS> fGraphPtPtResolDaughter;
     std::array<TGraphErrors*, NUM_OF_DAUGHTERS> fGraphPtMassResolDaughter;
+    std::array<TGraphErrors*, NUM_OF_DAUGHTERS> fGraphPtEResolDaughter;
     for (int i = 0; i < NUM_OF_DAUGHTERS; i++){
         fGraphPtXResolDaughter[i] = new TGraphErrors();
         fGraphPtYResolDaughter[i] = new TGraphErrors();
@@ -462,6 +490,7 @@ void MakeKFUnitTestHistos(){
         fGraphPtPzResolDaughter[i] = new TGraphErrors();
         fGraphPtPtResolDaughter[i] = new TGraphErrors();
         fGraphPtMassResolDaughter[i] = new TGraphErrors();
+        fGraphPtEResolDaughter[i] = new TGraphErrors();
     }
 
     ///////////////////////////////////////////////////////////////
@@ -474,6 +503,7 @@ void MakeKFUnitTestHistos(){
     TGraphErrors *fGraphPtPzPullWidthMother = new TGraphErrors();
     TGraphErrors *fGraphPtPtPullWidthMother = new TGraphErrors();
     TGraphErrors *fGraphPtMassPullWidthMother = new TGraphErrors();
+    TGraphErrors *fGraphPtEPullWidthMother = new TGraphErrors();
     std::array<TGraphErrors*, NUM_OF_DAUGHTERS> fGraphPtXPullWidthDaughter;
     std::array<TGraphErrors*, NUM_OF_DAUGHTERS> fGraphPtYPullWidthDaughter;
     std::array<TGraphErrors*, NUM_OF_DAUGHTERS> fGraphPtZPullWidthDaughter;
@@ -482,6 +512,7 @@ void MakeKFUnitTestHistos(){
     std::array<TGraphErrors*, NUM_OF_DAUGHTERS> fGraphPtPzPullWidthDaughter;
     std::array<TGraphErrors*, NUM_OF_DAUGHTERS> fGraphPtPtPullWidthDaughter;
     std::array<TGraphErrors*, NUM_OF_DAUGHTERS> fGraphPtMassPullWidthDaughter;
+    std::array<TGraphErrors*, NUM_OF_DAUGHTERS> fGraphPtEPullWidthDaughter;
     for (int i = 0; i < NUM_OF_DAUGHTERS; i++){
         fGraphPtXPullWidthDaughter[i] = new TGraphErrors();
         fGraphPtYPullWidthDaughter[i] = new TGraphErrors();
@@ -491,6 +522,7 @@ void MakeKFUnitTestHistos(){
         fGraphPtPzPullWidthDaughter[i] = new TGraphErrors();
         fGraphPtPtPullWidthDaughter[i] = new TGraphErrors();
         fGraphPtMassPullWidthDaughter[i] = new TGraphErrors();
+        fGraphPtEPullWidthDaughter[i] = new TGraphErrors();
     }
 
 
@@ -500,6 +532,7 @@ void MakeKFUnitTestHistos(){
     ////////////////// end of histogram block
     ////////////////////////////////////////////////////////////////////////
 
+    cout << " Creating input and ouput files \n";
     ////////////////////////////////////////////////////////////////////////
     ////////////////// read trees from file
     ////////////////////////////////////////////////////////////////////////
@@ -792,6 +825,8 @@ void MakeKFUnitTestHistos(){
     ////////////////// START of event loop block
     ////////////////////////////////////////////////////////////////////////
 
+    cout << " Starting event loops\n";
+
     int nEventsMC = chainMC.GetEntries();
     int nEventsKFBR = chainKFBR.GetEntries();
     int nEventsKFAR = chainKFAR.GetEntries();
@@ -808,6 +843,11 @@ void MakeKFUnitTestHistos(){
         // number of daughters + number of mother particles - do not process the event
         if (nTracks_MC < NUM_OF_KFPARTICLES)
             continue;
+        
+        if(iEvent % 1000 == 0) {
+            std::cout << "processing " << iEvent << " MC event\r";
+            std::cout << std::flush;
+        }    
 
         size_t motherCounter = 0;
         size_t daughterCounter = 0;
@@ -872,6 +912,7 @@ void MakeKFUnitTestHistos(){
         } // end of track loop
 
     } // end of MC event loop
+    cout << endl;
 
     // Create KFBR QA plots
     for (int iEvent = 0; iEvent < nEventsKFBR; iEvent++){
@@ -882,6 +923,10 @@ void MakeKFUnitTestHistos(){
             continue;
         if (nTracks_KFBR < NUM_OF_KFPARTICLES)
             continue;
+        if(iEvent % 1000 == 0) {
+            std::cout << "processing " << iEvent << " KFBR event\r";
+            std::cout << std::flush;
+        } 
 
         size_t motherCounter = 0;
         size_t daughterCounter = 0;
@@ -913,7 +958,8 @@ void MakeKFUnitTestHistos(){
                 fHistMassMotherKFBR -> Fill(mass_KFBR[iTrack]);
                 fHistEtaMotherKFBR -> Fill(eta(pX_KFBR[iTrack],pY_KFBR[iTrack], pZ_KFBR[iTrack]));
                 fHistPhiMotherKFBR -> Fill(phi(pX_KFBR[iTrack],pY_KFBR[iTrack]));
-                //fHistChi2MotherKFBR -> Fill();
+                fHistChi2MotherKFBR -> Fill(chi2_KFBR[iTrack]);
+                fHistNDFMotherKFBR -> Fill(ndf_KFBR[iTrack]);
 
                 motherCounter++; 
             }
@@ -940,12 +986,15 @@ void MakeKFUnitTestHistos(){
                 fHistMassDaughterKFBR[daughterNum] -> Fill(mass_KFBR[iTrack]);
                 fHistEtaDaughterKFBR[daughterNum] -> Fill(eta(pX_KFBR[iTrack],pY_KFBR[iTrack], pZ_KFBR[iTrack]));
                 fHistPhiDaughterKFBR[daughterNum] -> Fill(phi(pX_KFBR[iTrack],pY_KFBR[iTrack]));
+                fHistChi2DaughterKFBR[daughterNum] -> Fill(chi2_KFBR[iTrack]);
+                fHistNDFDaughterKFBR[daughterNum] -> Fill(ndf_KFBR[iTrack]);
                 
                 daughterCounter++;            
             }
         } // end of track loop
 
     } // end of KFBR event loop
+    cout << endl;
 
         // Create KFAR QA plots
     for (int iEvent = 0; iEvent < nEventsKFAR; iEvent++){
@@ -956,6 +1005,11 @@ void MakeKFUnitTestHistos(){
             continue;
         if (nTracks_KFAR < NUM_OF_KFPARTICLES)
             continue;
+
+        if(iEvent % 1000 == 0) {
+            std::cout << "processing " << iEvent << " KFAR event\r";
+            std::cout << std::flush;
+        } 
 
         size_t motherCounter = 0;
         size_t daughterCounter = 0;
@@ -987,7 +1041,8 @@ void MakeKFUnitTestHistos(){
                 fHistMassMotherKFAR -> Fill(mass_KFAR[iTrack]);
                 fHistEtaMotherKFAR -> Fill(eta(pX_KFAR[iTrack],pY_KFAR[iTrack], pZ_KFAR[iTrack]));
                 fHistPhiMotherKFAR -> Fill(phi(pX_KFAR[iTrack],pY_KFAR[iTrack]));
-                //fHistChi2MotherKFAR -> Fill();
+                fHistChi2MotherKFAR -> Fill(chi2_KFAR[iTrack]);
+                fHistNDFMotherKFAR -> Fill(ndf_KFAR[iTrack]);
 
                 motherCounter++; 
             }
@@ -1014,12 +1069,15 @@ void MakeKFUnitTestHistos(){
                 fHistMassDaughterKFAR[daughterNum] -> Fill(mass_KFAR[iTrack]);
                 fHistEtaDaughterKFAR[daughterNum] -> Fill(eta(pX_KFAR[iTrack],pY_KFAR[iTrack], pZ_KFAR[iTrack]));
                 fHistPhiDaughterKFAR[daughterNum] -> Fill(phi(pX_KFAR[iTrack],pY_KFAR[iTrack]));
+                fHistChi2DaughterKFAR[daughterNum] -> Fill(chi2_KFAR[iTrack]);
+                fHistNDFDaughterKFAR[daughterNum] -> Fill(ndf_KFAR[iTrack]);
 
                 daughterCounter++;            
             }
         } // end of track loop
 
     } // end of KFAR event loop
+    cout << endl;
 
     // Create Pt dep plots of residuals and pulls
     for (int iEvent = 0; iEvent < nEventsKFAR; iEvent++){
@@ -1049,6 +1107,7 @@ void MakeKFUnitTestHistos(){
                 int iTrack_MC = idMC_KFAR[iTrack];
                 float pt_MC_ = pT(finalPX_MC[iTrack_MC],finalPY_MC[iTrack_MC]);
                 float pt_KFAR_ = pT(pX_KFAR[iTrack],pY_KFAR[iTrack]);
+                float e_MC_ = e(finalPX_MC[iTrack_MC],finalPY_MC[iTrack_MC],finalPZ_MC[iTrack_MC],mass_MC[iTrack_MC]);
 
                 float x_resid_ = trackX_MC[iTrack_MC] - x_KFAR[iTrack];
                 float y_resid_ = trackY_MC[iTrack_MC] - y_KFAR[iTrack];
@@ -1058,6 +1117,7 @@ void MakeKFUnitTestHistos(){
                 float pz_resid_ = finalPZ_MC[iTrack_MC] - pZ_KFAR[iTrack];
                 float pt_resid_ = pt_MC_ - pT_KFAR[iTrack];
                 float mass_resid_ = mass_MC[iTrack_MC] - mass_KFAR[iTrack];
+                float e_resid_ = e_MC_ - e_KFAR[iTrack];
 
                 float x_pull_ = x_resid_/xErr_KFAR[iTrack];
                 float y_pull_ = y_resid_/yErr_KFAR[iTrack];
@@ -1067,6 +1127,7 @@ void MakeKFUnitTestHistos(){
                 float pz_pull_ = pz_resid_/pZErr_KFAR[iTrack];
                 float pt_pull_ = pt_resid_/pTErr_KFAR[iTrack];
                 float mass_pull_ = mass_resid_/massErr_KFAR[iTrack];
+                float e_pull_ = e_resid_/eErr_KFAR[iTrack];
 
                 fHistPtXResidMother -> Fill(pt_MC_,x_resid_);
                 fHistPtYResidMother -> Fill(pt_MC_,y_resid_);
@@ -1076,6 +1137,7 @@ void MakeKFUnitTestHistos(){
                 fHistPtPzResidMother -> Fill(pt_MC_,pz_resid_);
                 fHistPtPtResidMother -> Fill(pt_MC_,pt_resid_);
                 fHistPtMassResidMother -> Fill(pt_MC_,mass_resid_);
+                fHistPtEResidMother -> Fill(pt_MC_,e_resid_);
 
                 fHistPtXPullMother -> Fill(pt_MC_,x_pull_);
                 fHistPtYPullMother -> Fill(pt_MC_,y_pull_);
@@ -1085,6 +1147,7 @@ void MakeKFUnitTestHistos(){
                 fHistPtPzPullMother -> Fill(pt_MC_,pz_pull_);
                 fHistPtPtPullMother -> Fill(pt_MC_,pt_pull_);
                 fHistPtMassPullMother -> Fill(pt_MC_,mass_pull_);
+                fHistPtEPullMother -> Fill(pt_MC_,e_pull_);
 
                 fHistPtPtErrMother -> Fill(pt_MC_, pTErr_KFAR[iTrack]);
 
@@ -1096,11 +1159,13 @@ void MakeKFUnitTestHistos(){
                     cout << "Daughter particle's PDGID " << pdg_KFAR[iTrack] << " is not in the set of daughters pdgs... error and skip the event # " << iEvent << endl;
                     break;
                 }
-                int daughterNum = distance(DAUGTHERS_PDGS.begin(),iter_pdg);
+                //int daughterNum = distance(DAUGTHERS_PDGS.begin(),iter_pdg);
+                int daughterNum = daughterCounter;
                 // setup daughter particles from KFAR
-                int iTrack_MC = idMC_KFBR[iTrack];
+                int iTrack_MC = idMC_KFAR[iTrack];
                 float pt_MC_ = pT(finalPX_MC[iTrack_MC],finalPY_MC[iTrack_MC]);
-                float pt_KFAR_ = pT(pX_KFAR[iTrack],pY_KFAR[iTrack]);
+                //float pt_KFAR_ = pT(pX_KFAR[iTrack],pY_KFAR[iTrack]);
+                float e_MC_ = e(initialPX_MC[iTrack_MC],initialPY_MC[iTrack_MC],initialPZ_MC[iTrack_MC],mass_MC[iTrack_MC]);
 
                 float x_resid_ = vertexX_MC[iTrack_MC] - x_KFAR[iTrack];
                 float y_resid_ = vertexY_MC[iTrack_MC] - y_KFAR[iTrack];
@@ -1108,8 +1173,10 @@ void MakeKFUnitTestHistos(){
                 float px_resid_ = initialPX_MC[iTrack_MC] - pX_KFAR[iTrack];
                 float py_resid_ = initialPY_MC[iTrack_MC] - pY_KFAR[iTrack];
                 float pz_resid_ = initialPZ_MC[iTrack_MC] - pZ_KFAR[iTrack];
-                float pt_resid_ = pt_MC_ - pt_KFAR_;
+                float pt_resid_ = pt_MC_ - pT_KFAR[iTrack];// pt_KFAR_;
                 float mass_resid_ = mass_MC[iTrack_MC] - mass_KFAR[iTrack];
+                float e_resid_ = e_MC_ - e_KFAR[iTrack];
+                
 
                 float x_pull_ = x_resid_/xErr_KFAR[iTrack];
                 float y_pull_ = y_resid_/yErr_KFAR[iTrack];
@@ -1119,6 +1186,7 @@ void MakeKFUnitTestHistos(){
                 float pz_pull_ = pz_resid_/pZErr_KFAR[iTrack];
                 float pt_pull_ = pt_resid_/pTErr_KFAR[iTrack];
                 float mass_pull_ = mass_resid_/massErr_KFAR[iTrack];
+                float e_pull_ = e_resid_/eErr_KFAR[iTrack];
 
                 fHistPtXResidDaughter[daughterNum] -> Fill(pt_MC_,x_resid_);
                 fHistPtYResidDaughter[daughterNum] -> Fill(pt_MC_,y_resid_);
@@ -1128,6 +1196,7 @@ void MakeKFUnitTestHistos(){
                 fHistPtPzResidDaughter[daughterNum] -> Fill(pt_MC_,pz_resid_);
                 fHistPtPtResidDaughter[daughterNum] -> Fill(pt_MC_,pt_resid_);
                 fHistPtMassResidDaughter[daughterNum] -> Fill(pt_MC_,mass_resid_);
+                fHistPtEResidDaughter[daughterNum] -> Fill(pt_MC_,e_resid_);
 
                 fHistPtXPullDaughter[daughterNum] -> Fill(pt_MC_,x_pull_);
                 fHistPtYPullDaughter[daughterNum] -> Fill(pt_MC_,y_pull_);
@@ -1137,6 +1206,7 @@ void MakeKFUnitTestHistos(){
                 fHistPtPzPullDaughter[daughterNum] -> Fill(pt_MC_,pz_pull_);
                 fHistPtPtPullDaughter[daughterNum] -> Fill(pt_MC_,pt_pull_);
                 fHistPtMassPullDaughter[daughterNum] -> Fill(pt_MC_,mass_pull_);
+                fHistPtEPullDaughter[daughterNum] -> Fill(pt_MC_,e_pull_);
 
                 daughterCounter++;            
             }
@@ -1158,6 +1228,7 @@ void MakeKFUnitTestHistos(){
     fHistPzResidMother = fHistPtPzResidMother -> ProjectionY();
     fHistPtResidMother = fHistPtPtResidMother -> ProjectionY();
     fHistMassResidMother = fHistPtMassResidMother -> ProjectionY();
+    fHistEResidMother = fHistPtEResidMother -> ProjectionY();
     for(int i = 0; i < NUM_OF_DAUGHTERS; i++){
         fHistXResidDaughter[i] = fHistPtXResidDaughter[i] -> ProjectionY();
         fHistYResidDaughter[i] = fHistPtYResidDaughter[i] -> ProjectionY();
@@ -1167,6 +1238,7 @@ void MakeKFUnitTestHistos(){
         fHistPzResidDaughter[i] = fHistPtPzResidDaughter[i] -> ProjectionY();
         fHistPtResidDaughter[i] = fHistPtPtResidDaughter[i] -> ProjectionY();
         fHistMassResidDaughter[i] = fHistPtMassResidDaughter[i] -> ProjectionY();
+        fHistEResidDaughter[i] = fHistPtEResidDaughter[i] -> ProjectionY();
     }
 
     fHistXPullMother = fHistPtXPullMother -> ProjectionY();
@@ -1177,6 +1249,7 @@ void MakeKFUnitTestHistos(){
     fHistPzPullMother = fHistPtPzPullMother -> ProjectionY();
     fHistPtPullMother = fHistPtPtPullMother -> ProjectionY();
     fHistMassPullMother = fHistPtMassPullMother -> ProjectionY();
+    fHistEPullMother = fHistPtEPullMother -> ProjectionY();
     for(int i = 0; i < NUM_OF_DAUGHTERS; i++){
         fHistXPullDaughter[i] = fHistPtXPullDaughter[i] -> ProjectionY();
         fHistYPullDaughter[i] = fHistPtYPullDaughter[i] -> ProjectionY();
@@ -1186,6 +1259,7 @@ void MakeKFUnitTestHistos(){
         fHistPzPullDaughter[i] = fHistPtPzPullDaughter[i] -> ProjectionY();
         fHistPtPullDaughter[i] = fHistPtPtPullDaughter[i] -> ProjectionY();
         fHistMassPullDaughter[i] = fHistPtMassPullDaughter[i] -> ProjectionY();
+        fHistEPullDaughter[i] = fHistPtEPullDaughter[i] -> ProjectionY();
     }
 
     /////////
@@ -1197,149 +1271,165 @@ void MakeKFUnitTestHistos(){
     ////
 
     fGraphPtXMeanResidMother = MakeMeanGraphFromTH2(fHistPtXResidMother);
-    fGraphPtXMeanResidMother -> SetNameTitle("X Mean Resid","XMeanResid; pT, GeV; X, #mu");
+    fGraphPtXMeanResidMother -> SetNameTitle("X Mean Resid","XMeanResid; p_{T}, GeV; X, #mu");
     fGraphPtYMeanResidMother = MakeMeanGraphFromTH2(fHistPtYResidMother);
-    fGraphPtYMeanResidMother -> SetNameTitle("Y Mean Resid","Y Mean Resid; pT, GeV; Y, #mu");
+    fGraphPtYMeanResidMother -> SetNameTitle("Y Mean Resid","Y Mean Resid; p_{T}, GeV; Y, #mu");
     fGraphPtZMeanResidMother = MakeMeanGraphFromTH2(fHistPtZResidMother);
-    fGraphPtZMeanResidMother -> SetNameTitle("Z Mean Resid","Z Mean Resid; pT, GeV; Z, #mu");
+    fGraphPtZMeanResidMother -> SetNameTitle("Z Mean Resid","Z Mean Resid; p_{T}, GeV; Z, #mu");
     fGraphPtPxMeanResidMother = MakeMeanGraphFromTH2(fHistPtPxResidMother);
-    fGraphPtPxMeanResidMother -> SetNameTitle("Px Mean Resid","Px Mean Resid; pT, GeV; Px, GeV");
+    fGraphPtPxMeanResidMother -> SetNameTitle("Px Mean Resid","Px Mean Resid; p_{T}, GeV; Px, GeV");
     fGraphPtPyMeanResidMother = MakeMeanGraphFromTH2(fHistPtPyResidMother);
-    fGraphPtPyMeanResidMother -> SetNameTitle("Py Mean Resid","Py Mean Resid; pT, GeV; Py, GeV");
+    fGraphPtPyMeanResidMother -> SetNameTitle("Py Mean Resid","Py Mean Resid; p_{T}, GeV; Py, GeV");
     fGraphPtPzMeanResidMother = MakeMeanGraphFromTH2(fHistPtPzResidMother);
-    fGraphPtPzMeanResidMother -> SetNameTitle("Pz Mean Resid","Pz Mean Resid; pT, GeV; Pz, GeV");
+    fGraphPtPzMeanResidMother -> SetNameTitle("Pz Mean Resid","Pz Mean Resid; p_{T}, GeV; Pz, GeV");
     fGraphPtPtMeanResidMother = MakeMeanGraphFromTH2(fHistPtPtResidMother);
-    fGraphPtPtMeanResidMother -> SetNameTitle("Pt Mean Resid","Pt Mean Resid; pT, GeV; Pt, GeV");
+    fGraphPtPtMeanResidMother -> SetNameTitle("Pt Mean Resid","Pt Mean Resid; p_{T}, GeV; Pt, GeV");
     fGraphPtMassMeanResidMother = MakeMeanGraphFromTH2(fHistPtMassResidMother);
-    fGraphPtMassMeanResidMother -> SetNameTitle("Mass Mean Resid","Mass Mean Resid; pT, GeV; Mass, GeV");
+    fGraphPtMassMeanResidMother -> SetNameTitle("Mass Mean Resid","Mass Mean Resid; p_{T}, GeV; Mass, GeV");
+    fGraphPtEMeanResidMother = MakeMeanGraphFromTH2(fHistPtEResidMother);
+    fGraphPtEMeanResidMother -> SetNameTitle("E Mean Resid","E Mean Resid; p_{T}, GeV; E, GeV");
     for(int i = 0; i < NUM_OF_DAUGHTERS; i++){
         fGraphPtXMeanResidDaughter[i] = MakeMeanGraphFromTH2(fHistPtXResidDaughter[i]);
-        fGraphPtXMeanResidDaughter[i] -> SetNameTitle("X Mean Resid","XMeanResid; pT, GeV; X, #mu");
+        fGraphPtXMeanResidDaughter[i] -> SetNameTitle("X Mean Resid","XMeanResid; p_{T}, GeV; X, #mu");
         fGraphPtYMeanResidDaughter[i] = MakeMeanGraphFromTH2(fHistPtYResidDaughter[i]);
-        fGraphPtYMeanResidDaughter[i] -> SetNameTitle("Y Mean Resid","YMeanResid; pT, GeV; Y, #mu");
+        fGraphPtYMeanResidDaughter[i] -> SetNameTitle("Y Mean Resid","YMeanResid; p_{T}, GeV; Y, #mu");
         fGraphPtZMeanResidDaughter[i] = MakeMeanGraphFromTH2(fHistPtZResidDaughter[i]);
-        fGraphPtZMeanResidDaughter[i] -> SetNameTitle("Z Mean Resid","ZMeanResid; pT, GeV; Z, #mu");
+        fGraphPtZMeanResidDaughter[i] -> SetNameTitle("Z Mean Resid","ZMeanResid; p_{T}, GeV; Z, #mu");
         fGraphPtPxMeanResidDaughter[i] = MakeMeanGraphFromTH2(fHistPtPxResidDaughter[i]);
-        fGraphPtPxMeanResidDaughter[i] -> SetNameTitle("Px Mean Resid","Px Mean Resid; pT, GeV; Px, GeV");
+        fGraphPtPxMeanResidDaughter[i] -> SetNameTitle("Px Mean Resid","Px Mean Resid; p_{T}, GeV; Px, GeV");
         fGraphPtPyMeanResidDaughter[i] = MakeMeanGraphFromTH2(fHistPtPyResidDaughter[i]);
-        fGraphPtPyMeanResidDaughter[i] -> SetNameTitle("Py Mean Resid","Py Mean Resid; pT, GeV; Py, GeV");
+        fGraphPtPyMeanResidDaughter[i] -> SetNameTitle("Py Mean Resid","Py Mean Resid; p_{T}, GeV; Py, GeV");
         fGraphPtPzMeanResidDaughter[i] = MakeMeanGraphFromTH2(fHistPtPzResidDaughter[i]);
-        fGraphPtPzMeanResidDaughter[i] -> SetNameTitle("Pz Mean Resid","Pz Mean Resid; pT, GeV; Pz, GeV");
+        fGraphPtPzMeanResidDaughter[i] -> SetNameTitle("Pz Mean Resid","Pz Mean Resid; p_{T}, GeV; Pz, GeV");
         fGraphPtPtMeanResidDaughter[i] = MakeMeanGraphFromTH2(fHistPtPtResidDaughter[i]);
-        fGraphPtPtMeanResidDaughter[i] -> SetNameTitle("Pt Mean Resid","Pt Mean Resid; pT, GeV; Pt, GeV");
+        fGraphPtPtMeanResidDaughter[i] -> SetNameTitle("Pt Mean Resid","Pt Mean Resid; p_{T}, GeV; Pt, GeV");
         fGraphPtMassMeanResidDaughter[i] = MakeMeanGraphFromTH2(fHistPtMassResidDaughter[i]);
-        fGraphPtMassMeanResidDaughter[i] -> SetNameTitle("Mass Mean Resid","Mass Mean Resid; pT, GeV; Mass, GeV");
+        fGraphPtMassMeanResidDaughter[i] -> SetNameTitle("Mass Mean Resid","Mass Mean Resid; p_{T}, GeV; Mass, GeV");
+        fGraphPtEMeanResidDaughter[i] = MakeMeanGraphFromTH2(fHistPtEResidDaughter[i]);
+        fGraphPtEMeanResidDaughter[i] -> SetNameTitle("E Mean Resid","E Mean Resid; p_{T}, GeV; E, GeV");
     }
 
     //----------------------
 
     fGraphPtXMeanPullMother = MakeMeanGraphFromTH2(fHistPtXPullMother);
-    fGraphPtXMeanPullMother -> SetNameTitle("X Mean Pull","XMeanPull; pT, GeV; X Pull");
+    fGraphPtXMeanPullMother -> SetNameTitle("X Mean Pull","XMeanPull; p_{T}, GeV; X Pull");
     fGraphPtYMeanPullMother = MakeMeanGraphFromTH2(fHistPtYPullMother);
-    fGraphPtYMeanPullMother -> SetNameTitle("Y Mean Pull","YMeanPull; pT, GeV; Y Pull");
+    fGraphPtYMeanPullMother -> SetNameTitle("Y Mean Pull","YMeanPull; p_{T}, GeV; Y Pull");
     fGraphPtZMeanPullMother = MakeMeanGraphFromTH2(fHistPtZPullMother);
-    fGraphPtZMeanPullMother -> SetNameTitle("Z Mean Pull","ZMeanPull; pT, GeV; Z Pull");
+    fGraphPtZMeanPullMother -> SetNameTitle("Z Mean Pull","ZMeanPull; p_{T}, GeV; Z Pull");
     fGraphPtPxMeanPullMother = MakeMeanGraphFromTH2(fHistPtPxPullMother);
-    fGraphPtPxMeanPullMother -> SetNameTitle("Px Mean Pull","PxMeanPull; pT, GeV; Px Pull");
+    fGraphPtPxMeanPullMother -> SetNameTitle("Px Mean Pull","PxMeanPull; p_{T}, GeV; Px Pull");
     fGraphPtPyMeanPullMother = MakeMeanGraphFromTH2(fHistPtPyPullMother);
-    fGraphPtPyMeanPullMother -> SetNameTitle("Py Mean Pull","PyMeanPull; pT, GeV; Py Pull");
+    fGraphPtPyMeanPullMother -> SetNameTitle("Py Mean Pull","PyMeanPull; p_{T}, GeV; Py Pull");
     fGraphPtPzMeanPullMother = MakeMeanGraphFromTH2(fHistPtPzPullMother);
-    fGraphPtPzMeanPullMother -> SetNameTitle("Pz Mean Pull","PzMeanPull; pT, GeV; Pz Pull");
+    fGraphPtPzMeanPullMother -> SetNameTitle("Pz Mean Pull","PzMeanPull; p_{T}, GeV; Pz Pull");
     fGraphPtPtMeanPullMother = MakeMeanGraphFromTH2(fHistPtPtPullMother);
-    fGraphPtPtMeanPullMother -> SetNameTitle("Pt Mean Pull","PtMeanPull; pT, GeV; Pt Pull");
+    fGraphPtPtMeanPullMother -> SetNameTitle("Pt Mean Pull","PtMeanPull; p_{T}, GeV; Pt Pull");
     fGraphPtMassMeanPullMother = MakeMeanGraphFromTH2(fHistPtMassPullMother);
-    fGraphPtMassMeanPullMother -> SetNameTitle("Mass Mean Pull","MassMeanPull; pT, GeV; Mass Pull");
+    fGraphPtMassMeanPullMother -> SetNameTitle("Mass Mean Pull","MassMeanPull; p_{T}, GeV; Mass Pull");
+    fGraphPtEMeanPullMother = MakeMeanGraphFromTH2(fHistPtEPullMother);
+    fGraphPtEMeanPullMother -> SetNameTitle("E Mean Pull","EMeanPull; p_{T}, GeV; E Pull");
     for(int i = 0; i < NUM_OF_DAUGHTERS; i++){
         fGraphPtXMeanPullDaughter[i] = MakeMeanGraphFromTH2(fHistPtXPullDaughter[i]);
-        fGraphPtXMeanPullDaughter[i] -> SetNameTitle("X Mean Pull","XMeanPull; pT, GeV; X Pull");
+        fGraphPtXMeanPullDaughter[i] -> SetNameTitle("X Mean Pull","XMeanPull; p_{T}, GeV; X Pull");
         fGraphPtYMeanPullDaughter[i] = MakeMeanGraphFromTH2(fHistPtYPullDaughter[i]);
-        fGraphPtYMeanPullDaughter[i] -> SetNameTitle("Y Mean Pull","YMeanPull; pT, GeV; Y Pull");
+        fGraphPtYMeanPullDaughter[i] -> SetNameTitle("Y Mean Pull","YMeanPull; p_{T}, GeV; Y Pull");
         fGraphPtZMeanPullDaughter[i] = MakeMeanGraphFromTH2(fHistPtZPullDaughter[i]);
-        fGraphPtZMeanPullDaughter[i] -> SetNameTitle("Z Mean Pull","ZMeanPull; pT, GeV; Z Pull");
+        fGraphPtZMeanPullDaughter[i] -> SetNameTitle("Z Mean Pull","ZMeanPull; p_{T}, GeV; Z Pull");
         fGraphPtPxMeanPullDaughter[i] = MakeMeanGraphFromTH2(fHistPtPxPullDaughter[i]);
-        fGraphPtPxMeanPullDaughter[i] -> SetNameTitle("Px Mean Pull","PxMeanPull; pT, GeV; Px Pull");
+        fGraphPtPxMeanPullDaughter[i] -> SetNameTitle("Px Mean Pull","PxMeanPull; p_{T}, GeV; Px Pull");
         fGraphPtPyMeanPullDaughter[i] = MakeMeanGraphFromTH2(fHistPtPyPullDaughter[i]);
-        fGraphPtPyMeanPullDaughter[i] -> SetNameTitle("Py Mean Pull","PyMeanPull; pT, GeV; Py Pull");
+        fGraphPtPyMeanPullDaughter[i] -> SetNameTitle("Py Mean Pull","PyMeanPull; p_{T}, GeV; Py Pull");
         fGraphPtPzMeanPullDaughter[i] = MakeMeanGraphFromTH2(fHistPtPzPullDaughter[i]);
-        fGraphPtPzMeanPullDaughter[i] -> SetNameTitle("Pz Mean Pull","PzMeanPull; pT, GeV; Pz Pull");
+        fGraphPtPzMeanPullDaughter[i] -> SetNameTitle("Pz Mean Pull","PzMeanPull; p_{T}, GeV; Pz Pull");
         fGraphPtPtMeanPullDaughter[i] = MakeMeanGraphFromTH2(fHistPtPtPullDaughter[i]);
-        fGraphPtPtMeanPullDaughter[i] -> SetNameTitle("Pt Mean Pull","PtMeanPull; pT, GeV; Pt Pull");
+        fGraphPtPtMeanPullDaughter[i] -> SetNameTitle("Pt Mean Pull","PtMeanPull; p_{T}, GeV; Pt Pull");
         fGraphPtMassMeanPullDaughter[i] = MakeMeanGraphFromTH2(fHistPtMassPullDaughter[i]);
-        fGraphPtMassMeanPullDaughter[i] -> SetNameTitle("Mass Mean Pull","MassMeanPull; pT, GeV; Mass Pull");
+        fGraphPtMassMeanPullDaughter[i] -> SetNameTitle("Mass Mean Pull","MassMeanPull; p_{T}, GeV; Mass Pull");
+        fGraphPtEMeanPullDaughter[i] = MakeMeanGraphFromTH2(fHistPtEPullDaughter[i]);
+        fGraphPtEMeanPullDaughter[i] -> SetNameTitle("E Mean Pull","EMeanPull; p_{T}, GeV; E Pull");
     }
 
     //----------------------
 
     fGraphPtXResolMother = MakeSigmaGraphFromTH2(fHistPtXResidMother);
-    fGraphPtXResolMother -> SetNameTitle("X Resol","XResol; pT, GeV; X Resol, #mu");
+    fGraphPtXResolMother -> SetNameTitle("X Resol","XResol; p_{T}, GeV; X Resol, #mu");
     fGraphPtYResolMother = MakeSigmaGraphFromTH2(fHistPtYResidMother);
-    fGraphPtYResolMother -> SetNameTitle("Y Resol","YResol; pT, GeV; Y Resol, #mu");
+    fGraphPtYResolMother -> SetNameTitle("Y Resol","YResol; p_{T}, GeV; Y Resol, #mu");
     fGraphPtZResolMother = MakeSigmaGraphFromTH2(fHistPtZResidMother);
-    fGraphPtZResolMother -> SetNameTitle("Z Resol","ZResol; pT, GeV; Z Resol, #mu");
+    fGraphPtZResolMother -> SetNameTitle("Z Resol","ZResol; p_{T}, GeV; Z Resol, #mu");
     fGraphPtPxResolMother = MakeSigmaGraphFromTH2(fHistPtPxResidMother);
-    fGraphPtPxResolMother -> SetNameTitle("Px Resol","PxResol; pT, GeV; Px Resol, GeV");
+    fGraphPtPxResolMother -> SetNameTitle("Px Resol","PxResol; p_{T}, GeV; Px Resol, GeV");
     fGraphPtPyResolMother = MakeSigmaGraphFromTH2(fHistPtPyResidMother);
-    fGraphPtPyResolMother -> SetNameTitle("Py Resol","PyResol; pT, GeV; Py Resol, GeV");
+    fGraphPtPyResolMother -> SetNameTitle("Py Resol","PyResol; p_{T}, GeV; Py Resol, GeV");
     fGraphPtPzResolMother = MakeSigmaGraphFromTH2(fHistPtPzResidMother);
-    fGraphPtPzResolMother -> SetNameTitle("Pz Resol","PzResol; pT, GeV; Pz Resol, GeV");
+    fGraphPtPzResolMother -> SetNameTitle("Pz Resol","PzResol; p_{T}, GeV; Pz Resol, GeV");
     fGraphPtPtResolMother = MakeSigmaGraphFromTH2(fHistPtPtResidMother);
-    fGraphPtPtResolMother -> SetNameTitle("Pt Resol","PtResol; pT, GeV; Pt Resol, GeV");
+    fGraphPtPtResolMother -> SetNameTitle("Pt Resol","PtResol; p_{T}, GeV; Pt Resol, GeV");
     fGraphPtMassResolMother = MakeSigmaGraphFromTH2(fHistPtMassResidMother);
-    fGraphPtMassResolMother -> SetNameTitle("Mass Resol","MassResol; pT, GeV; Mass Resol, GeV");
+    fGraphPtMassResolMother -> SetNameTitle("Mass Resol","MassResol; p_{T}, GeV; Mass Resol, GeV");
+    fGraphPtEResolMother = MakeSigmaGraphFromTH2(fHistPtEResidMother);
+    fGraphPtEResolMother -> SetNameTitle("E Resol","EResol; p_{T}, GeV; E Resol, GeV");
     for(int i = 0; i < NUM_OF_DAUGHTERS; i++){
         fGraphPtXResolDaughter[i] = MakeSigmaGraphFromTH2(fHistPtXResidDaughter[i]);
-        fGraphPtXResolDaughter[i] -> SetNameTitle("X Resol","XResol; pT, GeV; X Resol, #mu");
+        fGraphPtXResolDaughter[i] -> SetNameTitle("X Resol","XResol; p_{T}, GeV; X Resol, #mu");
         fGraphPtYResolDaughter[i] = MakeSigmaGraphFromTH2(fHistPtYResidDaughter[i]);
-        fGraphPtYResolDaughter[i] -> SetNameTitle("Y Resol","YResol; pT, GeV; Y Resol, #mu");
+        fGraphPtYResolDaughter[i] -> SetNameTitle("Y Resol","YResol; p_{T}, GeV; Y Resol, #mu");
         fGraphPtZResolDaughter[i] = MakeSigmaGraphFromTH2(fHistPtZResidDaughter[i]);
-        fGraphPtZResolDaughter[i] -> SetNameTitle("Z Resol","ZResol; pT, GeV; Z Resol, #mu");
+        fGraphPtZResolDaughter[i] -> SetNameTitle("Z Resol","ZResol; p_{T}, GeV; Z Resol, #mu");
         fGraphPtPxResolDaughter[i] = MakeSigmaGraphFromTH2(fHistPtPxResidDaughter[i]);
-        fGraphPtPxResolDaughter[i] -> SetNameTitle("Px Resol","PxResol; pT, GeV; Px Resol, GeV");
+        fGraphPtPxResolDaughter[i] -> SetNameTitle("Px Resol","PxResol; p_{T}, GeV; Px Resol, GeV");
         fGraphPtPyResolDaughter[i] = MakeSigmaGraphFromTH2(fHistPtPyResidDaughter[i]);
-        fGraphPtPyResolDaughter[i] -> SetNameTitle("Py Resol","PyResol; pT, GeV; Py Resol, GeV");
+        fGraphPtPyResolDaughter[i] -> SetNameTitle("Py Resol","PyResol; p_{T}, GeV; Py Resol, GeV");
         fGraphPtPzResolDaughter[i] = MakeSigmaGraphFromTH2(fHistPtPzResidDaughter[i]);
-        fGraphPtPzResolDaughter[i] -> SetNameTitle("Pz Resol","PzResol; pT, GeV; Pz Resol, GeV");
+        fGraphPtPzResolDaughter[i] -> SetNameTitle("Pz Resol","PzResol; p_{T}, GeV; Pz Resol, GeV");
         fGraphPtPtResolDaughter[i] = MakeSigmaGraphFromTH2(fHistPtPtResidDaughter[i]);
-        fGraphPtPtResolDaughter[i] -> SetNameTitle("Pt Resol","PtResol; pT, GeV; Pt Resol, GeV");
+        fGraphPtPtResolDaughter[i] -> SetNameTitle("Pt Resol","PtResol; p_{T}, GeV; Pt Resol, GeV");
         fGraphPtMassResolDaughter[i] = MakeSigmaGraphFromTH2(fHistPtMassResidDaughter[i]);
-        fGraphPtMassResolDaughter[i] -> SetNameTitle("Mass Resol","MassResol; pT, GeV; Mass Resol, GeV");
+        fGraphPtMassResolDaughter[i] -> SetNameTitle("Mass Resol","MassResol; p_{T}, GeV; Mass Resol, GeV");
+        fGraphPtEResolDaughter[i] = MakeSigmaGraphFromTH2(fHistPtEResidDaughter[i]);
+        fGraphPtEResolDaughter[i] -> SetNameTitle("E Resol","EResol; p_{T}, GeV; E Resol, GeV");
     }
 
     //----------------------
 
     fGraphPtXPullWidthMother = MakeSigmaGraphFromTH2(fHistPtXPullMother);
-    fGraphPtXPullWidthMother -> SetNameTitle("X PullWidth","XPullWidth; pT, GeV; X PullWidth");
+    fGraphPtXPullWidthMother -> SetNameTitle("X PullWidth","XPullWidth; p_{T}, GeV; X PullWidth");
     fGraphPtYPullWidthMother = MakeSigmaGraphFromTH2(fHistPtYPullMother);
-    fGraphPtYPullWidthMother -> SetNameTitle("Y PullWidth","YPullWidth; pT, GeV; Y PullWidth");
+    fGraphPtYPullWidthMother -> SetNameTitle("Y PullWidth","YPullWidth; p_{T}, GeV; Y PullWidth");
     fGraphPtZPullWidthMother = MakeSigmaGraphFromTH2(fHistPtZPullMother);
-    fGraphPtZPullWidthMother -> SetNameTitle("Z PullWidth","ZPullWidth; pT, GeV; Z PullWidth");
+    fGraphPtZPullWidthMother -> SetNameTitle("Z PullWidth","ZPullWidth; p_{T}, GeV; Z PullWidth");
     fGraphPtPxPullWidthMother = MakeSigmaGraphFromTH2(fHistPtPxPullMother);
-    fGraphPtPxPullWidthMother -> SetNameTitle("Px PullWidth","PxPullWidth; pT, GeV; Px PullWidth");
+    fGraphPtPxPullWidthMother -> SetNameTitle("Px PullWidth","PxPullWidth; p_{T}, GeV; Px PullWidth");
     fGraphPtPyPullWidthMother = MakeSigmaGraphFromTH2(fHistPtPyPullMother);
-    fGraphPtPyPullWidthMother -> SetNameTitle("Py PullWidth","PyPullWidth; pT, GeV; Py PullWidth");
+    fGraphPtPyPullWidthMother -> SetNameTitle("Py PullWidth","PyPullWidth; p_{T}, GeV; Py PullWidth");
     fGraphPtPzPullWidthMother = MakeSigmaGraphFromTH2(fHistPtPzPullMother);
-    fGraphPtPzPullWidthMother -> SetNameTitle("Pz PullWidth","PzPullWidth; pT, GeV; Pz PullWidth");
+    fGraphPtPzPullWidthMother -> SetNameTitle("Pz PullWidth","PzPullWidth; p_{T}, GeV; Pz PullWidth");
     fGraphPtPtPullWidthMother = MakeSigmaGraphFromTH2(fHistPtPtPullMother);
-    fGraphPtPtPullWidthMother -> SetNameTitle("Pt PullWidth","PtPullWidth; pT, GeV; Pt PullWidth");
+    fGraphPtPtPullWidthMother -> SetNameTitle("Pt PullWidth","PtPullWidth; p_{T}, GeV; Pt PullWidth");
     fGraphPtMassPullWidthMother = MakeSigmaGraphFromTH2(fHistPtMassPullMother);
-    fGraphPtMassPullWidthMother -> SetNameTitle("Mass PullWidth","MassPullWidth; pT, GeV; Mass PullWidth");
+    fGraphPtMassPullWidthMother -> SetNameTitle("Mass PullWidth","MassPullWidth; p_{T}, GeV; Mass PullWidth");
+    fGraphPtEPullWidthMother = MakeSigmaGraphFromTH2(fHistPtEPullMother);
+    fGraphPtEPullWidthMother -> SetNameTitle("E PullWidth","EPullWidth; p_{T}, GeV; E PullWidth");
     for(int i = 0; i < NUM_OF_DAUGHTERS; i++){
         fGraphPtXPullWidthDaughter[i] = MakeSigmaGraphFromTH2(fHistPtXPullDaughter[i]);
-        fGraphPtXPullWidthDaughter[i] -> SetNameTitle("X PullWidth","XPullWidth; pT, GeV; X PullWidth");
+        fGraphPtXPullWidthDaughter[i] -> SetNameTitle("X PullWidth","XPullWidth; p_{T}, GeV; X PullWidth");
         fGraphPtYPullWidthDaughter[i] = MakeSigmaGraphFromTH2(fHistPtYPullDaughter[i]);
-        fGraphPtYPullWidthDaughter[i] -> SetNameTitle("Y PullWidth","YPullWidth; pT, GeV; Y PullWidth");
+        fGraphPtYPullWidthDaughter[i] -> SetNameTitle("Y PullWidth","YPullWidth; p_{T}, GeV; Y PullWidth");
         fGraphPtZPullWidthDaughter[i] = MakeSigmaGraphFromTH2(fHistPtZPullDaughter[i]);
-        fGraphPtZPullWidthDaughter[i] -> SetNameTitle("Z PullWidth","ZPullWidth; pT, GeV; Z PullWidth");
+        fGraphPtZPullWidthDaughter[i] -> SetNameTitle("Z PullWidth","ZPullWidth; p_{T}, GeV; Z PullWidth");
         fGraphPtPxPullWidthDaughter[i] = MakeSigmaGraphFromTH2(fHistPtPxPullDaughter[i]);
-        fGraphPtPxPullWidthDaughter[i] -> SetNameTitle("Px PullWidth","PxPullWidth; pT, GeV; Px PullWidth");
+        fGraphPtPxPullWidthDaughter[i] -> SetNameTitle("Px PullWidth","PxPullWidth; p_{T}, GeV; Px PullWidth");
         fGraphPtPyPullWidthDaughter[i] = MakeSigmaGraphFromTH2(fHistPtPyPullDaughter[i]);
-        fGraphPtPyPullWidthDaughter[i] -> SetNameTitle("Py PullWidth","PyPullWidth; pT, GeV; Py PullWidth");
+        fGraphPtPyPullWidthDaughter[i] -> SetNameTitle("Py PullWidth","PyPullWidth; p_{T}, GeV; Py PullWidth");
         fGraphPtPzPullWidthDaughter[i] = MakeSigmaGraphFromTH2(fHistPtPzPullDaughter[i]);
-        fGraphPtPzPullWidthDaughter[i] -> SetNameTitle("Pz PullWidth","PzPullWidth; pT, GeV; Pz PullWidth");
+        fGraphPtPzPullWidthDaughter[i] -> SetNameTitle("Pz PullWidth","PzPullWidth; p_{T}, GeV; Pz PullWidth");
         fGraphPtPtPullWidthDaughter[i] = MakeSigmaGraphFromTH2(fHistPtPtPullDaughter[i]);
-        fGraphPtPtPullWidthDaughter[i] -> SetNameTitle("Pt PullWidth","PtPullWidth; pT, GeV; Pt PullWidth");
+        fGraphPtPtPullWidthDaughter[i] -> SetNameTitle("Pt PullWidth","PtPullWidth; p_{T}, GeV; Pt PullWidth");
         fGraphPtMassPullWidthDaughter[i] = MakeSigmaGraphFromTH2(fHistPtMassPullDaughter[i]);
-        fGraphPtMassPullWidthDaughter[i] -> SetNameTitle("Mass PullWidth","MassPullWidth; pT, GeV; Mass PullWidth");
+        fGraphPtMassPullWidthDaughter[i] -> SetNameTitle("Mass PullWidth","MassPullWidth; p_{T}, GeV; Mass PullWidth");
+        fGraphPtEPullWidthDaughter[i] = MakeSigmaGraphFromTH2(fHistPtEPullDaughter[i]);
+        fGraphPtEPullWidthDaughter[i] -> SetNameTitle("E PullWidth","EPullWidth; p_{T}, GeV; E PullWidth");
     }
 
     /////////
@@ -1351,6 +1441,7 @@ void MakeKFUnitTestHistos(){
     /////////
     //  write all the stuff into output file
     ////
+    cout << " Writing output file\n";
 
     MotherMC_Dir -> cd();
         fHistXMotherMC -> Write();
@@ -1407,6 +1498,7 @@ void MakeKFUnitTestHistos(){
         fHistEtaMotherKFBR -> Write();
         fHistPhiMotherKFBR -> Write();
         fHistChi2MotherKFBR -> Write();
+        fHistNDFMotherKFBR -> Write();
 
     for (int i = 0; i < NUM_OF_DAUGHTERS; i++) {
         DaughtersKFBR_Dir[i] -> cd();
@@ -1426,6 +1518,7 @@ void MakeKFUnitTestHistos(){
             fHistEtaDaughterKFBR[i] -> Write();
             fHistPhiDaughterKFBR[i] -> Write();
             fHistChi2DaughterKFBR[i] -> Write();
+            fHistNDFDaughterKFBR[i] -> Write();
     }
 
     MotherKFAR_Dir -> cd();
@@ -1445,6 +1538,7 @@ void MakeKFUnitTestHistos(){
         fHistEtaMotherKFAR -> Write();
         fHistPhiMotherKFAR -> Write();
         fHistChi2MotherKFAR -> Write();
+        fHistNDFMotherKFAR -> Write();
 
     for (int i = 0; i < NUM_OF_DAUGHTERS; i++) {
         DaughtersKFAR_Dir[i] -> cd();
@@ -1463,7 +1557,8 @@ void MakeKFUnitTestHistos(){
             fHistMassDaughterKFAR[i] -> Write();
             fHistEtaDaughterKFAR[i] -> Write();
             fHistPhiDaughterKFAR[i] -> Write();
-            fHistChi2DaughterKFAR[i] -> Write();/**/
+            fHistChi2DaughterKFAR[i] -> Write();
+            fHistNDFDaughterKFAR[i] -> Write();
     }
 
     /////////
@@ -1476,6 +1571,7 @@ void MakeKFUnitTestHistos(){
         fHistPtPzResidMother -> Write();
         fHistPtPtResidMother -> Write();
         fHistPtMassResidMother -> Write();
+        fHistPtEResidMother -> Write();
 
     for (int i = 0; i < NUM_OF_DAUGHTERS; i++){
         DaughtersResidPtDep_Dir[i] -> cd();
@@ -1487,6 +1583,7 @@ void MakeKFUnitTestHistos(){
             fHistPtPzResidDaughter[i] -> Write();
             fHistPtPtResidDaughter[i] -> Write();
             fHistPtMassResidDaughter[i] -> Write();
+            fHistPtEResidDaughter[i] -> Write();
     }
 
     //////////////////
@@ -1499,6 +1596,7 @@ void MakeKFUnitTestHistos(){
         fHistPtPzPullMother -> Write();
         fHistPtPtPullMother -> Write();
         fHistPtMassPullMother -> Write();
+        fHistPtEPullMother -> Write();
    
     for (int i = 0; i < NUM_OF_DAUGHTERS; i++){
         DaughtersPullPtDep_Dir[i] -> cd();
@@ -1510,6 +1608,7 @@ void MakeKFUnitTestHistos(){
             fHistPtPzPullDaughter[i] -> Write();
             fHistPtPtPullDaughter[i] -> Write();
             fHistPtMassPullDaughter[i] -> Write();
+            fHistPtEPullDaughter[i] -> Write();
     }
 
 
@@ -1523,6 +1622,7 @@ void MakeKFUnitTestHistos(){
         fHistPzResidMother -> Write();
         fHistPtResidMother -> Write();
         fHistMassResidMother -> Write();
+        fHistEResidMother -> Write();
    
     for (int i = 0; i < NUM_OF_DAUGHTERS; i++){
         DaughtersResidHistos_Dir[i] -> cd();
@@ -1534,6 +1634,7 @@ void MakeKFUnitTestHistos(){
             fHistPzResidDaughter[i] -> Write();
             fHistPtResidDaughter[i] -> Write();
             fHistMassResidDaughter[i] -> Write();
+            fHistEResidDaughter[i] -> Write();
     }
 
     /////////////
@@ -1546,6 +1647,7 @@ void MakeKFUnitTestHistos(){
         fHistPzPullMother -> Write();
         fHistPtPullMother -> Write();
         fHistMassPullMother -> Write();
+        fHistEPullMother -> Write();
     
     for (int i = 0; i < NUM_OF_DAUGHTERS; i++){
         DaughtersPullHistos_Dir[i] -> cd();
@@ -1557,6 +1659,7 @@ void MakeKFUnitTestHistos(){
             fHistPzPullDaughter[i] -> Write();
             fHistPtPullDaughter[i] -> Write();
             fHistMassPullDaughter[i] -> Write();
+            fHistEPullDaughter[i] -> Write();
     }
 
     ///////////////////////////////////////////////////////////////
@@ -1569,6 +1672,7 @@ void MakeKFUnitTestHistos(){
         fGraphPtPzMeanResidMother -> Write();
         fGraphPtPtMeanResidMother -> Write();
         fGraphPtMassMeanResidMother -> Write();
+        fGraphPtEMeanResidMother -> Write();
    
     for (int i = 0; i < NUM_OF_DAUGHTERS; i++){
         DaughtersMeanResidPtDepPlots_Dir[i] -> cd();
@@ -1580,6 +1684,7 @@ void MakeKFUnitTestHistos(){
             fGraphPtPzMeanResidDaughter[i] -> Write();
             fGraphPtPtMeanResidDaughter[i] -> Write();
             fGraphPtMassMeanResidDaughter[i] -> Write();
+            fGraphPtEMeanResidDaughter[i] -> Write();
     }
 
     ///////////////////////////////////////////////////////////////
@@ -1592,6 +1697,7 @@ void MakeKFUnitTestHistos(){
         fGraphPtPzMeanPullMother -> Write();
         fGraphPtPtMeanPullMother -> Write();
         fGraphPtMassMeanPullMother -> Write();
+        fGraphPtEMeanPullMother -> Write();
     
     for (int i = 0; i < NUM_OF_DAUGHTERS; i++){
         DaughtersMeanPullPtDepPlots_Dir[i] -> cd();
@@ -1603,6 +1709,7 @@ void MakeKFUnitTestHistos(){
             fGraphPtPzMeanPullDaughter[i] -> Write();
             fGraphPtPtMeanPullDaughter[i] -> Write();
             fGraphPtMassMeanPullDaughter[i] -> Write();
+            fGraphPtEMeanPullDaughter[i] -> Write();
     }
 
     ///////////////////////////////////////////////////////////////
@@ -1615,6 +1722,7 @@ void MakeKFUnitTestHistos(){
         fGraphPtPzResolMother -> Write();
         fGraphPtPtResolMother -> Write();
         fGraphPtMassResolMother -> Write();
+        fGraphPtEResolMother -> Write();
     
     for (int i = 0; i < NUM_OF_DAUGHTERS; i++){
         DaughtersResolPtDepPlots_Dir[i] -> cd();
@@ -1626,6 +1734,7 @@ void MakeKFUnitTestHistos(){
             fGraphPtPzResolDaughter[i] -> Write();
             fGraphPtPtResolDaughter[i] -> Write();
             fGraphPtMassResolDaughter[i] -> Write();
+            fGraphPtEResolDaughter[i] -> Write();
     }
 
     ///////////////////////////////////////////////////////////////
@@ -1638,6 +1747,7 @@ void MakeKFUnitTestHistos(){
         fGraphPtPzPullWidthMother -> Write();
         fGraphPtPtPullWidthMother -> Write();
         fGraphPtMassPullWidthMother -> Write();
+        fGraphPtEPullWidthMother -> Write();
   
     for (int i = 0; i < NUM_OF_DAUGHTERS; i++){
         DaughtersPullWidthPtDepPlots_Dir[i] -> cd();
@@ -1649,6 +1759,7 @@ void MakeKFUnitTestHistos(){
             fGraphPtPzPullWidthDaughter[i] -> Write();
             fGraphPtPtPullWidthDaughter[i] -> Write();
             fGraphPtMassPullWidthDaughter[i] -> Write();
+            fGraphPtEPullWidthDaughter[i] -> Write();
     }
 
     OtherHistos -> cd();
@@ -1658,6 +1769,9 @@ void MakeKFUnitTestHistos(){
     outputFile.Close();
 
     cout << endl;
+    cout << "The macro is done. Results are saved in " << 
+    KFHistoOutputFile << endl;
+
 
 }
 

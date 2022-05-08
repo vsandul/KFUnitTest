@@ -14,7 +14,9 @@ bool SmearDaughter(KFParticle& part);
 bool SmearPrimaryVertex(KFPVertex& vert);
 
 
-void MakeKFParticleTrees(){    
+void MakeKFParticleTrees(){
+
+    cout << "\n Starting MakeKFParticleTrees macro \n";
 
     //get magnetic field from file......
 
@@ -26,8 +28,17 @@ void MakeKFParticleTrees(){
     std::cout << "NonhomogeneousField option is set" << std::endl;
     #endif
 
+    TChain chainMagField(nameOfMagFieldTree);
+    std::cout << "\nMCInputFile: " << MCInputFile << '\n' << std::endl;
+    chainMagField.Add(MCInputFile);
+    
+    float magField[3];
+    chainMagField.SetBranchAddress( "magField", &magField);
+    chainMagField.GetEntry(0);
+    std::cout << "Magnetic Field {Bx,By,Bz} = " << magField[0] << "   " << magField[1] << "   " << magField[2] << "   tesla" << std::endl;
+
     // check the field
-    KFParticle::SetField(0.5); // Bz
+    KFParticle::SetField(magField[2]); // Bz, tesla
     {
         float xyz[3] = {0,0,0};
         float B[3];
@@ -40,6 +51,7 @@ void MakeKFParticleTrees(){
     // Lets read data from the input file and create output file
     //ROOT file reading...
     ///////////////////////////////////////////////////////
+    cout << "Reading input and createing output\n";
     TChain chain(nameOfMCTree);
     std::cout << "\nMCInputFile: " << MCInputFile << '\n' << std::endl;
     chain.Add(MCInputFile);
@@ -326,6 +338,8 @@ void MakeKFParticleTrees(){
 
     int nEvents = chain.GetEntries();
 
+    cout << endl;
+    cout << "Starting the event loop\n";
     ////////////////////////////////////////////////////////
     //          START OF THE EVENT LOOP
     ////////////////////////////////////////////////////////
@@ -419,7 +433,6 @@ void MakeKFParticleTrees(){
             float chi2_ = mother_MC.chi2;
             int ndf_ = mother_MC.ndf;
             float mass_ = mother_MC.mass;
-            //mother_KF.Create(params_M,covmat_M,charge_,chi2_,ndf_,mass_);
             mother_KF.SetId(mother_MC.trackID);
             mother_KF.SetPDG(mother_MC.pdg);
 
@@ -429,10 +442,14 @@ void MakeKFParticleTrees(){
             float covmat_D[21];
             std::copy(covmat_vec_.begin(), covmat_vec_.end(), covmat_D);
             charge_ = daughters_MC[i].charge;
-            chi2_ = daughters_MC[i].chi2;
-            ndf_ = daughters_MC[i].ndf;
+            chi2_ = 0;//daughters_MC[i].chi2;
+            ndf_ = 0;//daughters_MC[i].ndf;
             mass_ = daughters_MC[i].mass;
+            #ifdef TESTSUITE
             daughters_KF[i].Create(params_D,covmat_D,charge_,chi2_,ndf_,mass_);
+            #else
+            daughters_KF[i].Create(params_D,covmat_D,charge_,mass_);
+            #endif
             daughters_KF[i].SetId(daughters_MC[i].trackID);
             daughters_KF[i].SetPDG(daughters_MC[i].pdg);
         }
@@ -546,23 +563,28 @@ void MakeKFParticleTrees(){
 
         // do particle reconstruction here
         mother_KF.SetConstructMethod(CONSTRUCT_METHOD_NUMBER);
-        
-        if (SET_MASS_CONSTRAINT_MOTHER)
-            mother_KF.SetMassConstraint(mother_MC.mass);
-        if (SET_TOPOLOGICAL_CONSTRAINT_MOTHER){
-            // IMPLEMENT CODE HERE...
-        }
 
         for (auto& part:daughters_KF){
             bool isDecomposedOK = SmearDaughter(part);
-            if (SET_MASS_CONSTRAINT_MOTHER)
-                part.SetMassConstraint(part.GetMassHypo());
             mother_KF.AddDaughter(part);
         }
+
+        if (SET_TOPOLOGICAL_CONSTRAINT_MOTHER){
+            // IMPLEMENT CODE HERE...
+        }
+        if (SET_MASS_CONSTRAINT_MOTHER)
+            mother_KF.SetMassConstraint(mother_MC.mass);
+
         if (SET_TOPOLOGICAL_CONSTRAINT_DAUGHTERS){
             for (auto& part:daughters_KF)
                 part.SetProductionVertex(mother_KF);
         }
+        if (SET_MASS_CONSTRAINT_DAUGHTERS){
+            for (auto& part:daughters_KF){
+                part.SetMassConstraint(part.GetMassHypo());
+            }
+        }
+
         // Fill KFAR tree
         nTracks_KFAR = NUM_OF_MOTHERS+NUM_OF_DAUGHTERS;
         numOfMCEvent_KFAR = iEvent;
@@ -680,7 +702,7 @@ void MakeKFParticleTrees(){
     outputFile.Close();
 
 
-    cout << endl;
+    cout << "The macro is done. Results are saved in " << KFTreeOutputFile << endl;
 
 }
 

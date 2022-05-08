@@ -2,6 +2,8 @@
 
 #include <vector>
 
+#define TESTSUITE
+
 const int NUM_OF_DAUGHTERS = 2;
 const int NUM_OF_MOTHERS = 1;
 const int NUM_OF_DECAYS = NUM_OF_MOTHERS;
@@ -15,6 +17,9 @@ const int PIPLUS_PDG = 211;
 const int MOTHER_PDG = D0_PDG;
 const std::vector<int> DAUGTHERS_PDGS = {KMINUS_PDG, PIPLUS_PDG};
 
+const bool CHECK_PDG_MOTHER = true;
+const bool CHECK_PDG_DAUGHTERS = true;
+
 const int CONSTRUCT_METHOD_NUMBER = 2; // 0 or 2
 
 const bool SET_MASS_CONSTRAINT_MOTHER = false;// 
@@ -23,8 +28,9 @@ const bool SET_MASS_CONSTRAINT_DAUGHTERS = false;//
 const bool SET_TOPOLOGICAL_CONSTRAINT_MOTHER = false;//must know covmat of primary vertex
 const bool SET_TOPOLOGICAL_CONSTRAINT_DAUGHTERS = false;//
 
-const TString MCInputFile = "../MCData/D0_to_Kminus_Piplus/D0_decay_output.root";
+const TString MCInputFile = "../MCData/D0_to_Kminus_Piplus/D0_to_Kminus_Piplus_output.root";
 const TString nameOfMCTree = "Events";
+const TString nameOfMagFieldTree = "MagField";
 
 const TString KFTreeOutputFile = "outputKFTrees_D0_decay.root";
 const TString nameOfKFBRTree = "KFBeforeReco";
