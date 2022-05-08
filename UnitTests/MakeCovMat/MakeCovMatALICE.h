@@ -3,6 +3,8 @@
 #include <vector>
 #include <cmath>
 
+#include "../ParticleStructures.h"
+
 // This function is just an example, but not
 // a real analysis template. Please, do not
 // use it for ALICE data analysis - it is
@@ -28,9 +30,11 @@
 // pxpx, pypy, ... - in GeV^2
 // xpx, ypy, zpz, ... - in microns*GeV
 
-std::vector<float> MakeCovMatALICE(double pt, int nITSclust){
+std::vector<float> MakeCovMatALICE(MCParticle part){
     // 6x6 matrix has 21 indep. elements. Lets define all of them.
     std::vector<float> covmat(21);
+
+    float pt = part.pT();
 
     covmat[0] = -3.59281e-06 + 1.02589e-05/(2.90359e-02+exp(-1.23947/pt)) ; // σxx
     covmat[1] = -1.03361e-04 - 2.13155e-05/pt + 8.35099e-05*log(3.34901+(1./pt)) ; // σxy
@@ -72,12 +76,6 @@ std::vector<float> MakeCovMatALICE(double pt, int nITSclust){
     covmat[16] *= 1e4;
     covmat[17] *= 1e4;
 
-
-    if (nITSclust < 0 || nITSclust >6)
-        return covmat;
-
-    for (auto & el : covmat)
-        el *= (1. + (6-nITSclust)*0.2);
 
     return covmat;
 

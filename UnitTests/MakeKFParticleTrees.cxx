@@ -4,6 +4,7 @@
 
 #include "ParticleStructures.h"
 #include "./MakeCovMat/MakeCovMatALICE.h"
+//#include "./MakeCovMat/MakeCovMatALICE2.h"
 #include "./MakeCovMat/CheckCovMat.h"
 #include "./ConfigConstants.h"
 
@@ -425,8 +426,8 @@ void MakeKFParticleTrees(){
         }
             
         /// Create KFParticles from MCParticles
-           float params_M[6] = {mother_MC.x,mother_MC.y,mother_MC.z,mother_MC.pX,mother_MC.pY,mother_MC.pZ};
-            std::vector<float> covmat_vec_ = MakeCovMatALICE(mother_MC.pT(),6);
+            float params_M[6] = {mother_MC.x,mother_MC.y,mother_MC.z,mother_MC.pX,mother_MC.pY,mother_MC.pZ};
+            std::vector<float> covmat_vec_ = MakeCovMatALICE(mother_MC);
             float covmat_M[21];
             std::copy(covmat_vec_.begin(), covmat_vec_.end(), covmat_M);
             int charge_ = mother_MC.charge;
@@ -438,7 +439,7 @@ void MakeKFParticleTrees(){
 
         for (int i = 0; i < NUM_OF_DAUGHTERS; i++){
             float params_D[6] = {daughters_MC[i].x,daughters_MC[i].y,daughters_MC[i].z,daughters_MC[i].pX,daughters_MC[i].pY,daughters_MC[i].pZ};
-            covmat_vec_ = MakeCovMatALICE(daughters_MC[i].pT(),6);
+            covmat_vec_ = MakeCovMatALICE(daughters_MC[i]);
             float covmat_D[21];
             std::copy(covmat_vec_.begin(), covmat_vec_.end(), covmat_D);
             charge_ = daughters_MC[i].charge;
@@ -564,8 +565,10 @@ void MakeKFParticleTrees(){
         // do particle reconstruction here
         mother_KF.SetConstructMethod(CONSTRUCT_METHOD_NUMBER);
 
+        bool isDecomposedOK = true;
         for (auto& part:daughters_KF){
-            bool isDecomposedOK = SmearDaughter(part);
+            isDecomposedOK = SmearDaughter(part);
+            //cout << iEvent << "\n";
             mother_KF.AddDaughter(part);
         }
 
@@ -588,7 +591,7 @@ void MakeKFParticleTrees(){
         // Fill KFAR tree
         nTracks_KFAR = NUM_OF_MOTHERS+NUM_OF_DAUGHTERS;
         numOfMCEvent_KFAR = iEvent;
-        isAllCovMatOK_KFAR = true;
+        isAllCovMatOK_KFAR = isDecomposedOK;
 
             id_KFAR[0] = mother_KF.Id();
             idMC_KFAR[0] = mother_MC.trackID;
@@ -732,7 +735,7 @@ bool SmearParameters(size_t num_of_params, T parameters[], T covMatArr[]){
         //cout << "i = " << i << "; n_row = " << n_row << "; n_col = " << n_col << "\n";
         covMat[n_row][n_col] = covMat[n_col][n_row] = covMatArr[i];
     }
-
+    
     TMatrixF decomposedMatrix;
     gErrorIgnoreLevel=kFatal;
     TDecompChol *choleskyComposition = new TDecompChol(covMat);
