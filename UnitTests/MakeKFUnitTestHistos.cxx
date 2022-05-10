@@ -124,7 +124,7 @@ void MakeKFUnitTestHistos(){
     TH1F *fHistMassMotherMC = new TH1F("fHistMassMotherMC", "Mass MC; M, GeV; counts",1000,0.,10.);
     TH1F *fHistEtaMotherMC = new TH1F("fHistEtaMotherMC", "Eta MC; #eta; counts",1000, -10, 10);
     TH1F *fHistPhiMotherMC = new TH1F("fHistPhiMotherMC", "Phi MC; #varphi; counts",1000, -6.5, 6.5);
-    TH1F *fHistChi2MotherMC = new TH1F("fHistChi2MotherMC", "Chi2 MC; #xi^{2}; counts",1000, -10, 10);
+    TH1F *fHistChi2MotherMC = new TH1F("fHistChi2MotherMC", "Chi2 MC; #chi^{2}; counts",1000, -10, 10);
     std::array<TH1F*, NUM_OF_DAUGHTERS> fHistXDaughterMC;
     std::array<TH1F*, NUM_OF_DAUGHTERS> fHistYDaughterMC;
     std::array<TH1F*, NUM_OF_DAUGHTERS> fHistZDaughterMC;
@@ -210,7 +210,7 @@ void MakeKFUnitTestHistos(){
         fHistMassDaughterKFBR[i] = new TH1F(Form("fHistMassDaughterKFBR%i",i+1), "Mass KFBR; M, GeV; counts",1000,0.,10.);
         fHistEtaDaughterKFBR[i] = new TH1F(Form("fHistEtaDaughterKFBR%i",i+1), "Eta KFBR; #eta; counts",1000,-10.,10.);
         fHistPhiDaughterKFBR[i] = new TH1F(Form("fHistPhiDaughterKFBR%i",i+1), "Phi KFBR; #varphi; counts",1000,-6.5,6.5);
-        fHistChi2DaughterKFBR[i] = new TH1F(Form("fHistChi2DaughterKFBR%i",i+1), "Chi2 KFBR; #chi2^{2}; counts",1000, -10, 10);
+        fHistChi2DaughterKFBR[i] = new TH1F(Form("fHistChi2DaughterKFBR%i",i+1), "Chi2 KFBR; #chi^{2}; counts",1000, -10, 10);
         fHistNDFDaughterKFBR[i] = new TH1F(Form("fHistNDFDaughterKFBR%i",i+1), "NDF KFBR; NDF; counts",1000, -10, 10);
     }
 
@@ -264,15 +264,15 @@ void MakeKFUnitTestHistos(){
         fHistMassDaughterKFAR[i] = new TH1F(Form("fHistMassDaughterKFAR%i",i+1), "Mass KFAR; M, GeV; counts",1000,0.,10.);
         fHistEtaDaughterKFAR[i] = new TH1F(Form("fHistEtaDaughterKFAR%i",i+1), "Eta KFAR; #eta; counts",1000,-10.,10.);
         fHistPhiDaughterKFAR[i] = new TH1F(Form("fHistPhiDaughterKFAR%i",i+1), "Phi KFAR; #varphi; counts",1000,-6.5,6.5);
-        fHistChi2DaughterKFAR[i] = new TH1F(Form("fHistChi2DaughterKFAR%i",i+1), "Chi2 KFAR; #xi^{2}; counts",1000, -10, 10);
+        fHistChi2DaughterKFAR[i] = new TH1F(Form("fHistChi2DaughterKFAR%i",i+1), "Chi2 KFAR; #chi^{2}; counts",1000, -10, 10);
         fHistNDFDaughterKFAR[i] = new TH1F(Form("fHistNDFDaughterKFAR%i",i+1), "NDF KFAR; NDF; counts",1000, -10, 10);
     }
 
     /////////
 
-    TH2F *fHistPtXResidMother = new TH2F("fHistPtXResidMother", "Pt-X Resid histo; p_{T}, GeV; X residual, #mu",50,0,15, 100,-1e3,1e3);
-    TH2F *fHistPtYResidMother = new TH2F("fHistPtYResidMother", "Pt-Y Resid histo; p_{T}, GeV; Y residual, #mu",50,0,15, 100,-1e3,1e3);
-    TH2F *fHistPtZResidMother = new TH2F("fHistPtZResidMother", "Pt-Z Resid histo; p_{T}, GeV; Z residual, #mu",50,0,15, 100,-1e3,1e3);
+    TH2F *fHistPtXResidMother = new TH2F("fHistPtXResidMother", "Pt-X Resid histo; p_{T}, GeV; X residual, #mu",50,0,10, 100,-1e3,1e3);
+    TH2F *fHistPtYResidMother = new TH2F("fHistPtYResidMother", "Pt-Y Resid histo; p_{T}, GeV; Y residual, #mu",50,0,10, 100,-1e3,1e3);
+    TH2F *fHistPtZResidMother = new TH2F("fHistPtZResidMother", "Pt-Z Resid histo; p_{T}, GeV; Z residual, #mu",50,0,10, 100,-1e3,1e3);
     TH2F *fHistPtPxResidMother = new TH2F("fHistPtPxResidMother", "Pt-Px Resid histo; p_{T}, GeV; Px residual, GeV",50,0,10, 50,-0.1,0.1);
     TH2F *fHistPtPyResidMother = new TH2F("fHistPtPyResidMother", "Pt-Py Resid histo; p_{T}, GeV; Py residual, GeV",50,0,10, 50,-0.1,0.1);
     TH2F *fHistPtPzResidMother = new TH2F("fHistPtPzResidMother", "Pt-Pz Resid histo; p_{T}, GeV; Pz residual, GeV",50,0,10, 50,-0.1,0.1);
@@ -289,9 +289,9 @@ void MakeKFUnitTestHistos(){
     std::array<TH2F*, NUM_OF_DAUGHTERS> fHistPtMassResidDaughter;
     std::array<TH2F*, NUM_OF_DAUGHTERS> fHistPtEResidDaughter;
     for (int i = 0; i < NUM_OF_DAUGHTERS; i++){
-        fHistPtXResidDaughter[i] = new TH2F(Form("fHistPtXResidDaughter%i",i), "Pt-X Resid histo; p_{T}, GeV; X residual, #mu",50,0,15, 100,-1e3,1e3);
-        fHistPtYResidDaughter[i] = new TH2F(Form("fHistPtYResidDaughter%i",i), "Pt-Y Resid histo; p_{T}, GeV; Y residual, #mu",50,0,15, 100,-1e3,1e3);
-        fHistPtZResidDaughter[i] = new TH2F(Form("fHistPtZResidDaughter%i",i), "Pt-Z Resid histo; p_{T}, GeV; Z residual, #mu",50,0,15, 100,-1e3,1e3);
+        fHistPtXResidDaughter[i] = new TH2F(Form("fHistPtXResidDaughter%i",i), "Pt-X Resid histo; p_{T}, GeV; X residual, #mu",50,0,10, 100,-1e3,1e3);
+        fHistPtYResidDaughter[i] = new TH2F(Form("fHistPtYResidDaughter%i",i), "Pt-Y Resid histo; p_{T}, GeV; Y residual, #mu",50,0,10, 100,-1e3,1e3);
+        fHistPtZResidDaughter[i] = new TH2F(Form("fHistPtZResidDaughter%i",i), "Pt-Z Resid histo; p_{T}, GeV; Z residual, #mu",50,0,10, 100,-1e3,1e3);
         fHistPtPxResidDaughter[i] = new TH2F(Form("fHistPtPxResidDaughter%i",i), "Pt-Px Resid histo; p_{T}, GeV; Px residual, GeV",50,0,10, 50,-0.1,0.1);
         fHistPtPyResidDaughter[i] = new TH2F(Form("fHistPtPyResidDaughter%i",i), "Pt-Py Resid histo; p_{T}, GeV; Py residual, GeV",50,0,10, 50,-0.1,0.1);
         fHistPtPzResidDaughter[i] = new TH2F(Form("fHistPtPzResidDaughter%i",i), "Pt-Pz Resid histo; p_{T}, GeV; Pz residual, GeV",50,0,10, 50,-0.1,0.1);
@@ -302,15 +302,15 @@ void MakeKFUnitTestHistos(){
 
     //////////////////
 
-    TH2F *fHistPtXPullMother = new TH2F("fHistPtXPullMother", "Pt-X Pull histo; p_{T}, GeV; X Pull, #mu",50,0,15, 100,-10,10);
-    TH2F *fHistPtYPullMother = new TH2F("fHistPtYPullMother", "Pt-Y Pull histo; p_{T}, GeV; Y Pull, #mu",50,0,15, 100,-10,10);
-    TH2F *fHistPtZPullMother = new TH2F("fHistPtZPullMother", "Pt-Z Pull histo; p_{T}, GeV; Z Pull, #mu",50,0,15, 100,-10,10);
-    TH2F *fHistPtPxPullMother = new TH2F("fHistPtPxPullMother", "Pt-Px Pull histo; p_{T}, GeV; Px Pull, GeV",50,0,10, 50,-15,15);
-    TH2F *fHistPtPyPullMother = new TH2F("fHistPtPyPullMother", "Pt-Py Pull histo; p_{T}, GeV; Py Pull, GeV",50,0,10, 50,-15,15);
-    TH2F *fHistPtPzPullMother = new TH2F("fHistPtPzPullMother", "Pt-Pz Pull histo; p_{T}, GeV; Pz Pull, GeV",50,0,10, 50,-15,15);
-    TH2F *fHistPtPtPullMother = new TH2F("fHistPtPtPullMother", "Pt-Pt Pull histo; p_{T}, GeV; Pt Pull, GeV",50,0,10, 50,-15,15);
-    TH2F *fHistPtMassPullMother = new TH2F("fHistPtMassPullMother", "Pt-Mass Pull histo; p_{T}, GeV; Mass Pull, GeV",50,0,10, 50,-5,5);
-    TH2F *fHistPtEPullMother = new TH2F("fHistPtEPullMother", "Pt-E Pull histo; p_{T}, GeV; E Pull, GeV",50,0,10, 50,-15,15);
+    TH2F *fHistPtXPullMother = new TH2F("fHistPtXPullMother", "Pt-X Pull histo; p_{T}, GeV; X Pull",50,0,10, 100,-10,10);
+    TH2F *fHistPtYPullMother = new TH2F("fHistPtYPullMother", "Pt-Y Pull histo; p_{T}, GeV; Y Pull",50,0,10, 100,-10,10);
+    TH2F *fHistPtZPullMother = new TH2F("fHistPtZPullMother", "Pt-Z Pull histo; p_{T}, GeV; Z Pull",50,0,10, 100,-10,10);
+    TH2F *fHistPtPxPullMother = new TH2F("fHistPtPxPullMother", "Pt-Px Pull histo; p_{T}, GeV; Px Pull",50,0,10, 50,-15,15);
+    TH2F *fHistPtPyPullMother = new TH2F("fHistPtPyPullMother", "Pt-Py Pull histo; p_{T}, GeV; Py Pull",50,0,10, 50,-15,15);
+    TH2F *fHistPtPzPullMother = new TH2F("fHistPtPzPullMother", "Pt-Pz Pull histo; p_{T}, GeV; Pz Pull",50,0,10, 50,-15,15);
+    TH2F *fHistPtPtPullMother = new TH2F("fHistPtPtPullMother", "Pt-Pt Pull histo; p_{T}, GeV; Pt Pull",50,0,10, 50,-15,15);
+    TH2F *fHistPtMassPullMother = new TH2F("fHistPtMassPullMother", "Pt-Mass Pull histo; p_{T}, GeV; Mass Pull",50,0,10, 50,-5,5);
+    TH2F *fHistPtEPullMother = new TH2F("fHistPtEPullMother", "Pt-E Pull histo; p_{T}, GeV; E Pull",50,0,10, 50,-15,15);
     std::array<TH2F*, NUM_OF_DAUGHTERS> fHistPtXPullDaughter;
     std::array<TH2F*, NUM_OF_DAUGHTERS> fHistPtYPullDaughter;
     std::array<TH2F*, NUM_OF_DAUGHTERS> fHistPtZPullDaughter;
@@ -321,15 +321,15 @@ void MakeKFUnitTestHistos(){
     std::array<TH2F*, NUM_OF_DAUGHTERS> fHistPtMassPullDaughter;
     std::array<TH2F*, NUM_OF_DAUGHTERS> fHistPtEPullDaughter;
     for (int i = 0; i < NUM_OF_DAUGHTERS; i++){
-        fHistPtXPullDaughter[i] = new TH2F(Form("fHistPtXPullDaughter%i",i), "Pt-X Pull histo; p_{T}, GeV; X Pull, #mu",50,0,15, 100,-10,10);
-        fHistPtYPullDaughter[i] = new TH2F(Form("fHistPtYPullDaughter%i",i), "Pt-Y Pull histo; p_{T}, GeV; Y Pull, #mu",50,0,15, 100,-10,10);
-        fHistPtZPullDaughter[i] = new TH2F(Form("fHistPtZPullDaughter%i",i), "Pt-Z Pull histo; p_{T}, GeV; Z Pull, #mu",50,0,15, 100,-10,10);
-        fHistPtPxPullDaughter[i] = new TH2F(Form("fHistPtPxPullDaughter%i",i), "Pt-Px Pull histo; p_{T}, GeV; Px Pull, GeV",50,0,10, 50,-15,15);
-        fHistPtPyPullDaughter[i] = new TH2F(Form("fHistPtPyPullDaughter%i",i), "Pt-Py Pull histo; p_{T}, GeV; Py Pull, GeV",50,0,10, 50,-15,15);
-        fHistPtPzPullDaughter[i] = new TH2F(Form("fHistPtPzPullDaughter%i",i), "Pt-Pz Pull histo; p_{T}, GeV; Pz Pull, GeV",50,0,10, 50,-15,15);
-        fHistPtPtPullDaughter[i] = new TH2F(Form("fHistPtPtPullDaughter%i",i), "Pt-Pt Pull histo; p_{T}, GeV; Pt Pull, GeV",50,0,10, 50,-15,15);
-        fHistPtMassPullDaughter[i] = new TH2F(Form("fHistPtMassPullDaughter%i",i), "Pt-Mass Pull histo; p_{T}, GeV; Mass Pull, GeV",50,0,10, 50,-0.4,0.4);
-        fHistPtEPullDaughter[i] = new TH2F("fHistPtEPullMother", "Pt-E Pull histo; p_{T}, GeV; E Pull, GeV",50,0,10, 50,-15,15);
+        fHistPtXPullDaughter[i] = new TH2F(Form("fHistPtXPullDaughter%i",i), "Pt-X Pull histo; p_{T}, GeV; X Pull",50,0,10, 100,-10,10);
+        fHistPtYPullDaughter[i] = new TH2F(Form("fHistPtYPullDaughter%i",i), "Pt-Y Pull histo; p_{T}, GeV; Y Pull",50,0,10, 100,-10,10);
+        fHistPtZPullDaughter[i] = new TH2F(Form("fHistPtZPullDaughter%i",i), "Pt-Z Pull histo; p_{T}, GeV; Z Pull",50,0,10, 100,-10,10);
+        fHistPtPxPullDaughter[i] = new TH2F(Form("fHistPtPxPullDaughter%i",i), "Pt-Px Pull histo; p_{T}, GeV; Px Pull",50,0,10, 50,-15,15);
+        fHistPtPyPullDaughter[i] = new TH2F(Form("fHistPtPyPullDaughter%i",i), "Pt-Py Pull histo; p_{T}, GeV; Py Pull",50,0,10, 50,-15,15);
+        fHistPtPzPullDaughter[i] = new TH2F(Form("fHistPtPzPullDaughter%i",i), "Pt-Pz Pull histo; p_{T}, GeV; Pz Pull",50,0,10, 50,-15,15);
+        fHistPtPtPullDaughter[i] = new TH2F(Form("fHistPtPtPullDaughter%i",i), "Pt-Pt Pull histo; p_{T}, GeV; Pt Pull",50,0,10, 50,-15,15);
+        fHistPtMassPullDaughter[i] = new TH2F(Form("fHistPtMassPullDaughter%i",i), "Pt-Mass Pull histo; p_{T}, GeV; Mass Pull",50,0,10, 50,-0.4,0.4);
+        fHistPtEPullDaughter[i] = new TH2F("fHistPtEPullMother", "Pt-E Pull histo; p_{T}, GeV; E Pull",50,0,10, 50,-15,15);
     }
 
 
@@ -367,15 +367,15 @@ void MakeKFUnitTestHistos(){
 
     /////////////
 
-    TH1D *fHistXPullMother = new TH1D("fHistXPullMother", "X Pull histo; X Pull, #mu; counts",100,-1e3,1e3);
-    TH1D *fHistYPullMother = new TH1D("fHistYPullMother", "Y Pull histo; Y Pull, #mu; counts",100,-1e3,1e3);
-    TH1D *fHistZPullMother = new TH1D("fHistZPullMother", "Z Pull histo; Z Pull, #mu; counts",100,-1e3,1e3);
-    TH1D *fHistPxPullMother = new TH1D("fHistPxPullMother", "Px Pull histo; Px Pull, GeV; counts",50,-0.15,0.15);
-    TH1D *fHistPyPullMother = new TH1D("fHistPyPullMother", "Py Pull histo; Py Pull, GeV; counts",50,-0.15,0.15);
-    TH1D *fHistPzPullMother = new TH1D("fHistPzPullMother", "Pz Pull histo; Pz Pull, GeV; counts",50,-0.15,0.15);
-    TH1D *fHistPtPullMother = new TH1D("fHistPtPullMother", "Pt - Pull histo; Pt Pull, GeV; counts",50,-0.15,0.15);
-    TH1D *fHistMassPullMother = new TH1D("fHistMassPullMother", "Mass Pull histo; Mass Pull, GeV; counts",50,-0.15,0.15);
-    TH1D *fHistEPullMother = new TH1D("fHistEPullMother", "E Pull histo; E Pull, GeV; counts",50,-0.15,0.15);
+    TH1D *fHistXPullMother = new TH1D("fHistXPullMother", "X Pull histo; X Pull; counts",100,-1e3,1e3);
+    TH1D *fHistYPullMother = new TH1D("fHistYPullMother", "Y Pull histo; Y Pull; counts",100,-1e3,1e3);
+    TH1D *fHistZPullMother = new TH1D("fHistZPullMother", "Z Pull histo; Z Pull; counts",100,-1e3,1e3);
+    TH1D *fHistPxPullMother = new TH1D("fHistPxPullMother", "Px Pull histo; Px Pull; counts",50,-0.15,0.15);
+    TH1D *fHistPyPullMother = new TH1D("fHistPyPullMother", "Py Pull histo; Py Pull; counts",50,-0.15,0.15);
+    TH1D *fHistPzPullMother = new TH1D("fHistPzPullMother", "Pz Pull histo; Pz Pull; counts",50,-0.15,0.15);
+    TH1D *fHistPtPullMother = new TH1D("fHistPtPullMother", "Pt - Pull histo; Pt Pull; counts",50,-0.15,0.15);
+    TH1D *fHistMassPullMother = new TH1D("fHistMassPullMother", "Mass Pull histo; Mass Pull; counts",50,-0.15,0.15);
+    TH1D *fHistEPullMother = new TH1D("fHistEPullMother", "E Pull histo; E Pull; counts",50,-0.15,0.15);
     std::array<TH1D*, NUM_OF_DAUGHTERS> fHistXPullDaughter;
     std::array<TH1D*, NUM_OF_DAUGHTERS> fHistYPullDaughter;
     std::array<TH1D*, NUM_OF_DAUGHTERS> fHistZPullDaughter;
@@ -386,15 +386,15 @@ void MakeKFUnitTestHistos(){
     std::array<TH1D*, NUM_OF_DAUGHTERS> fHistMassPullDaughter;
     std::array<TH1D*, NUM_OF_DAUGHTERS> fHistEPullDaughter;
     for (int i = 0; i < NUM_OF_DAUGHTERS; i++){
-        fHistXPullDaughter[i] = new TH1D(Form("fHistXPullDaughter%i",i), "X Pull histo; X Pull, #mu; counts",100,-1e3,1e3);
-        fHistYPullDaughter[i] = new TH1D(Form("fHistYPullDaughter%i",i), "Y Pull histo; Y Pull, #mu; counts",100,-1e3,1e3);
-        fHistZPullDaughter[i] = new TH1D(Form("fHistZPullDaughter%i",i), "Z Pull histo; Z Pull, #mu; counts",100,-1e3,1e3);
-        fHistPxPullDaughter[i] = new TH1D(Form("fHistPxPullDaughter%i",i), "Px Pull histo; Px Pull, GeV; counts",50,-0.15,0.15);
-        fHistPyPullDaughter[i] = new TH1D(Form("fHistPyPullDaughter%i",i), "Py Pull histo; Py Pull, GeV; counts",50,-0.15,0.15);
-        fHistPzPullDaughter[i] = new TH1D(Form("fHistPzPullDaughter%i",i), "Pz Pull histo; Pz Pull, GeV; counts",50,-0.15,0.15);
-        fHistPtPullDaughter[i] = new TH1D(Form("fHistPtPullDaughter%i",i), "Pt Pull histo;  Pull, GeV; counts",50,-0.15,0.15);
-        fHistMassPullDaughter[i] = new TH1D(Form("fHistMassPullDaughter%i",i), "Mass Pull histo; Mass Pull, GeV; counts",50,-0.15,0.15);
-        fHistEPullDaughter[i] = new TH1D(Form("fHistEPullDaughter%i",i), "E Pull histo; E Pull, GeV; counts",50,-0.15,0.15);
+        fHistXPullDaughter[i] = new TH1D(Form("fHistXPullDaughter%i",i), "X Pull histo; X Pull; counts",100,-1e3,1e3);
+        fHistYPullDaughter[i] = new TH1D(Form("fHistYPullDaughter%i",i), "Y Pull histo; Y Pull; counts",100,-1e3,1e3);
+        fHistZPullDaughter[i] = new TH1D(Form("fHistZPullDaughter%i",i), "Z Pull histo; Z Pull; counts",100,-1e3,1e3);
+        fHistPxPullDaughter[i] = new TH1D(Form("fHistPxPullDaughter%i",i), "Px Pull histo; Px Pull; counts",50,-0.15,0.15);
+        fHistPyPullDaughter[i] = new TH1D(Form("fHistPyPullDaughter%i",i), "Py Pull histo; Py Pull; counts",50,-0.15,0.15);
+        fHistPzPullDaughter[i] = new TH1D(Form("fHistPzPullDaughter%i",i), "Pz Pull histo; Pz Pull; counts",50,-0.15,0.15);
+        fHistPtPullDaughter[i] = new TH1D(Form("fHistPtPullDaughter%i",i), "Pt Pull histo;  Pull; counts",50,-0.15,0.15);
+        fHistMassPullDaughter[i] = new TH1D(Form("fHistMassPullDaughter%i",i), "Mass Pull histo; Mass Pull; counts",50,-0.15,0.15);
+        fHistEPullDaughter[i] = new TH1D(Form("fHistEPullDaughter%i",i), "E Pull histo; E Pull; counts",50,-0.15,0.15);
     }
 
     ///////////////////////////////////////////////////////////////

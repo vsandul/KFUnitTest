@@ -562,6 +562,9 @@ void MakeKFParticleTrees(){
             sErr_KFBR[j] = daughters_KF[i].GetErrS();
          }
 
+        if(!isAllCovMatOK_KFBR)
+            continue;
+
         // do particle reconstruction here
         mother_KF.SetConstructMethod(CONSTRUCT_METHOD_NUMBER);
 
