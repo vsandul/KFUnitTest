@@ -2,7 +2,8 @@
 
 #include <vector>
 
-#define TESTSUITE
+#define TESTSUITE  // uncomment if you are using Testsuite branch of KFParticle
+//#define ALIPHYSICS   // uncomment if you are using KFParticle inside AliPhysics
 
 const int NUM_OF_DAUGHTERS = 2;
 const int NUM_OF_MOTHERS = 1;

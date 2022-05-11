@@ -784,7 +784,11 @@ bool SmearDaughter(KFParticle& part){
     float charge = (int)part.GetQ();
     int ndf = part.GetNDF();
 
+    #ifdef TESTSUITE
     part.Create(params, covmat, charge, chi2, ndf, mass);
+    #else
+    part.Create(params, covmat, charge, mass);
+    #endif
 
     return res;
 }
