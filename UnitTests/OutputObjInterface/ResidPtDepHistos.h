@@ -348,7 +348,9 @@ void ResidPtDepHistos::PreWriteProcess(){
 }
 
 void ResidPtDepHistos::Write(){
-    TDirectory* ResidPtDep_Dir = outputFile->mkdir("ResidPtDependencies");
+    TDirectory* Resid_Dir = outputFile->mkdir("Residuals");
+
+    TDirectory* ResidPtDep_Dir = Resid_Dir->mkdir("ResidPtDependencies");
         TDirectory* MotherResidPtDep_Dir = ResidPtDep_Dir->mkdir("Mother");
         std::array<TDirectory*, NUM_OF_DAUGHTERS> DaughtersResidPtDep_Dir;
             for (int i = 0; i < NUM_OF_DAUGHTERS; i++)
@@ -378,7 +380,7 @@ void ResidPtDepHistos::Write(){
     }
     /////////////////////////////////
     /////////////////////////////////
-    TDirectory* ResidHistos_Dir = outputFile->mkdir("ResidHistos");
+    TDirectory* ResidHistos_Dir = Resid_Dir->mkdir("ResidHistos");
         TDirectory* MotherResidHistos_Dir = ResidHistos_Dir->mkdir("Mother");
         std::array<TDirectory*, NUM_OF_DAUGHTERS> DaughtersResidHistos_Dir;
             for (int i = 0; i < NUM_OF_DAUGHTERS; i++)
@@ -408,7 +410,7 @@ void ResidPtDepHistos::Write(){
     }
     /////////////////////////////////
     /////////////////////////////////
-    TDirectory* MeanResidPtDepPlots_Dir = outputFile->mkdir("MeanResidPtDepPlots");
+    TDirectory* MeanResidPtDepPlots_Dir = Resid_Dir->mkdir("MeanResidPtDepPlots");
         TDirectory* MotherMeanResidPtDepPlots_Dir = MeanResidPtDepPlots_Dir->mkdir("Mother");
         std::array<TDirectory*, NUM_OF_DAUGHTERS> DaughtersMeanResidPtDepPlots_Dir;
             for (int i = 0; i < NUM_OF_DAUGHTERS; i++)
@@ -438,7 +440,7 @@ void ResidPtDepHistos::Write(){
     }
     /////////////////////////////////
     /////////////////////////////////
-    TDirectory* ResolPtDepPlots_Dir = outputFile->mkdir("ResolPtDepPlots");
+    TDirectory* ResolPtDepPlots_Dir = Resid_Dir->mkdir("ResolPtDepPlots");
         TDirectory* MotherResolPtDepPlots_Dir = ResolPtDepPlots_Dir->mkdir("Mother");
         std::array<TDirectory*, NUM_OF_DAUGHTERS> DaughtersResolPtDepPlots_Dir;
             for (int i = 0; i < NUM_OF_DAUGHTERS; i++)

@@ -10,6 +10,8 @@
 #include "ResidPtDepHistos.h"
 #include "PullPtDepHistos.h"
 
+//#include "ExampleOutput.h"
+
 struct OutputMap{
 public:
     OutputMap(){};
@@ -18,7 +20,6 @@ public:
     std::unordered_map<std::string, OutputObjInterface*> map;
 
     void CreateAll();
-    void FillAll();
     void PreWriteProcessAll();
     void WriteAll();
 
@@ -26,6 +27,8 @@ private:
     // instances of user-defined classes of output objects
     ResidPtDepHistos *residPTOutput;
     PullPtDepHistos *pullPTOutput;
+
+    //ExampleOutput *exampleOutput;
 };
 
 //---------- add objects into map ------------
@@ -36,6 +39,9 @@ OutputMap::OutputMap(TFile& outFile){
 
     pullPTOutput = new PullPtDepHistos(outFile);
     map["pullPTOutput"] = pullPTOutput;
+
+    //exampleOutput = new ExampleOutput(outFile);
+    //map["exampleOutput"] = exampleOutput;
 }
 
 
@@ -45,11 +51,6 @@ void OutputMap::CreateAll(){
     for (auto& [name,obj]:map)
         obj->Create();
 }
-
-void OutputMap::FillAll(){
-    for (auto& [name,obj]:map)
-        obj->Fill();
-};
 
 void OutputMap::PreWriteProcessAll(){
     for (auto& [name,obj]:map)

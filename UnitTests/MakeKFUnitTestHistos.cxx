@@ -890,8 +890,12 @@ void MakeKFUnitTestHistos(){
             kfpart_.lifeTimeErr = lifeTimeErr_KFAR[iTrack];
             kfpart_.rErr = rErr_KFAR[iTrack];
             
-            for (auto& [name,obj]:output_map.map)
+            for (auto& [name,obj]:output_map.map){
                 obj->Fill(mcpart_, kfpart_);
+                obj->Fill(kfpart_);
+                obj->Fill(mcpart_);
+            }
+                
 
         } // end of track loop
 
