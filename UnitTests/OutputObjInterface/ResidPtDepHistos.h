@@ -103,25 +103,32 @@ private:
 ////---------- method implementations ----------
 ////////////////////////////////////////////////
 void ResidPtDepHistos::Create(){
-    fHistPtXResidMother = new TH2F("fHistPtXResidMother", "Pt-X Resid histo; p_{T}, GeV; X residual, cm",50,0,10, 100,-1e-1,1e-1);
-    fHistPtYResidMother = new TH2F("fHistPtYResidMother", "Pt-Y Resid histo; p_{T}, GeV; Y residual, cm",50,0,10, 100,-1e-1,1e-1);
-    fHistPtZResidMother = new TH2F("fHistPtZResidMother", "Pt-Z Resid histo; p_{T}, GeV; Z residual, cm",50,0,10, 100,-1e-1,1e-1);
-    fHistPtPxResidMother = new TH2F("fHistPtPxResidMother", "Pt-Px Resid histo; p_{T}, GeV; Px residual, GeV",50,0,10, 50,-0.1,0.1);
-    fHistPtPyResidMother = new TH2F("fHistPtPyResidMother", "Pt-Py Resid histo; p_{T}, GeV; Py residual, GeV",50,0,10, 50,-0.1,0.1);
-    fHistPtPzResidMother = new TH2F("fHistPtPzResidMother", "Pt-Pz Resid histo; p_{T}, GeV; Pz residual, GeV",50,0,10, 50,-0.1,0.1);
-    fHistPtPtResidMother = new TH2F("fHistPtPtResidMother", "Pt-Pt Resid histo; p_{T}, GeV; Pt residual, GeV",50,0,10, 50,-0.1,0.1);
-    fHistPtMassResidMother = new TH2F("fHistPtMassResidMother", "Pt-Mass Resid histo; p_{T}, GeV; Mass residual, GeV",50,0,10, 50,-0.1,0.1);
-    fHistPtEResidMother = new TH2F("fHistPtEResidMother", "Pt-E Resid histo; p_{T}, GeV; E residual, GeV",50,0,10, 50,-0.1,0.1);
+    int LogBinsX = 30;
+    double StartValueX = 0.05;
+    double StopValueX = 12;
+    double LogWidthX[LogBinsX+1];
+    for(int i = 0; i <= LogBinsX; i++) 
+        LogWidthX[i] = pow(10,log10(StartValueX)+(log10(StopValueX)-log10(StartValueX))/double(LogBinsX)*double(i));
+
+    fHistPtXResidMother = new TH2F("fHistPtXResidMother", "Pt-X Resid histo; p_{T}, GeV; X residual, cm",LogBinsX, LogWidthX, 100,-1e-1,1e-1);
+    fHistPtYResidMother = new TH2F("fHistPtYResidMother", "Pt-Y Resid histo; p_{T}, GeV; Y residual, cm",LogBinsX, LogWidthX, 100,-1e-1,1e-1);
+    fHistPtZResidMother = new TH2F("fHistPtZResidMother", "Pt-Z Resid histo; p_{T}, GeV; Z residual, cm",LogBinsX, LogWidthX, 100,-1e-1,1e-1);
+    fHistPtPxResidMother = new TH2F("fHistPtPxResidMother", "Pt-Px Resid histo; p_{T}, GeV; Px residual, GeV",LogBinsX, LogWidthX, 50,-0.1,0.1);
+    fHistPtPyResidMother = new TH2F("fHistPtPyResidMother", "Pt-Py Resid histo; p_{T}, GeV; Py residual, GeV",LogBinsX, LogWidthX, 50,-0.1,0.1);
+    fHistPtPzResidMother = new TH2F("fHistPtPzResidMother", "Pt-Pz Resid histo; p_{T}, GeV; Pz residual, GeV",LogBinsX, LogWidthX, 50,-0.1,0.1);
+    fHistPtPtResidMother = new TH2F("fHistPtPtResidMother", "Pt-Pt Resid histo; p_{T}, GeV; Pt residual, GeV",LogBinsX, LogWidthX, 50,-0.1,0.1);
+    fHistPtMassResidMother = new TH2F("fHistPtMassResidMother", "Pt-Mass Resid histo; p_{T}, GeV; Mass residual, GeV",LogBinsX, LogWidthX, 50,-0.1,0.1);
+    fHistPtEResidMother = new TH2F("fHistPtEResidMother", "Pt-E Resid histo; p_{T}, GeV; E residual, GeV",LogBinsX, LogWidthX, 50,-0.1,0.1);
     for (int i = 0; i < NUM_OF_DAUGHTERS; i++){
-        fHistPtXResidDaughter[i] = new TH2F(Form("fHistPtXResidDaughter%i",i), "Pt-X Resid histo; p_{T}, GeV; X residual, cm",50,0,10, 100,-1e-1,1e-1);
-        fHistPtYResidDaughter[i] = new TH2F(Form("fHistPtYResidDaughter%i",i), "Pt-Y Resid histo; p_{T}, GeV; Y residual, cm",50,0,10, 100,-1e-1,1e-1);
-        fHistPtZResidDaughter[i] = new TH2F(Form("fHistPtZResidDaughter%i",i), "Pt-Z Resid histo; p_{T}, GeV; Z residual, cm",50,0,10, 100,-1e-1,1e-1);
-        fHistPtPxResidDaughter[i] = new TH2F(Form("fHistPtPxResidDaughter%i",i), "Pt-Px Resid histo; p_{T}, GeV; Px residual, GeV",50,0,10, 50,-0.1,0.1);
-        fHistPtPyResidDaughter[i] = new TH2F(Form("fHistPtPyResidDaughter%i",i), "Pt-Py Resid histo; p_{T}, GeV; Py residual, GeV",50,0,10, 50,-0.1,0.1);
-        fHistPtPzResidDaughter[i] = new TH2F(Form("fHistPtPzResidDaughter%i",i), "Pt-Pz Resid histo; p_{T}, GeV; Pz residual, GeV",50,0,10, 50,-0.1,0.1);
-        fHistPtPtResidDaughter[i] = new TH2F(Form("fHistPtPtResidDaughter%i",i), "Pt-Pt Resid histo; p_{T}, GeV; Pt residual, GeV",50,0,10, 50,-0.1,0.1);
-        fHistPtMassResidDaughter[i] = new TH2F(Form("fHistPtMassResidDaughter%i",i), "Pt-Mass Resid histo; p_{T}, GeV; Mass residual, GeV",50,0,10, 50,-0.1,0.1);
-        fHistPtEResidDaughter[i] = new TH2F("fHistPtEResidMother", "Pt-E Resid histo; p_{T}, GeV; E residual, GeV",50,0,10, 50,-0.1,0.1);
+        fHistPtXResidDaughter[i] = new TH2F(Form("fHistPtXResidDaughter%i",i), "Pt-X Resid histo; p_{T}, GeV; X residual, cm",LogBinsX, LogWidthX, 100,-1e-1,1e-1);
+        fHistPtYResidDaughter[i] = new TH2F(Form("fHistPtYResidDaughter%i",i), "Pt-Y Resid histo; p_{T}, GeV; Y residual, cm",LogBinsX, LogWidthX, 100,-1e-1,1e-1);
+        fHistPtZResidDaughter[i] = new TH2F(Form("fHistPtZResidDaughter%i",i), "Pt-Z Resid histo; p_{T}, GeV; Z residual, cm",LogBinsX, LogWidthX, 100,-1e-1,1e-1);
+        fHistPtPxResidDaughter[i] = new TH2F(Form("fHistPtPxResidDaughter%i",i), "Pt-Px Resid histo; p_{T}, GeV; Px residual, GeV",LogBinsX, LogWidthX, 50,-0.1,0.1);
+        fHistPtPyResidDaughter[i] = new TH2F(Form("fHistPtPyResidDaughter%i",i), "Pt-Py Resid histo; p_{T}, GeV; Py residual, GeV",LogBinsX, LogWidthX, 50,-0.1,0.1);
+        fHistPtPzResidDaughter[i] = new TH2F(Form("fHistPtPzResidDaughter%i",i), "Pt-Pz Resid histo; p_{T}, GeV; Pz residual, GeV",LogBinsX, LogWidthX, 50,-0.1,0.1);
+        fHistPtPtResidDaughter[i] = new TH2F(Form("fHistPtPtResidDaughter%i",i), "Pt-Pt Resid histo; p_{T}, GeV; Pt residual, GeV",LogBinsX, LogWidthX, 50,-0.1,0.1);
+        fHistPtMassResidDaughter[i] = new TH2F(Form("fHistPtMassResidDaughter%i",i), "Pt-Mass Resid histo; p_{T}, GeV; Mass residual, GeV",LogBinsX, LogWidthX, 50,-0.1,0.1);
+        fHistPtEResidDaughter[i] = new TH2F("fHistPtEResidMother", "Pt-E Resid histo; p_{T}, GeV; E residual, GeV",LogBinsX, LogWidthX, 50,-0.1,0.1);
     }
     //////////////////////////////////////////
     //////////////////////////////////////////

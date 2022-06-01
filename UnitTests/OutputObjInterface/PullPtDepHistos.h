@@ -102,25 +102,32 @@ private:
 ////---------- method implementations ----------
 ////////////////////////////////////////////////
 void PullPtDepHistos::Create(){
-    fHistPtXPullMother = new TH2F("fHistPtXPullMother", "Pt-X Pull histo; p_{T}, GeV; X Pull",50,0,10, 100,-10,10);
-    fHistPtYPullMother = new TH2F("fHistPtYPullMother", "Pt-Y Pull histo; p_{T}, GeV; Y Pull",50,0,10, 100,-10,10);
-    fHistPtZPullMother = new TH2F("fHistPtZPullMother", "Pt-Z Pull histo; p_{T}, GeV; Z Pull",50,0,10, 100,-10,10);
-    fHistPtPxPullMother = new TH2F("fHistPtPxPullMother", "Pt-Px Pull histo; p_{T}, GeV; Px Pull",50,0,10, 50,-15,15);
-    fHistPtPyPullMother = new TH2F("fHistPtPyPullMother", "Pt-Py Pull histo; p_{T}, GeV; Py Pull",50,0,10, 50,-15,15);
-    fHistPtPzPullMother = new TH2F("fHistPtPzPullMother", "Pt-Pz Pull histo; p_{T}, GeV; Pz Pull",50,0,10, 50,-15,15);
-    fHistPtPtPullMother = new TH2F("fHistPtPtPullMother", "Pt-Pt Pull histo; p_{T}, GeV; Pt Pull",50,0,10, 50,-15,15);
-    fHistPtMassPullMother = new TH2F("fHistPtMassPullMother", "Pt-Mass Pull histo; p_{T}, GeV; Mass Pull",50,0,10, 50,-5,5);
-    fHistPtEPullMother = new TH2F("fHistPtEPullMother", "Pt-E Pull histo; p_{T}, GeV; E Pull",50,0,10, 50,-15,15);
+    int LogBinsX = 30;
+    double StartValueX = 0.05;
+    double StopValueX = 12;
+    double LogWidthX[LogBinsX+1];
+    for(int i = 0; i <= LogBinsX; i++) 
+        LogWidthX[i] = pow(10,log10(StartValueX)+(log10(StopValueX)-log10(StartValueX))/double(LogBinsX)*double(i));
+
+    fHistPtXPullMother = new TH2F("fHistPtXPullMother", "Pt-X Pull histo; p_{T}, GeV; X Pull",LogBinsX, LogWidthX, 100,-10,10);
+    fHistPtYPullMother = new TH2F("fHistPtYPullMother", "Pt-Y Pull histo; p_{T}, GeV; Y Pull",LogBinsX, LogWidthX, 100,-10,10);
+    fHistPtZPullMother = new TH2F("fHistPtZPullMother", "Pt-Z Pull histo; p_{T}, GeV; Z Pull",LogBinsX, LogWidthX, 100,-10,10);
+    fHistPtPxPullMother = new TH2F("fHistPtPxPullMother", "Pt-Px Pull histo; p_{T}, GeV; Px Pull",LogBinsX, LogWidthX, 50,-15,15);
+    fHistPtPyPullMother = new TH2F("fHistPtPyPullMother", "Pt-Py Pull histo; p_{T}, GeV; Py Pull",LogBinsX, LogWidthX, 50,-15,15);
+    fHistPtPzPullMother = new TH2F("fHistPtPzPullMother", "Pt-Pz Pull histo; p_{T}, GeV; Pz Pull",LogBinsX, LogWidthX, 50,-15,15);
+    fHistPtPtPullMother = new TH2F("fHistPtPtPullMother", "Pt-Pt Pull histo; p_{T}, GeV; Pt Pull",LogBinsX, LogWidthX, 50,-15,15);
+    fHistPtMassPullMother = new TH2F("fHistPtMassPullMother", "Pt-Mass Pull histo; p_{T}, GeV; Mass Pull",LogBinsX, LogWidthX, 50,-5,5);
+    fHistPtEPullMother = new TH2F("fHistPtEPullMother", "Pt-E Pull histo; p_{T}, GeV; E Pull",LogBinsX, LogWidthX, 50,-15,15);
     for (int i = 0; i < NUM_OF_DAUGHTERS; i++){
-        fHistPtXPullDaughter[i] = new TH2F(Form("fHistPtXPullDaughter%i",i), "Pt-X Pull histo; p_{T}, GeV; X Pull",50,0,10, 100,-10,10);
-        fHistPtYPullDaughter[i] = new TH2F(Form("fHistPtYPullDaughter%i",i), "Pt-Y Pull histo; p_{T}, GeV; Y Pull",50,0,10, 100,-10,10);
-        fHistPtZPullDaughter[i] = new TH2F(Form("fHistPtZPullDaughter%i",i), "Pt-Z Pull histo; p_{T}, GeV; Z Pull",50,0,10, 100,-10,10);
-        fHistPtPxPullDaughter[i] = new TH2F(Form("fHistPtPxPullDaughter%i",i), "Pt-Px Pull histo; p_{T}, GeV; Px Pull",50,0,10, 50,-15,15);
-        fHistPtPyPullDaughter[i] = new TH2F(Form("fHistPtPyPullDaughter%i",i), "Pt-Py Pull histo; p_{T}, GeV; Py Pull",50,0,10, 50,-15,15);
-        fHistPtPzPullDaughter[i] = new TH2F(Form("fHistPtPzPullDaughter%i",i), "Pt-Pz Pull histo; p_{T}, GeV; Pz Pull",50,0,10, 50,-15,15);
-        fHistPtPtPullDaughter[i] = new TH2F(Form("fHistPtPtPullDaughter%i",i), "Pt-Pt Pull histo; p_{T}, GeV; Pt Pull",50,0,10, 50,-15,15);
-        fHistPtMassPullDaughter[i] = new TH2F(Form("fHistPtMassPullDaughter%i",i), "Pt-Mass Pull histo; p_{T}, GeV; Mass Pull",50,0,10, 50,-0.4,0.4);
-        fHistPtEPullDaughter[i] = new TH2F("fHistPtEPullMother", "Pt-E Pull histo; p_{T}, GeV; E Pull",50,0,10, 50,-15,15);
+        fHistPtXPullDaughter[i] = new TH2F(Form("fHistPtXPullDaughter%i",i), "Pt-X Pull histo; p_{T}, GeV; X Pull",LogBinsX, LogWidthX, 100,-10,10);
+        fHistPtYPullDaughter[i] = new TH2F(Form("fHistPtYPullDaughter%i",i), "Pt-Y Pull histo; p_{T}, GeV; Y Pull",LogBinsX, LogWidthX, 100,-10,10);
+        fHistPtZPullDaughter[i] = new TH2F(Form("fHistPtZPullDaughter%i",i), "Pt-Z Pull histo; p_{T}, GeV; Z Pull",LogBinsX, LogWidthX, 100,-10,10);
+        fHistPtPxPullDaughter[i] = new TH2F(Form("fHistPtPxPullDaughter%i",i), "Pt-Px Pull histo; p_{T}, GeV; Px Pull",LogBinsX, LogWidthX, 50,-15,15);
+        fHistPtPyPullDaughter[i] = new TH2F(Form("fHistPtPyPullDaughter%i",i), "Pt-Py Pull histo; p_{T}, GeV; Py Pull",LogBinsX, LogWidthX, 50,-15,15);
+        fHistPtPzPullDaughter[i] = new TH2F(Form("fHistPtPzPullDaughter%i",i), "Pt-Pz Pull histo; p_{T}, GeV; Pz Pull",LogBinsX, LogWidthX, 50,-15,15);
+        fHistPtPtPullDaughter[i] = new TH2F(Form("fHistPtPtPullDaughter%i",i), "Pt-Pt Pull histo; p_{T}, GeV; Pt Pull",LogBinsX, LogWidthX, 50,-15,15);
+        fHistPtMassPullDaughter[i] = new TH2F(Form("fHistPtMassPullDaughter%i",i), "Pt-Mass Pull histo; p_{T}, GeV; Mass Pull",LogBinsX, LogWidthX, 50,-0.4,0.4);
+        fHistPtEPullDaughter[i] = new TH2F("fHistPtEPullMother", "Pt-E Pull histo; p_{T}, GeV; E Pull",LogBinsX, LogWidthX, 50,-15,15);
     }
     //
     fHistXPullMother = new TH1D("fHistXPullMother", "X Pull histo; X Pull; counts",100,-1e-1,1e-1);
