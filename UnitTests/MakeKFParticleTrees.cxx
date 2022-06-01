@@ -2,17 +2,10 @@
 #include "TFile.h"
 #include "TTree.h"
 
-#include "ParticleStructures.h"
-#include "./MakeCovMat/MakeCovMatALICE.h"
-//#include "./MakeCovMat/MakeCovMatALICE2.h"
-#include "./MakeCovMat/CheckCovMat.h"
-#include "./ConfigConstants.h"
+#include "ParticleStructures/MCParticleStructure.h"
+#include "ConfigConstants.h"
 
-
-template<typename T>
-bool SmearParameters(size_t num_of_params, T parameters[], T covMatArr[]);
-bool SmearDaughter(KFParticle& part);
-bool SmearPrimaryVertex(KFPVertex& vert);
+#include "HeadersList.h"
 
 
 void MakeKFParticleTrees(){
@@ -39,7 +32,7 @@ void MakeKFParticleTrees(){
     std::cout << "Magnetic Field {Bx,By,Bz} = " << magField[0] << "   " << magField[1] << "   " << magField[2] << "   tesla" << std::endl;
 
     // check the field
-    KFParticle::SetField(magField[2]); // Bz, tesla
+    KFParticle::SetField(magField[2]*10); // Bz, *10 to convert tesla to kgauss
     {
         float xyz[3] = {0,0,0};
         float B[3];
@@ -61,14 +54,14 @@ void MakeKFParticleTrees(){
     int trackID_MC[MAX_NUM_OF_TRACKS];
     int parentID_MC[MAX_NUM_OF_TRACKS];
     int pdg_MC[MAX_NUM_OF_TRACKS];
-    float pdgLifeTime_MC[MAX_NUM_OF_TRACKS];
+    //float pdgLifeTime_MC[MAX_NUM_OF_TRACKS];
     int charge_MC[MAX_NUM_OF_TRACKS];
-    float trackX_MC[MAX_NUM_OF_TRACKS];
-    float trackY_MC[MAX_NUM_OF_TRACKS];
-    float trackZ_MC[MAX_NUM_OF_TRACKS];
-    float vertexX_MC[MAX_NUM_OF_TRACKS];
-    float vertexY_MC[MAX_NUM_OF_TRACKS];
-    float vertexZ_MC[MAX_NUM_OF_TRACKS];
+    float initialX_MC[MAX_NUM_OF_TRACKS];
+    float initialY_MC[MAX_NUM_OF_TRACKS];
+    float initialZ_MC[MAX_NUM_OF_TRACKS];
+    float finalX_MC[MAX_NUM_OF_TRACKS];
+    float finalY_MC[MAX_NUM_OF_TRACKS];
+    float finalZ_MC[MAX_NUM_OF_TRACKS];
     float trackLength_MC[MAX_NUM_OF_TRACKS];
     float initialPX_MC[MAX_NUM_OF_TRACKS];
     float initialPY_MC[MAX_NUM_OF_TRACKS];
@@ -82,14 +75,14 @@ void MakeKFParticleTrees(){
     chain.SetBranchAddress( "trackID", trackID_MC);
     chain.SetBranchAddress( "parentID", parentID_MC);
     chain.SetBranchAddress( "pdg", pdg_MC);
-    chain.SetBranchAddress( "pdgLifeTime", pdgLifeTime_MC);
+    //chain.SetBranchAddress( "pdgLifeTime", pdgLifeTime_MC);
     chain.SetBranchAddress( "charge", charge_MC);
-    chain.SetBranchAddress( "trackX", trackX_MC);
-    chain.SetBranchAddress( "trackY", trackY_MC);
-    chain.SetBranchAddress( "trackZ", trackZ_MC);
-    chain.SetBranchAddress( "vertexX", vertexX_MC);
-    chain.SetBranchAddress( "vertexY", vertexY_MC);
-    chain.SetBranchAddress( "vertexZ", vertexZ_MC);
+    chain.SetBranchAddress( "initialX", initialX_MC);
+    chain.SetBranchAddress( "initialY", initialY_MC);
+    chain.SetBranchAddress( "initialZ", initialZ_MC);
+    chain.SetBranchAddress( "finalX", finalX_MC);
+    chain.SetBranchAddress( "finalY", finalY_MC);
+    chain.SetBranchAddress( "finalZ", finalZ_MC);
     chain.SetBranchAddress( "trackLength", trackLength_MC);
     chain.SetBranchAddress( "initialPX", initialPX_MC);
     chain.SetBranchAddress( "initialPY", initialPY_MC);
@@ -361,8 +354,8 @@ void MakeKFParticleTrees(){
         }
 
         // create MC particles structure
-        MCParticle mother_MC;
-        std::array<MCParticle, NUM_OF_DAUGHTERS> daughters_MC;
+        MCParticleStruct mother_MC;
+        std::array<MCParticleStruct, NUM_OF_DAUGHTERS> daughters_MC;
 
         // create KFParticle structure for particles
         KFParticle mother_KF;
@@ -381,11 +374,11 @@ void MakeKFParticleTrees(){
                 mother_MC.trackID = iTrack;//trackID_MC[iTrack];
                 mother_MC.parentID = parentID_MC[iTrack];
                 mother_MC.pdg = pdg_MC[iTrack];
-                mother_MC.pdgLifeTime = pdgLifeTime_MC[iTrack];
+                //mother_MC.pdgLifeTime = pdgLifeTime_MC[iTrack];
                 mother_MC.charge = charge_MC[iTrack];
-                mother_MC.x = trackX_MC[iTrack];
-                mother_MC.y = trackY_MC[iTrack];
-                mother_MC.z = trackZ_MC[iTrack];
+                mother_MC.x = finalX_MC[iTrack];
+                mother_MC.y = finalY_MC[iTrack];
+                mother_MC.z = finalZ_MC[iTrack];
                 mother_MC.trackLength = trackLength_MC[iTrack];
                 mother_MC.pX = finalPX_MC[iTrack];
                 mother_MC.pY = finalPY_MC[iTrack];
@@ -401,11 +394,11 @@ void MakeKFParticleTrees(){
                 daughters_MC[daughterCounter].trackID = iTrack;//trackID_MC[iTrack];
                 daughters_MC[daughterCounter].parentID = parentID_MC[iTrack];
                 daughters_MC[daughterCounter].pdg = pdg_MC[iTrack];
-                daughters_MC[daughterCounter].pdgLifeTime = pdgLifeTime_MC[iTrack];
+                //daughters_MC[daughterCounter].pdgLifeTime = pdgLifeTime_MC[iTrack];
                 daughters_MC[daughterCounter].charge = charge_MC[iTrack];
-                daughters_MC[daughterCounter].x = vertexX_MC[iTrack];
-                daughters_MC[daughterCounter].y = vertexY_MC[iTrack];
-                daughters_MC[daughterCounter].z = vertexZ_MC[iTrack];
+                daughters_MC[daughterCounter].x = initialX_MC[iTrack];
+                daughters_MC[daughterCounter].y = initialY_MC[iTrack];
+                daughters_MC[daughterCounter].z = initialZ_MC[iTrack];
                 daughters_MC[daughterCounter].trackLength = trackLength_MC[iTrack];
                 daughters_MC[daughterCounter].pX = initialPX_MC[iTrack];
                 daughters_MC[daughterCounter].pY = initialPY_MC[iTrack];
@@ -425,7 +418,7 @@ void MakeKFParticleTrees(){
             continue;
         }
             
-        /// Create KFParticles from MCParticles
+        /// Create KFParticles from MCParticleStructs
             float params_M[6] = {mother_MC.x,mother_MC.y,mother_MC.z,mother_MC.pX,mother_MC.pY,mother_MC.pZ};
             std::vector<float> covmat_vec_ = MakeCovMatALICE(mother_MC);
             float covmat_M[21];
@@ -570,7 +563,7 @@ void MakeKFParticleTrees(){
 
         bool isDecomposedOK = true;
         for (auto& part:daughters_KF){
-            isDecomposedOK = SmearDaughter(part);
+            isDecomposedOK = SmearParticle(part);
             //cout << iEvent << "\n";
             mother_KF.AddDaughter(part);
         }
@@ -719,91 +712,3 @@ void MakeKFParticleTrees(){
 ///////////////
 
 
-template<typename T>
-bool SmearParameters(size_t num_of_params, T parameters[], T covMatArr[]){
-//some strings are borrowed from Annalena's code
-// https://github.com/AnnalenaKa/KFUnitTest
-    size_t covmat_size = num_of_params*(num_of_params+1)/2;
-    TRandom3 *randomGenerator = new TRandom3(0);
-    TVectorF randomVec(num_of_params);
-    for(size_t i = 0; i < num_of_params; i++){
-        randomVec[i] = randomGenerator->Gaus(0,1);
-    }
-    delete randomGenerator;
-
-    TMatrixF covMat(num_of_params,num_of_params); //lets convert vectorized covmat into TMatrix object
-    for (size_t i = 0; i < covmat_size; i++){
-        size_t n_row = floor((-1 + sqrt(1+8*i))/2);
-        size_t n_col = (n_row+1) - ((n_row+1)*(n_row+2)/2-i);
-        //cout << "i = " << i << "; n_row = " << n_row << "; n_col = " << n_col << "\n";
-        covMat[n_row][n_col] = covMat[n_col][n_row] = covMatArr[i];
-    }
-    
-    TMatrixF decomposedMatrix;
-    gErrorIgnoreLevel=kFatal;
-    TDecompChol *choleskyComposition = new TDecompChol(covMat);
-    if (choleskyComposition->Decompose() == false){
-        //cout<< "Matrix not pos. definite"<<endl;
-        return false;
-    }
-    decomposedMatrix.ResizeTo(choleskyComposition->GetU());
-    /// Decomposed matrix has property: U^T * U = Cov
-    // sets decomposedMatrix = U
-    decomposedMatrix = choleskyComposition->GetU();
-    delete choleskyComposition;
-    TMatrixD decomposedMatrix_t;
-    /// "draws" matrix with the size of decomposedMatrix
-    decomposedMatrix_t.ResizeTo(decomposedMatrix);
-    /// sets decomposedMatrix_t as the transpose of decomposedMatrix
-    decomposedMatrix_t.Transpose(decomposedMatrix);
-
-    TVectorF randomCorrVector = randomVec *= decomposedMatrix_t;
-    for (size_t iparam = 0; iparam < num_of_params; iparam++){
-        parameters[iparam] += randomCorrVector[iparam];
-    }
-
-    return true;
-}
-
-bool SmearDaughter(KFParticle& part){
-    size_t num_of_params = 6;
-    size_t covmat_size = num_of_params*(num_of_params+1)/2;
-
-    float params[num_of_params];
-    for (int i = 0; i < num_of_params; i++)
-        params[i] = part.GetParameter(i);
-
-    float covmat[covmat_size];
-    for (int i = 0; i < covmat_size; i++)
-        covmat[i] = part.GetCovariance(i);
-
-    bool res = SmearParameters(num_of_params, params, covmat);
-
-    float mass, masserr; part.GetMass(mass, masserr);
-    float chi2 = part.GetChi2();
-    float charge = (int)part.GetQ();
-    int ndf = part.GetNDF();
-
-    #ifdef TESTSUITE
-    part.Create(params, covmat, charge, chi2, ndf, mass);
-    #else
-    part.Create(params, covmat, charge, mass);
-    #endif
-
-    return res;
-}
-
-bool SmearPrimaryVertex(KFPVertex& vert){
-    size_t num_of_params = 3;
-    size_t covmat_size = num_of_params*(num_of_params+1)/2;
-
-    float params[num_of_params];
-    vert.GetXYZ(params);
-
-    float covmat[covmat_size];
-    vert.GetCovarianceMatrix(covmat);
-
-    bool res = SmearParameters(num_of_params, params, covmat);
-    vert.SetXYZ(params);
-    return res;
-}

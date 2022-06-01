@@ -26,6 +26,8 @@ const int CONSTRUCT_METHOD_NUMBER = 2; // 0 or 2
 const bool SET_MASS_CONSTRAINT_MOTHER = false;// 
 const bool SET_MASS_CONSTRAINT_DAUGHTERS = false;//
 
+// SetNonLinearMassConstraint....
+
 const bool SET_TOPOLOGICAL_CONSTRAINT_MOTHER = false;//must know covmat of primary vertex
 const bool SET_TOPOLOGICAL_CONSTRAINT_DAUGHTERS = false;//
 

@@ -3,7 +3,7 @@
 #include <vector>
 #include <cmath>
 
-#include "../ParticleStructures.h"
+#include "../ParticleStructures/MCParticleStructure.h"
 
 // This function is just an example, but not
 // a real analysis template. Please, do not
@@ -30,7 +30,7 @@
 // pxpx, pypy, ... - in GeV^2
 // xpx, ypy, zpz, ... - in microns*GeV
 
-std::vector<float> MakeCovMatALICE(MCParticle part){
+std::vector<float> MakeCovMatALICE(const MCParticleStruct& part){
     // 6x6 matrix has 21 indep. elements. Lets define all of them.
     std::vector<float> covmat(21);
 
@@ -59,7 +59,7 @@ std::vector<float> MakeCovMatALICE(MCParticle part){
     covmat[20] = 1.57546e-05 + 2.39963e-06/(9.59981e-03+exp(-2.02381*pt)) ; // σpzpz
 
     //go from cm to microns
-    covmat[0] *= 1e8;
+   /* covmat[0] *= 1e8;
     covmat[1] *= 1e8;
     covmat[2] *= 1e8;
     covmat[3] *= 1e8;
@@ -74,7 +74,7 @@ std::vector<float> MakeCovMatALICE(MCParticle part){
     covmat[12] *= 1e4;
     covmat[15] *= 1e4;
     covmat[16] *= 1e4;
-    covmat[17] *= 1e4;
+    covmat[17] *= 1e4;*/
 
 
     return covmat;
