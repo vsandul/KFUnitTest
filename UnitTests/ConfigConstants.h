@@ -9,7 +9,7 @@ const int NUM_OF_DAUGHTERS = 2;
 const int NUM_OF_MOTHERS = 1;
 const int NUM_OF_DECAYS = NUM_OF_MOTHERS;
 const int NUM_OF_KFPARTICLES = NUM_OF_MOTHERS + NUM_OF_DAUGHTERS;
-const int MAX_NUM_OF_TRACKS = 100;
+const int MAX_NUM_OF_TRACKS = 50;
 
 const int D0_PDG = 421;
 const int KMINUS_PDG = -321;

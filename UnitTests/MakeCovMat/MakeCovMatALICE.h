@@ -34,7 +34,11 @@ std::vector<float> MakeCovMatALICE(const MCParticleStruct& part){
     // 6x6 matrix has 21 indep. elements. Lets define all of them.
     std::vector<float> covmat(21);
 
-    float pt = part.pT();
+    float pt = -1.;
+    if (part.isMother)
+        pt = part.finalPT();
+    else
+        pt = part.initialPT();
 
     covmat[0] = -3.59281e-06 + 1.02589e-05/(2.90359e-02+exp(-1.23947/pt)) ; // σxx
     covmat[1] = -1.03361e-04 - 2.13155e-05/pt + 8.35099e-05*log(3.34901+(1./pt)) ; // σxy

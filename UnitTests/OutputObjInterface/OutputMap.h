@@ -9,6 +9,7 @@
 // User-defined classes of output objects
 #include "ResidPtDepHistos.h"
 #include "PullPtDepHistos.h"
+#include "TransportMethodCheck.h"
 
 //#include "ExampleOutput.h"
 
@@ -27,6 +28,7 @@ private:
     // instances of user-defined classes of output objects
     ResidPtDepHistos *residPTOutput;
     PullPtDepHistos *pullPTOutput;
+    TransportMethodCheck *transportCheckOutput;
 
     //ExampleOutput *exampleOutput;
 };
@@ -39,6 +41,9 @@ OutputMap::OutputMap(TFile& outFile){
 
     pullPTOutput = new PullPtDepHistos(outFile);
     map["pullPTOutput"] = pullPTOutput;
+
+    transportCheckOutput = new TransportMethodCheck(outFile);
+    map["transportCheckOutput"] = transportCheckOutput;
 
     //exampleOutput = new ExampleOutput(outFile);
     //map["exampleOutput"] = exampleOutput;

@@ -818,23 +818,20 @@ void MakeKFUnitTestHistos(){
             mcpart_.pdg = pdg_MC[iTrack_MC];
             mcpart_.charge = charge_MC[iTrack_MC];
             mcpart_.mass = mass_MC[iTrack_MC];
+            mcpart_.isMother = isMother_KFAR[iTrack];
             mcpart_.trackLength = trackLength_MC[iTrack_MC];
-            if (isMother_KFAR[iTrack]){
-                mcpart_.x = finalX_MC[iTrack_MC];
-                mcpart_.y = finalY_MC[iTrack_MC];
-                mcpart_.z = finalZ_MC[iTrack_MC];
-                mcpart_.pX = finalPX_MC[iTrack_MC];
-                mcpart_.pY = finalPY_MC[iTrack_MC];
-                mcpart_.pZ = finalPZ_MC[iTrack_MC];
-            }
-            if (isDaughter_KFAR[iTrack]){
-                mcpart_.x = initialX_MC[iTrack_MC];
-                mcpart_.y = initialY_MC[iTrack_MC];
-                mcpart_.z = initialZ_MC[iTrack_MC];
-                mcpart_.pX = initialPX_MC[iTrack_MC];
-                mcpart_.pY = initialPY_MC[iTrack_MC];
-                mcpart_.pZ = initialPZ_MC[iTrack_MC];    
-            } 
+            mcpart_.initialX = initialX_MC[iTrack_MC];
+            mcpart_.initialY = initialY_MC[iTrack_MC];
+            mcpart_.initialZ = initialZ_MC[iTrack_MC];
+            mcpart_.finalX = finalX_MC[iTrack_MC];
+            mcpart_.finalY = finalY_MC[iTrack_MC];
+            mcpart_.finalZ = finalZ_MC[iTrack_MC];
+            mcpart_.initialPX = initialPX_MC[iTrack_MC];
+            mcpart_.initialPY = initialPY_MC[iTrack_MC];
+            mcpart_.initialPZ = initialPZ_MC[iTrack_MC]; 
+            mcpart_.finalPX = finalPX_MC[iTrack_MC];
+            mcpart_.finalPY = finalPY_MC[iTrack_MC];
+            mcpart_.finalPZ = finalPZ_MC[iTrack_MC];  
             ///mcpart_.ndf = 0.;
             ///mcpart_.chi2 = 0.;
 

@@ -19,6 +19,7 @@ class ExampleOutput: public OutputObjInterface{
 
         // methods that must be realized by user
         void Create() override ;
+        void Fill() override {};
         void Fill(const MCParticleStruct& mcPart) override ;
         void Fill(const KFParticleStruct& kfPart) override ;
         void Fill(const MCParticleStruct& mcPart, const KFParticleStruct& kfPart) override ;

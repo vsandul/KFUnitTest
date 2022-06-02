@@ -38,7 +38,7 @@ void MakeKFParticleTrees(){
         float B[3];
         KFParticle p;
         p.GetFieldValue(xyz,B);
-        std::cout<<"Field is set to " <<B[0]<<" "<<B[1]<<" "<<B[2]<<std::endl;
+        std::cout<<"Field is set to " <<B[0]<<" "<<B[1]<<" "<<B[2] << " kilogaus" << std::endl;
     }
 
     ///////////////////////////////////////////////////////
@@ -368,44 +368,53 @@ void MakeKFParticleTrees(){
         for (int iTrack = 0; iTrack < nTracks_MC; iTrack++){
             // if we found all daughters and mothers - do not process other tracks
             if (daughterCounter >= NUM_OF_DAUGHTERS && motherCounter >= NUM_OF_MOTHERS)
-                break;
-            if (parentID_MC[iTrack]==0){
-                //setup mother particle from MC data
+                break;    
+            //setup mother particle from MC data
+            //mother_MC.ndf = ?????
+            if (parentID_MC[iTrack] == 0){
                 mother_MC.trackID = iTrack;//trackID_MC[iTrack];
                 mother_MC.parentID = parentID_MC[iTrack];
                 mother_MC.pdg = pdg_MC[iTrack];
                 //mother_MC.pdgLifeTime = pdgLifeTime_MC[iTrack];
                 mother_MC.charge = charge_MC[iTrack];
-                mother_MC.x = finalX_MC[iTrack];
-                mother_MC.y = finalY_MC[iTrack];
-                mother_MC.z = finalZ_MC[iTrack];
+                mother_MC.isMother = true;
+                mother_MC.initialX = initialX_MC[iTrack];
+                mother_MC.initialY = initialY_MC[iTrack];
+                mother_MC.initialZ = initialZ_MC[iTrack];
+                mother_MC.finalX = finalX_MC[iTrack];
+                mother_MC.finalY = finalY_MC[iTrack];
+                mother_MC.finalZ = finalZ_MC[iTrack];
                 mother_MC.trackLength = trackLength_MC[iTrack];
-                mother_MC.pX = finalPX_MC[iTrack];
-                mother_MC.pY = finalPY_MC[iTrack];
-                mother_MC.pZ = finalPZ_MC[iTrack];
+                mother_MC.initialPX = initialPX_MC[iTrack];
+                mother_MC.initialPY = initialPY_MC[iTrack];
+                mother_MC.initialPZ = initialPZ_MC[iTrack];
+                mother_MC.finalPX = finalPX_MC[iTrack];
+                mother_MC.finalPY = finalPY_MC[iTrack];
+                mother_MC.finalPZ = finalPZ_MC[iTrack];
                 mother_MC.mass = mass_MC[iTrack];
-                //mother_MC.ndf = ?????
-                //mother_MC.chi2 = ?????
-
                 motherCounter++;   
             }
             if (parentID_MC[iTrack] == 1){
-                // setup daughter particles from MC
                 daughters_MC[daughterCounter].trackID = iTrack;//trackID_MC[iTrack];
                 daughters_MC[daughterCounter].parentID = parentID_MC[iTrack];
                 daughters_MC[daughterCounter].pdg = pdg_MC[iTrack];
                 //daughters_MC[daughterCounter].pdgLifeTime = pdgLifeTime_MC[iTrack];
                 daughters_MC[daughterCounter].charge = charge_MC[iTrack];
-                daughters_MC[daughterCounter].x = initialX_MC[iTrack];
-                daughters_MC[daughterCounter].y = initialY_MC[iTrack];
-                daughters_MC[daughterCounter].z = initialZ_MC[iTrack];
+                daughters_MC[daughterCounter].isMother = false;
+                daughters_MC[daughterCounter].initialX = initialX_MC[iTrack];
+                daughters_MC[daughterCounter].initialY = initialY_MC[iTrack];
+                daughters_MC[daughterCounter].initialZ = initialZ_MC[iTrack];
+                daughters_MC[daughterCounter].finalX = finalX_MC[iTrack];
+                daughters_MC[daughterCounter].finalY = finalY_MC[iTrack];
+                daughters_MC[daughterCounter].finalZ = finalZ_MC[iTrack];
                 daughters_MC[daughterCounter].trackLength = trackLength_MC[iTrack];
-                daughters_MC[daughterCounter].pX = initialPX_MC[iTrack];
-                daughters_MC[daughterCounter].pY = initialPY_MC[iTrack];
-                daughters_MC[daughterCounter].pZ = initialPZ_MC[iTrack];
+                daughters_MC[daughterCounter].initialPX = initialPX_MC[iTrack];
+                daughters_MC[daughterCounter].initialPY = initialPY_MC[iTrack];
+                daughters_MC[daughterCounter].initialPZ = initialPZ_MC[iTrack];
+                daughters_MC[daughterCounter].finalPX = finalPX_MC[iTrack];
+                daughters_MC[daughterCounter].finalPY = finalPY_MC[iTrack];
+                daughters_MC[daughterCounter].finalPZ = finalPZ_MC[iTrack];
                 daughters_MC[daughterCounter].mass = mass_MC[iTrack];
-                //daughters_MC[daughterCounter].ndf = ?????
-                //daughters_MC[daughterCounter].chi2 = ?????
 
                 daughterCounter++;
             }
@@ -419,7 +428,7 @@ void MakeKFParticleTrees(){
         }
             
         /// Create KFParticles from MCParticleStructs
-            float params_M[6] = {mother_MC.x,mother_MC.y,mother_MC.z,mother_MC.pX,mother_MC.pY,mother_MC.pZ};
+            float params_M[6] = {mother_MC.finalX,mother_MC.finalY,mother_MC.finalZ,mother_MC.finalPX,mother_MC.finalPY,mother_MC.finalPZ};
             std::vector<float> covmat_vec_ = MakeCovMatALICE(mother_MC);
             float covmat_M[21];
             std::copy(covmat_vec_.begin(), covmat_vec_.end(), covmat_M);
@@ -431,7 +440,7 @@ void MakeKFParticleTrees(){
             mother_KF.SetPDG(mother_MC.pdg);
 
         for (int i = 0; i < NUM_OF_DAUGHTERS; i++){
-            float params_D[6] = {daughters_MC[i].x,daughters_MC[i].y,daughters_MC[i].z,daughters_MC[i].pX,daughters_MC[i].pY,daughters_MC[i].pZ};
+            float params_D[6] = {daughters_MC[i].initialX,daughters_MC[i].initialY,daughters_MC[i].initialZ,daughters_MC[i].initialPX,daughters_MC[i].initialPY,daughters_MC[i].initialPZ};
             covmat_vec_ = MakeCovMatALICE(daughters_MC[i]);
             float covmat_D[21];
             std::copy(covmat_vec_.begin(), covmat_vec_.end(), covmat_D);

@@ -206,40 +206,50 @@ void ResidPtDepHistos::Fill(const KFParticleStruct& kfPart){
 }
 
 void ResidPtDepHistos::Fill(const MCParticleStruct& mcPart, const KFParticleStruct& kfPart){
-    float x_resid_ = mcPart.x - kfPart.x;
-    float y_resid_ = mcPart.y - kfPart.y;
-    float z_resid_ = mcPart.z - kfPart.z;
-    float px_resid_ = mcPart.pX - kfPart.pX;
-    float py_resid_ = mcPart.pY - kfPart.pY;
-    float pz_resid_ = mcPart.pZ - kfPart.pZ;
-    float pt_resid_ = mcPart.pT() - kfPart.pT;
-    float mass_resid_ = mcPart.mass - kfPart.mass;
-    float e_resid_ = mcPart.e() - kfPart.e;
-
     if (kfPart.isMother){
-        //setup mother particle from KFAR data and fill some histos    
-        fHistPtXResidMother -> Fill(mcPart.pT(),x_resid_);
-        fHistPtYResidMother -> Fill(mcPart.pT(),y_resid_);
-        fHistPtZResidMother -> Fill(mcPart.pT(),z_resid_);
-        fHistPtPxResidMother -> Fill(mcPart.pT(),px_resid_);
-        fHistPtPyResidMother -> Fill(mcPart.pT(),py_resid_);
-        fHistPtPzResidMother -> Fill(mcPart.pT(),pz_resid_);
-        fHistPtPtResidMother -> Fill(mcPart.pT(),pt_resid_);
-        fHistPtMassResidMother -> Fill(mcPart.pT(),mass_resid_);
-        fHistPtEResidMother -> Fill(mcPart.pT(),e_resid_);
+        //setup mother particle from KFAR data and fill some histos
+        float x_resid_ = mcPart.finalX - kfPart.x;
+        float y_resid_ = mcPart.finalY - kfPart.y;
+        float z_resid_ = mcPart.finalZ - kfPart.z;
+        float px_resid_ = mcPart.finalPX - kfPart.pX;
+        float py_resid_ = mcPart.finalPY - kfPart.pY;
+        float pz_resid_ = mcPart.finalPZ - kfPart.pZ;
+        float pt_resid_ = mcPart.finalPT() - kfPart.pT;
+        float mass_resid_ = mcPart.mass - kfPart.mass;
+        float e_resid_ = mcPart.finalE() - kfPart.e;
+
+        fHistPtXResidMother -> Fill(mcPart.finalPT(),x_resid_);
+        fHistPtYResidMother -> Fill(mcPart.finalPT(),y_resid_);
+        fHistPtZResidMother -> Fill(mcPart.finalPT(),z_resid_);
+        fHistPtPxResidMother -> Fill(mcPart.finalPT(),px_resid_);
+        fHistPtPyResidMother -> Fill(mcPart.finalPT(),py_resid_);
+        fHistPtPzResidMother -> Fill(mcPart.finalPT(),pz_resid_);
+        fHistPtPtResidMother -> Fill(mcPart.finalPT(),pt_resid_);
+        fHistPtMassResidMother -> Fill(mcPart.finalPT(),mass_resid_);
+        fHistPtEResidMother -> Fill(mcPart.finalPT(),e_resid_);
     }
     if (kfPart.isDaughter){
         int daughterNum = kfPart.id-1;
 
-        fHistPtXResidDaughter[daughterNum] -> Fill(mcPart.pT(),x_resid_);
-        fHistPtYResidDaughter[daughterNum] -> Fill(mcPart.pT(),y_resid_);
-        fHistPtZResidDaughter[daughterNum] -> Fill(mcPart.pT(),z_resid_);
-        fHistPtPxResidDaughter[daughterNum] -> Fill(mcPart.pT(),px_resid_);
-        fHistPtPyResidDaughter[daughterNum] -> Fill(mcPart.pT(),py_resid_);
-        fHistPtPzResidDaughter[daughterNum] -> Fill(mcPart.pT(),pz_resid_);
-        fHistPtPtResidDaughter[daughterNum] -> Fill(mcPart.pT(),pt_resid_);
-        fHistPtMassResidDaughter[daughterNum] -> Fill(mcPart.pT(),mass_resid_);
-        fHistPtEResidDaughter[daughterNum] -> Fill(mcPart.pT(),e_resid_);
+        float x_resid_ = mcPart.initialX - kfPart.x;
+        float y_resid_ = mcPart.initialY - kfPart.y;
+        float z_resid_ = mcPart.initialZ - kfPart.z;
+        float px_resid_ = mcPart.initialPX - kfPart.pX;
+        float py_resid_ = mcPart.initialPY - kfPart.pY;
+        float pz_resid_ = mcPart.initialPZ - kfPart.pZ;
+        float pt_resid_ = mcPart.initialPT() - kfPart.pT;
+        float mass_resid_ = mcPart.mass - kfPart.mass;
+        float e_resid_ = mcPart.initialE() - kfPart.e;
+
+        fHistPtXResidDaughter[daughterNum] -> Fill(mcPart.initialPT(),x_resid_);
+        fHistPtYResidDaughter[daughterNum] -> Fill(mcPart.initialPT(),y_resid_);
+        fHistPtZResidDaughter[daughterNum] -> Fill(mcPart.initialPT(),z_resid_);
+        fHistPtPxResidDaughter[daughterNum] -> Fill(mcPart.initialPT(),px_resid_);
+        fHistPtPyResidDaughter[daughterNum] -> Fill(mcPart.initialPT(),py_resid_);
+        fHistPtPzResidDaughter[daughterNum] -> Fill(mcPart.initialPT(),pz_resid_);
+        fHistPtPtResidDaughter[daughterNum] -> Fill(mcPart.initialPT(),pt_resid_);
+        fHistPtMassResidDaughter[daughterNum] -> Fill(mcPart.initialPT(),mass_resid_);
+        fHistPtEResidDaughter[daughterNum] -> Fill(mcPart.initialPT(),e_resid_);
     }
 }
 
@@ -348,7 +358,7 @@ void ResidPtDepHistos::PreWriteProcess(){
 }
 
 void ResidPtDepHistos::Write(){
-    TDirectory* Resid_Dir = outputFile->mkdir("Residuals");
+    TDirectory* Resid_Dir = outputFile->mkdir("ResidualsVsPt");
 
     TDirectory* ResidPtDep_Dir = Resid_Dir->mkdir("ResidPtDependencies");
         TDirectory* MotherResidPtDep_Dir = ResidPtDep_Dir->mkdir("Mother");

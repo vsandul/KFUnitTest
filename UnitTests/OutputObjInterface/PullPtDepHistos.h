@@ -202,49 +202,69 @@ void PullPtDepHistos::Fill(const KFParticleStruct& kfPart){
 }
 
 void PullPtDepHistos::Fill(const MCParticleStruct& mcPart, const KFParticleStruct& kfPart){
-    float x_resid_ = mcPart.x - kfPart.x;
-    float y_resid_ = mcPart.y - kfPart.y;
-    float z_resid_ = mcPart.z - kfPart.z;
-    float px_resid_ = mcPart.pX - kfPart.pX;
-    float py_resid_ = mcPart.pY - kfPart.pY;
-    float pz_resid_ = mcPart.pZ - kfPart.pZ;
-    float pt_resid_ = mcPart.pT() - kfPart.pT;
-    float mass_resid_ = mcPart.mass - kfPart.mass;
-    float e_resid_ = mcPart.e() - kfPart.e;
-
-    float x_pull_ = x_resid_/kfPart.xErr;
-    float y_pull_ = y_resid_/kfPart.yErr;
-    float z_pull_ = z_resid_/kfPart.zErr;
-    float px_pull_ = px_resid_/kfPart.pXErr;
-    float py_pull_ = py_resid_/kfPart.pYErr;
-    float pz_pull_ = pz_resid_/kfPart.pZErr;
-    float pt_pull_ = pt_resid_/kfPart.pTErr;
-    float mass_pull_ = mass_resid_/kfPart.massErr;
-    float e_pull_ = e_resid_/kfPart.eErr;
-
     if (kfPart.isMother){
-        fHistPtXPullMother -> Fill(mcPart.pT(),x_pull_);
-        fHistPtYPullMother -> Fill(mcPart.pT(),y_pull_);
-        fHistPtZPullMother -> Fill(mcPart.pT(),z_pull_);
-        fHistPtPxPullMother -> Fill(mcPart.pT(),px_pull_);
-        fHistPtPyPullMother -> Fill(mcPart.pT(),py_pull_);
-        fHistPtPzPullMother -> Fill(mcPart.pT(),pz_pull_);
-        fHistPtPtPullMother -> Fill(mcPart.pT(),pt_pull_);
-        fHistPtMassPullMother -> Fill(mcPart.pT(),mass_pull_);
-        fHistPtEPullMother -> Fill(mcPart.pT(),e_pull_);
+        float x_resid_ = mcPart.finalX - kfPart.x;
+        float y_resid_ = mcPart.finalY - kfPart.y;
+        float z_resid_ = mcPart.finalZ - kfPart.z;
+        float px_resid_ = mcPart.finalPX - kfPart.pX;
+        float py_resid_ = mcPart.finalPY - kfPart.pY;
+        float pz_resid_ = mcPart.finalPZ - kfPart.pZ;
+        float pt_resid_ = mcPart.finalPT() - kfPart.pT;
+        float mass_resid_ = mcPart.mass - kfPart.mass;
+        float e_resid_ = mcPart.finalE() - kfPart.e;
+
+        float x_pull_ = x_resid_/kfPart.xErr;
+        float y_pull_ = y_resid_/kfPart.yErr;
+        float z_pull_ = z_resid_/kfPart.zErr;
+        float px_pull_ = px_resid_/kfPart.pXErr;
+        float py_pull_ = py_resid_/kfPart.pYErr;
+        float pz_pull_ = pz_resid_/kfPart.pZErr;
+        float pt_pull_ = pt_resid_/kfPart.pTErr;
+        float mass_pull_ = mass_resid_/kfPart.massErr;
+        float e_pull_ = e_resid_/kfPart.eErr;
+
+        fHistPtXPullMother -> Fill(mcPart.finalPT(),x_pull_);
+        fHistPtYPullMother -> Fill(mcPart.finalPT(),y_pull_);
+        fHistPtZPullMother -> Fill(mcPart.finalPT(),z_pull_);
+        fHistPtPxPullMother -> Fill(mcPart.finalPT(),px_pull_);
+        fHistPtPyPullMother -> Fill(mcPart.finalPT(),py_pull_);
+        fHistPtPzPullMother -> Fill(mcPart.finalPT(),pz_pull_);
+        fHistPtPtPullMother -> Fill(mcPart.finalPT(),pt_pull_);
+        fHistPtMassPullMother -> Fill(mcPart.finalPT(),mass_pull_);
+        fHistPtEPullMother -> Fill(mcPart.finalPT(),e_pull_);
     }
     if (kfPart.isDaughter){
         int daughterNum = kfPart.id-1;
 
-        fHistPtXPullDaughter[daughterNum] -> Fill(mcPart.pT(),x_pull_);
-        fHistPtYPullDaughter[daughterNum] -> Fill(mcPart.pT(),y_pull_);
-        fHistPtZPullDaughter[daughterNum] -> Fill(mcPart.pT(),z_pull_);
-        fHistPtPxPullDaughter[daughterNum] -> Fill(mcPart.pT(),px_pull_);
-        fHistPtPyPullDaughter[daughterNum] -> Fill(mcPart.pT(),py_pull_);
-        fHistPtPzPullDaughter[daughterNum] -> Fill(mcPart.pT(),pz_pull_);
-        fHistPtPtPullDaughter[daughterNum] -> Fill(mcPart.pT(),pt_pull_);
-        fHistPtMassPullDaughter[daughterNum] -> Fill(mcPart.pT(),mass_pull_);
-        fHistPtEPullDaughter[daughterNum] -> Fill(mcPart.pT(),e_pull_);
+        float x_resid_ = mcPart.initialX - kfPart.x;
+        float y_resid_ = mcPart.initialY - kfPart.y;
+        float z_resid_ = mcPart.initialZ - kfPart.z;
+        float px_resid_ = mcPart.initialPX - kfPart.pX;
+        float py_resid_ = mcPart.initialPY - kfPart.pY;
+        float pz_resid_ = mcPart.initialPZ - kfPart.pZ;
+        float pt_resid_ = mcPart.initialPT() - kfPart.pT;
+        float mass_resid_ = mcPart.mass - kfPart.mass;
+        float e_resid_ = mcPart.initialE() - kfPart.e;
+
+        float x_pull_ = x_resid_/kfPart.xErr;
+        float y_pull_ = y_resid_/kfPart.yErr;
+        float z_pull_ = z_resid_/kfPart.zErr;
+        float px_pull_ = px_resid_/kfPart.pXErr;
+        float py_pull_ = py_resid_/kfPart.pYErr;
+        float pz_pull_ = pz_resid_/kfPart.pZErr;
+        float pt_pull_ = pt_resid_/kfPart.pTErr;
+        float mass_pull_ = mass_resid_/kfPart.massErr;
+        float e_pull_ = e_resid_/kfPart.eErr;
+
+        fHistPtXPullDaughter[daughterNum] -> Fill(mcPart.initialPT(),x_pull_);
+        fHistPtYPullDaughter[daughterNum] -> Fill(mcPart.initialPT(),y_pull_);
+        fHistPtZPullDaughter[daughterNum] -> Fill(mcPart.initialPT(),z_pull_);
+        fHistPtPxPullDaughter[daughterNum] -> Fill(mcPart.initialPT(),px_pull_);
+        fHistPtPyPullDaughter[daughterNum] -> Fill(mcPart.initialPT(),py_pull_);
+        fHistPtPzPullDaughter[daughterNum] -> Fill(mcPart.initialPT(),pz_pull_);
+        fHistPtPtPullDaughter[daughterNum] -> Fill(mcPart.initialPT(),pt_pull_);
+        fHistPtMassPullDaughter[daughterNum] -> Fill(mcPart.initialPT(),mass_pull_);
+        fHistPtEPullDaughter[daughterNum] -> Fill(mcPart.initialPT(),e_pull_);
     }
 }
 
@@ -350,7 +370,7 @@ void PullPtDepHistos::PreWriteProcess(){
 }
 
 void PullPtDepHistos::Write(){
-    TDirectory* Pull_Dir = outputFile->mkdir("Pulls");
+    TDirectory* Pull_Dir = outputFile->mkdir("PullsVsPt");
 
     TDirectory* PullPtDep_Dir = Pull_Dir->mkdir("PullPtDependencies");
         TDirectory* MotherPullPtDep_Dir = PullPtDep_Dir->mkdir("Mother");
