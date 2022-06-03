@@ -15,8 +15,15 @@ const int D0_PDG = 421;
 const int KMINUS_PDG = -321;
 const int PIPLUS_PDG = 211;
 
+//const int JPSI_PDG = 443;
+//const int eMINUS_PDG = 11;
+//const int ePLUS_PDG = -11;
+
 const int MOTHER_PDG = D0_PDG;
 const std::vector<int> DAUGTHERS_PDGS = {KMINUS_PDG, PIPLUS_PDG};
+
+//const int MOTHER_PDG = JPSI_PDG;
+//const std::vector<int> DAUGTHERS_PDGS = {eMINUS_PDG, ePLUS_PDG};
 
 const bool CHECK_PDG_MOTHER = true;
 const bool CHECK_PDG_DAUGHTERS = true;

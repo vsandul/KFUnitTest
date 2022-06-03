@@ -891,6 +891,7 @@ void MakeKFUnitTestHistos(){
                 obj->Fill(mcpart_, kfpart_);
                 obj->Fill(kfpart_);
                 obj->Fill(mcpart_);
+                obj->Fill();
             }
                 
 
