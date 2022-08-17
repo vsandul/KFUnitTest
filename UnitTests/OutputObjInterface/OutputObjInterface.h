@@ -7,7 +7,7 @@
 class OutputObjInterface{
 public:
     OutputObjInterface(TFile& outputFile) {this->outputFile = &outputFile;};
-    ~OutputObjInterface(){};
+    virtual ~OutputObjInterface(){};
 
     void virtual Create() = 0;
     void virtual Fill() = 0;

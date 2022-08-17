@@ -15,7 +15,7 @@
 // Also we will decompose it to rows, and write
 // this rows one by one into vector.
 //
-// x, y, z, px, py, pz - our parameters
+// x, y, z, px, py, pz - our global parameters
 //
 //  Cov. matrix:
 //
@@ -30,7 +30,7 @@
 // pxpx, pypy, ... - in GeV^2
 // xpx, ypy, zpz, ... - in microns*GeV
 
-std::vector<float> MakeCovMatALICE(const MCParticleStruct& part){
+std::vector<float> MakeCovMatrix(const MCParticleStruct& part){
     // 6x6 matrix has 21 indep. elements. Lets define all of them.
     std::vector<float> covmat(21);
 
@@ -79,7 +79,6 @@ std::vector<float> MakeCovMatALICE(const MCParticleStruct& part){
     covmat[15] *= 1e4;
     covmat[16] *= 1e4;
     covmat[17] *= 1e4;*/
-
 
     return covmat;
 
