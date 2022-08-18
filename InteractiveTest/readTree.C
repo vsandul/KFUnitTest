@@ -4,9 +4,13 @@
 //#include "AliAnalysisTaskFilteredTree.h"
 #include <iostream>
 
+#include "../UnitTests/ConfigConstants.h"
 
-TFile fileMC("D0_to_Kminus_Piplus_output.root");
-TFile fileReco("RootInteractive_outputKFTrees_D0_decay.root");
+
+TFile fileMC(MCInputFile);
+
+TString outputFileName = "RootInteractive_" + KFTreeOutputFile;
+TFile fileReco(outputFileName);
 
 TTree *treeMC = 0;
 TTree * treeKFBR=0;
