@@ -131,7 +131,7 @@ print("Creating RootInteractive interface...")
 # statistic parameterization
 figureParameters["StatParam"]={}
 figureParameters["StatParam"]["parameterArray"]=[
-        {"name": "nPointsRender", "range":[20, 5000], "value": 500},
+        {"name": "nPointsRender", "range":[10, 5000], "value": 350},
 ]
 
 figureParameters["StatParam"]["widgets"]=[
@@ -182,7 +182,49 @@ figureGlobalOption={}
 figureGlobalOption=figureParameters["legend"]["figureOptions"]
 figureGlobalOption["size"]="markerSize"
 
-histoArray=[]
+histoArray=[
+    # QA histos
+    {"name": "X_KFAR", "variables": ["x"], "nbins":100,"range": [-8, 8],  },#
+     {"name": "Y_KFAR", "variables": ["y"], "nbins":100,"range": [-8, 8],  },#
+     {"name": "Z_KFAR", "variables": ["z"], "nbins":100,"range": [-30, 30],  },#
+    
+    {"name": "PX_KFAR", "variables": ["pX"], "nbins":100,"range": [-8, 8],  },#
+     {"name": "PY_KFAR", "variables": ["pY"], "nbins":100,"range": [-8, 8],  },#
+     {"name": "PZ_KFAR", "variables": ["pZ"], "nbins":100,"range": [-8, 8],  },#
+    
+    {"name": "Mass_KFAR", "variables": ["mass_KFAR"], "nbins":100,"range": [0, 5],  },#
+     {"name": "PT_KFAR", "variables": ["pT"], "nbins":100,"range": [0, 10],  },#
+     {"name": "E_KFAR", "variables": ["e"], "nbins":100,"range": [0, 15],  },#
+    
+    # Residuals
+    {"name": "Xres", "variables": ["Xres"], "nbins":100,"range": [-0.1, 0.1],  },#
+     {"name": "Yres", "variables": ["Yres"], "nbins":100,"range": [-0.1, 0.1],  },#
+     {"name": "Zres", "variables": ["Zres"], "nbins":100,"range": [-0.1, 0.1],  },#
+    
+    {"name": "PXres", "variables": ["PXres"], "nbins":100,"range": [-0.1, 0.1],  },#
+     {"name": "PYres", "variables": ["PYres"], "nbins":100,"range": [-0.1, 0.1],  },#
+     {"name": "PZres", "variables": ["PZres"], "nbins":100,"range": [-0.1, 0.1],  },#
+    
+    {"name": "Massres", "variables": ["Massres"], "nbins":100,"range": [-0.1, 0.1],  },#
+     {"name": "PTres", "variables": ["PTres"], "nbins":100,"range": [-0.1, 0.1],  },#
+     {"name": "Eres", "variables": ["Eres"], "nbins":100,"range": [-0.1, 0.1],  },#
+    
+    # Pulls
+     {"name": "Xpull", "variables": ["Xpull"], "nbins":100,"range": [-8, 8],  },#
+     {"name": "Ypull", "variables": ["Ypull"], "nbins":100,"range": [-8, 8],  },#
+     {"name": "Zpull", "variables": ["Zpull"], "nbins":100,"range": [-8, 8],  },#
+    
+    {"name": "PXpull", "variables": ["PXpull"], "nbins":100,"range": [-8, 8],  },#
+     {"name": "PYpull", "variables": ["PYpull"], "nbins":100,"range": [-8, 8],  },#
+     {"name": "PZpull", "variables": ["PZpull"], "nbins":100,"range": [-8, 8],  },#
+    
+    {"name": "Masspull", "variables": ["Masspull"], "nbins":100,"range": [-5, 5],  },#
+     {"name": "PTpull", "variables": ["PTpull"], "nbins":100,"range": [-8, 8],  },#
+     {"name": "Epull", "variables": ["Epull"], "nbins":100,"range": [-8, 8],  },#
+    
+    
+    
+]
 jsFunctionArray=[]
 aliasArray=[]
 
@@ -216,6 +258,48 @@ figureArray = [
     [['initialPT'], ['PTpull'], { "colorZvar": "pdg", "xAxisTitle":"pT (GeV)", "yAxisTitle":"PTpull",}], #16
     [['initialPT'], ['Epull'], { "colorZvar": "pdg", "xAxisTitle":"pT (GeV)", "yAxisTitle":"Epull",}], #17
     
+    # QA KFAR histos
+    [['X_KFAR'], ['X_KFAR'], {"show_histogram_error": True}], #18
+    [['Y_KFAR'], ['Y_KFAR'], {"show_histogram_error": True}], #19
+    [['Z_KFAR'], ['Z_KFAR'], {"show_histogram_error": True}], #20
+    
+    [['PX_KFAR'], ['PX_KFAR'], {"show_histogram_error": True}], #21
+    [['PY_KFAR'], ['PY_KFAR'], {"show_histogram_error": True}], #22
+    [['PZ_KFAR'], ['PZ_KFAR'], {"show_histogram_error": True}], #23
+    
+    [['Mass_KFAR'], ['Mass_KFAR'], {"show_histogram_error": True}], #24
+    [['PT_KFAR'], ['PT_KFAR'], {"show_histogram_error": True}], #25
+    [['E_KFAR'], ['E_KFAR'], {"show_histogram_error": True}], #26
+    
+    # Residuals histos
+    [['Xres'], ['Xres'], {"show_histogram_error": True}], #27
+    [['Yres'], ['Yres'], {"show_histogram_error": True}], #28
+    [['Zres'], ['Zres'], {"show_histogram_error": True}], #29
+    
+    [['PXres'], ['PXres'], {"show_histogram_error": True}], #30
+    [['PYres'], ['PYres'], {"show_histogram_error": True}], #31
+    [['PZres'], ['PZres'], {"show_histogram_error": True}], #32
+    
+    [['Massres'], ['Massres'], {"show_histogram_error": True}], #33
+    [['PTres'], ['PTres'], {"show_histogram_error": True}], #34
+    [['Eres'], ['Eres'], {"show_histogram_error": True}], #35
+    
+     # Pulls histos
+    [['Xpull'], ['Xpull'], {"show_histogram_error": True}], #36
+    [['Ypull'], ['Ypull'], {"show_histogram_error": True}], #37
+    [['Zpull'], ['Zpull'], {"show_histogram_error": True}], #38
+    
+    [['PXpull'], ['PXpull'], {"show_histogram_error": True}], #39
+    [['PYpull'], ['PYpull'], {"show_histogram_error": True}], #40
+    [['PZpull'], ['PZpull'], {"show_histogram_error": True}], #41
+    
+    [['Masspull'], ['Masspull'], {"show_histogram_error": True}], #42
+    [['PTpull'], ['PTpull'], {"show_histogram_error": True}], #43
+    [['Epull'], ['Epull'], {"show_histogram_error": True}], #44
+    
+    # Histo tables
+    ["tableHisto", {"rowwise": True}], #45
+    
 
     #[["bin_center"],["itsFindable","itsRefit","entries"],{"source":"histoPt","yAxisTitle":"N", "xAxisTitle":"pt (Gev)"}],
     #[["bin_center"],["trdFindable","trdRefit","entries"],{"source":"histoPt","yAxisTitle":"N", "xAxisTitle":"pt (Gev)"}],
@@ -224,6 +308,7 @@ figureArray = [
     #[["bin_center"],["eff_trdFindable","eff_trdRefit"],{"source":"histoPt","yAxisTitle":"eff", "xAxisTitle":"pt (Gev)","errY":["eff_trdFindableErr","eff_trdRefitErr"]}],
     #[["bin_center"],["eff_tofFindable","eff_tofRefit"],{"source":"histoPt","yAxisTitle":"eff", "xAxisTitle":"pt (Gev)","errY":["eff_tofFindableErr","eff_tofRefitErr"]}],
     #figureGlobalOption
+    
 ]
 
 figureLayoutDesc={
@@ -237,6 +322,28 @@ figureLayoutDesc={
         [9, 10, 11,   {  'plot_height': 250}],
         [12, 13, 14,   {  'plot_height': 250}],
         [15, 16, 17,   {  'plot_height': 250}],
+        {'plot_height': 200, 'sizing_mode': 'scale_width'} 
+    ],
+    "QA histograms": [
+        [18,19,20,   {  'plot_height': 250}],
+        [21,22,23,   {  'plot_height': 250}],
+        [24,25,26,   {  'plot_height': 250}],        
+        {'plot_height': 200, 'sizing_mode': 'scale_width'} 
+    ],
+    "Residuals histograms": [
+        [27,28,29,   {  'plot_height': 250}],
+        [30,31,32,   {  'plot_height': 250}],
+        [33,34,35,   {  'plot_height': 250}],        
+        {'plot_height': 200, 'sizing_mode': 'scale_width'} 
+    ],
+    "Pulls histograms": [
+        [36,37,38,   {  'plot_height': 250}],
+        [39,40,41,   {  'plot_height': 250}],
+        [42,43,4,   {  'plot_height': 250}],        
+        {'plot_height': 200, 'sizing_mode': 'scale_width'} 
+    ],
+    "Histogram statistics": [
+     [45],
         {'plot_height': 200, 'sizing_mode': 'scale_width'} 
     ]
     
@@ -252,6 +359,8 @@ fig=bokehDrawSA.fromArray(particles, "finalPT>-1", figureArray, widgetParams, la
                            aliasArray=aliasArray,
                           histogramArray=histoArray,
                           arrayCompression=arrayCompressionRelative16)
+
+#testBokehClientHistogramRowwiseTable()
 
 
 
