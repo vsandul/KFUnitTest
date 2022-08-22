@@ -29,6 +29,8 @@ pp = pprint.PrettyPrinter(indent=4)
 from RootInteractive.InteractiveDrawing.bokeh.bokehInteractiveParameters import *
 #pp.pprint(figureParameters["legend"])
 
+print("Reading tree...")
+
 # Load some macros (to reed tree and to set some aliases)
 ROOT.gROOT.LoadMacro("readTree.C")
 ROOT.gROOT.LoadMacro("kinematicFunctions.C")
@@ -85,6 +87,7 @@ particlesKFAR = tree2Panda(ROOT.treeKFAR, varListKFAR, "1", exclude=[], columnMa
 
 #import pandas as pd
 particles = particlesMC.join(particlesKFAR,lsuffix="_MC", rsuffix="_KFAR")
+initMetadata(particles)
 
 
 particles['Xres'] = particles['x'] - np.where(particles['isMother']==1.0, particles['finalX'], particles['initialX'])
@@ -118,8 +121,13 @@ particles['Epull'] = particles['Eres'] / particles['eErr']
 particles["indexMI"]=particles.index
 
 
+#AxisTitles
+#particles.meta.metaData = {'Xres.AxisTitle': "Xres (cm)", }
+
+
 # Create Rootinteractive interface
 
+print("Creating RootInteractive interface...")
 # statistic parameterization
 figureParameters["StatParam"]={}
 figureParameters["StatParam"]["parameterArray"]=[
@@ -181,7 +189,8 @@ aliasArray=[]
 
 tooltips = [("initialPT", "(@initialPT)")]
 
-figureArray_residuals = [
+figureArray = [
+    # residuals
     [['initialPT'], ['Xres'], { "colorZvar": "pdg"}], #0
     [['initialPT'], ['Yres'], { "colorZvar": "pdg"}], #1
     [['initialPT'], ['Zres'], { "colorZvar": "pdg"}], #2
@@ -193,6 +202,20 @@ figureArray_residuals = [
     [['initialPT'], ['Massres'], { "colorZvar": "pdg"}], #6
     [['initialPT'], ['PTres'], { "colorZvar": "pdg"}], #7
     [['initialPT'], ['Eres'], { "colorZvar": "pdg"}], #8
+    
+    # pulls
+    [['initialPT'], ['Xpull'], { "colorZvar": "pdg"}], #9
+    [['initialPT'], ['Ypull'], { "colorZvar": "pdg"}], #10
+    [['initialPT'], ['Zpull'], { "colorZvar": "pdg"}], #11
+    
+    [['initialPT'], ['PXpull'], { "colorZvar": "pdg"}], #12
+    [['initialPT'], ['PYpull'], { "colorZvar": "pdg"}], #13
+    [['initialPT'], ['PZpull'], { "colorZvar": "pdg"}], #14
+    
+    [['initialPT'], ['Masspull'], { "colorZvar": "pdg"}], #15
+    [['initialPT'], ['PTpull'], { "colorZvar": "pdg"}], #16
+    [['initialPT'], ['Epull'], { "colorZvar": "pdg"}], #17
+    
 
     #[["bin_center"],["itsFindable","itsRefit","entries"],{"source":"histoPt","yAxisTitle":"N", "xAxisTitle":"pt (Gev)"}],
     #[["bin_center"],["trdFindable","trdRefit","entries"],{"source":"histoPt","yAxisTitle":"N", "xAxisTitle":"pt (Gev)"}],
@@ -203,64 +226,35 @@ figureArray_residuals = [
     #figureGlobalOption
 ]
 
-figureLayoutDesc_residuals=[
-    [0, 1, 2,   {'commonY': 1,  'plot_height': 250}],
-    [3, 4, 5,   {'commonY': 1,  'plot_height': 250}],
-    [6, 7, 8,   {'commonY': 1,  'plot_height': 250}],
-    {'plot_height': 200, 'sizing_mode': 'scale_width'} 
-]
-
-
-#tooltips = [("initialPT", "(@initialPT)")]
-
-figureArray_pulls = [    
-    [['initialPT'], ['Xpull'], { "colorZvar": "pdg"}], #0
-    [['initialPT'], ['Ypull'], { "colorZvar": "pdg"}], #1
-    [['initialPT'], ['Zpull'], { "colorZvar": "pdg"}], #2
+figureLayoutDesc={
+    "Residuals vs PT": [
+        [0, 1, 2,   {  'plot_height': 250}],
+        [3, 4, 5,   {  'plot_height': 250}],
+        [6, 7, 8,   {  'plot_height': 250}],
+        {'plot_height': 200, 'sizing_mode': 'scale_width'} 
+    ],
+    "Pulls vs PT": [
+        [9, 10, 11,   {  'plot_height': 250}],
+        [12, 13, 14,   {  'plot_height': 250}],
+        [15, 16, 17,   {  'plot_height': 250}],
+        {'plot_height': 200, 'sizing_mode': 'scale_width'} 
+    ]
     
-    [['initialPT'], ['PXpull'], { "colorZvar": "pdg"}], #3
-    [['initialPT'], ['PYpull'], { "colorZvar": "pdg"}], #4
-    [['initialPT'], ['PZpull'], { "colorZvar": "pdg"}], #5
-    
-    [['initialPT'], ['Masspull'], { "colorZvar": "pdg"}], #6
-    [['initialPT'], ['PTpull'], { "colorZvar": "pdg"}], #7
-    [['initialPT'], ['Epull'], { "colorZvar": "pdg"}], #8
-    #[["bin_center"],["itsFindable","itsRefit","entries"],{"source":"histoPt","yAxisTitle":"N", "xAxisTitle":"pt (Gev)"}],
-    #[["bin_center"],["trdFindable","trdRefit","entries"],{"source":"histoPt","yAxisTitle":"N", "xAxisTitle":"pt (Gev)"}],
-    #[["bin_center"],["tofFindable","tofRefit","entries"],{"source":"histoPt","yAxisTitle":"N", "xAxisTitle":"pt (Gev)"}], 
-    #[["bin_center"],["eff_itsFindable","eff_itsRefit"],{"source":"histoPt","yAxisTitle":"eff", "xAxisTitle":"pt (Gev)","errY":["eff_itsFindableErr","eff_itsRefitErr"]}],
-    #[["bin_center"],["eff_trdFindable","eff_trdRefit"],{"source":"histoPt","yAxisTitle":"eff", "xAxisTitle":"pt (Gev)","errY":["eff_trdFindableErr","eff_trdRefitErr"]}],
-    #[["bin_center"],["eff_tofFindable","eff_tofRefit"],{"source":"histoPt","yAxisTitle":"eff", "xAxisTitle":"pt (Gev)","errY":["eff_tofFindableErr","eff_tofRefitErr"]}],
-    #figureGlobalOption
-]
+}
 
-figureLayoutDesc_pulls=[
-    [0, 1, 2,   {'commonY': 1,  'plot_height': 250}],
-    [3, 4, 5,   {'commonY': 1,  'plot_height': 250}],
-    [6, 7, 8,   {'commonY': 1,  'plot_height': 250}],
-
-    {'plot_height': 200, 'sizing_mode': 'scale_width'} 
-]
 
 #%pdb
 
-output_file("InterTest_residuals.html")
-fig=bokehDrawSA.fromArray(particles, "finalPT>-1", figureArray_residuals, widgetParams, layout=figureLayoutDesc_residuals, tooltips=tooltips, parameterArray=parameterArray,
+outputFileName = "InteractiveTest.html"
+output_file(outputFileName)
+fig=bokehDrawSA.fromArray(particles, "finalPT>-1", figureArray, widgetParams, layout=figureLayoutDesc, tooltips=tooltips, parameterArray=parameterArray,
                           widgetLayout=widgetLayoutDesc, sizing_mode="scale_width", nPointRender="nPointsRender", jsFunctionArray=jsFunctionArray,
                            aliasArray=aliasArray,
                           histogramArray=histoArray,
                           arrayCompression=arrayCompressionRelative16)
 
 
-#%pdb
 
-output_file("InterTest_pulls.html")
-fig=bokehDrawSA.fromArray(particles, "finalPT>-1", figureArray_pulls, widgetParams, layout=figureLayoutDesc_pulls, tooltips=tooltips, parameterArray=parameterArray,
-                          widgetLayout=widgetLayoutDesc, sizing_mode="scale_width", nPointRender="nPointsRender", jsFunctionArray=jsFunctionArray,
-                           aliasArray=aliasArray,
-                          histogramArray=histoArray,
-                          arrayCompression=arrayCompressionRelative16)
-
-
+print("Interactive test is created and saved in "+outputFileName)
 
 
