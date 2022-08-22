@@ -131,7 +131,7 @@ print("Creating RootInteractive interface...")
 # statistic parameterization
 figureParameters["StatParam"]={}
 figureParameters["StatParam"]["parameterArray"]=[
-        {"name": "nPointsRender", "range":[10, 5000], "value": 350},
+        {"name": "nPointsRender", "range":[20, 5000], "value": 500},
 ]
 
 figureParameters["StatParam"]["widgets"]=[
@@ -191,30 +191,30 @@ tooltips = [("initialPT", "(@initialPT)")]
 
 figureArray = [
     # residuals
-    [['initialPT'], ['Xres'], { "colorZvar": "pdg"}], #0
-    [['initialPT'], ['Yres'], { "colorZvar": "pdg"}], #1
-    [['initialPT'], ['Zres'], { "colorZvar": "pdg"}], #2
+    [['initialPT'], ['Xres'], { "colorZvar": "pdg","xAxisTitle":"pT (GeV)", "yAxisTitle":"Xres (cm)",}], #0
+    [['initialPT'], ['Yres'], { "colorZvar": "pdg", "xAxisTitle":"pT (GeV)", "yAxisTitle":"Yres (cm)",}], #1
+    [['initialPT'], ['Zres'], { "colorZvar": "pdg", "xAxisTitle":"pT (GeV)", "yAxisTitle":"Zres (cm)",}], #2
     
-    [['initialPT'], ['PXres'], { "colorZvar": "pdg"}], #3
-    [['initialPT'], ['PYres'], { "colorZvar": "pdg"}], #4
-    [['initialPT'], ['PZres'], { "colorZvar": "pdg"}], #5
+    [['initialPT'], ['PXres'], { "colorZvar": "pdg", "xAxisTitle":"pT (GeV)", "yAxisTitle":"PXres (GeV)",}], #3
+    [['initialPT'], ['PYres'], { "colorZvar": "pdg", "xAxisTitle":"pT (GeV)", "yAxisTitle":"PYres (GeV)",}], #4
+    [['initialPT'], ['PZres'], { "colorZvar": "pdg", "xAxisTitle":"pT (GeV)", "yAxisTitle":"PZres (GeV)",}], #5
     
-    [['initialPT'], ['Massres'], { "colorZvar": "pdg"}], #6
-    [['initialPT'], ['PTres'], { "colorZvar": "pdg"}], #7
-    [['initialPT'], ['Eres'], { "colorZvar": "pdg"}], #8
+    [['initialPT'], ['Massres'], { "colorZvar": "pdg", "xAxisTitle":"pT (GeV)", "yAxisTitle":"Massres (GeV)",}], #6
+    [['initialPT'], ['PTres'], { "colorZvar": "pdg", "xAxisTitle":"pT (GeV)", "yAxisTitle":"PTres (GeV)",}], #7
+    [['initialPT'], ['Eres'], { "colorZvar": "pdg", "xAxisTitle":"pT (GeV)", "yAxisTitle":"Eres (GeV)",}], #8
     
     # pulls
-    [['initialPT'], ['Xpull'], { "colorZvar": "pdg"}], #9
-    [['initialPT'], ['Ypull'], { "colorZvar": "pdg"}], #10
-    [['initialPT'], ['Zpull'], { "colorZvar": "pdg"}], #11
+    [['initialPT'], ['Xpull'], { "colorZvar": "pdg", "xAxisTitle":"pT (GeV)", "yAxisTitle":"Xpull",}], #9
+    [['initialPT'], ['Ypull'], { "colorZvar": "pdg", "xAxisTitle":"pT (GeV)", "yAxisTitle":"Ypull",}], #10
+    [['initialPT'], ['Zpull'], { "colorZvar": "pdg", "xAxisTitle":"pT (GeV)", "yAxisTitle":"Zpull",}], #11
     
-    [['initialPT'], ['PXpull'], { "colorZvar": "pdg"}], #12
-    [['initialPT'], ['PYpull'], { "colorZvar": "pdg"}], #13
-    [['initialPT'], ['PZpull'], { "colorZvar": "pdg"}], #14
+    [['initialPT'], ['PXpull'], { "colorZvar": "pdg", "xAxisTitle":"pT (GeV)", "yAxisTitle":"PXpull",}], #12
+    [['initialPT'], ['PYpull'], { "colorZvar": "pdg", "xAxisTitle":"pT (GeV)", "yAxisTitle":"PYpull",}], #13
+    [['initialPT'], ['PZpull'], { "colorZvar": "pdg", "xAxisTitle":"pT (GeV)", "yAxisTitle":"PZpull",}], #14
     
-    [['initialPT'], ['Masspull'], { "colorZvar": "pdg"}], #15
-    [['initialPT'], ['PTpull'], { "colorZvar": "pdg"}], #16
-    [['initialPT'], ['Epull'], { "colorZvar": "pdg"}], #17
+    [['initialPT'], ['Masspull'], { "colorZvar": "pdg", "xAxisTitle":"pT (GeV)", "yAxisTitle":"Masspull",}], #15
+    [['initialPT'], ['PTpull'], { "colorZvar": "pdg", "xAxisTitle":"pT (GeV)", "yAxisTitle":"PTpull",}], #16
+    [['initialPT'], ['Epull'], { "colorZvar": "pdg", "xAxisTitle":"pT (GeV)", "yAxisTitle":"Epull",}], #17
     
 
     #[["bin_center"],["itsFindable","itsRefit","entries"],{"source":"histoPt","yAxisTitle":"N", "xAxisTitle":"pt (Gev)"}],
