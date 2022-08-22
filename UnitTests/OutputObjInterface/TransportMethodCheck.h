@@ -1,11 +1,7 @@
 /*
-An example of user-defined class of output object.
-The short instruction:
-1) Name your class
-2) Add output objects (histograms, plots, etc.) into private filed of the class
-3) Realize methods Create(), Fill(..), PreWriteProcess() and Write().
-If some of the methods are not need - leave them empty;
-4) Add your class into "OutputMap.h" file in the way it is done for this class
+OutputObjInterface-inherited class
+to create, fill and write QA histograms of 
+the Transport(...) method check
 */
 
 #pragma once
