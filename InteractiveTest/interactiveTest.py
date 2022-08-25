@@ -118,6 +118,10 @@ particles['Masspull'] = particles['Massres'] / particles['massErr']
 particles['PTpull'] = particles['PTres'] / particles['pTErr']
 particles['Epull'] = particles['Eres'] / particles['eErr']
 
+#----------------
+
+particles["OneOverPT"] = 1/np.where(particles['isMother']==1.0, particles['initialPT'], particles['finalPT'])
+
 particles["indexMI"]=particles.index
 
 
@@ -153,22 +157,23 @@ parameterArray.extend(figureParameters["StatParam"]['parameterArray'])   # add l
 #
 widgetParams=[
               ['range', ['finalPT']], #0
-              ['range', ['finalEta']], #1
-              ['range', ['finalPhi']], #2
+              ['range', ['OneOverPT']], #1
+              ['range', ['finalEta']], #2
+              ['range', ['finalPhi']], #3
               #
-              ['multiSelect', ['pdg']], #3
-              ['multiSelect', ['isMother']], #4
-              ['multiSelect', ['isAllCovMatOK']], #5
-              ['multiSelect', ['constructMethod']], #6
-              ['multiSelect', ['massConstraint']], #7
-              ['multiSelect', ['topoConstraint']], #8
+              ['multiSelect', ['pdg']], #4
+              ['multiSelect', ['isMother']], #5
+              ['multiSelect', ['isAllCovMatOK']], #6
+              ['multiSelect', ['constructMethod']], #7
+              ['multiSelect', ['massConstraint']], #8
+              ['multiSelect', ['topoConstraint']], #9
 ]
 
 widgetParams.extend(figureParameters["legend"]["widgets"])
 widgetParams.extend(figureParameters["markers"]["widgets"])
 widgetParams.extend(figureParameters["StatParam"]["widgets"])
 
-widgetLayoutDesc0=[[0,1,2],[3,4,5,6,7,8], {'sizing_mode': 'scale_width'}] 
+widgetLayoutDesc0=[[0,1,2,3],[4,5,6,7,8,9], {'sizing_mode': 'scale_width'}] 
 #
 widgetLayoutDesc={
     "Data selection":widgetLayoutDesc0,
@@ -197,34 +202,33 @@ histoArray=[
      {"name": "E_KFAR", "variables": ["e"], "nbins":100,"range": [0, 15],  },#
     
     # Residuals
-    {"name": "Xres", "variables": ["Xres"], "nbins":100,"range": [-0.1, 0.1],  },#
-     {"name": "Yres", "variables": ["Yres"], "nbins":100,"range": [-0.1, 0.1],  },#
-     {"name": "Zres", "variables": ["Zres"], "nbins":100,"range": [-0.1, 0.1],  },#
+     {"name": "Xres_hist", "variables": ["Xres"], "nbins":100,"range": [-0.1, 0.1],  },#
+     {"name": "Yres_hist", "variables": ["Yres"], "nbins":100,"range": [-0.1, 0.1],  },#
+     {"name": "Zres_hist", "variables": ["Zres"], "nbins":100,"range": [-0.1, 0.1],  },#
     
-    {"name": "PXres", "variables": ["PXres"], "nbins":100,"range": [-0.1, 0.1],  },#
-     {"name": "PYres", "variables": ["PYres"], "nbins":100,"range": [-0.1, 0.1],  },#
-     {"name": "PZres", "variables": ["PZres"], "nbins":100,"range": [-0.1, 0.1],  },#
+    {"name": "PXres_hist", "variables": ["PXres"], "nbins":100,"range": [-0.1, 0.1],  },#
+     {"name": "PYres_hist", "variables": ["PYres"], "nbins":100,"range": [-0.1, 0.1],  },#
+     {"name": "PZres_hist", "variables": ["PZres"], "nbins":100,"range": [-0.1, 0.1],  },#
     
-    {"name": "Massres", "variables": ["Massres"], "nbins":100,"range": [-0.1, 0.1],  },#
-     {"name": "PTres", "variables": ["PTres"], "nbins":100,"range": [-0.1, 0.1],  },#
-     {"name": "Eres", "variables": ["Eres"], "nbins":100,"range": [-0.1, 0.1],  },#
+    {"name": "Massres_hist", "variables": ["Massres"], "nbins":100,"range": [-0.1, 0.1],  },#
+     {"name": "PTres_hist", "variables": ["PTres"], "nbins":100,"range": [-0.1, 0.1],  },#
+     {"name": "Eres_hist", "variables": ["Eres"], "nbins":100,"range": [-0.1, 0.1],  },#
     
     # Pulls
-     {"name": "Xpull", "variables": ["Xpull"], "nbins":100,"range": [-8, 8],  },#
-     {"name": "Ypull", "variables": ["Ypull"], "nbins":100,"range": [-8, 8],  },#
-     {"name": "Zpull", "variables": ["Zpull"], "nbins":100,"range": [-8, 8],  },#
+     {"name": "Xpull_hist", "variables": ["Xpull"], "nbins":100,"range": [-8, 8],  },#
+     {"name": "Ypull_hist", "variables": ["Ypull"], "nbins":100,"range": [-8, 8],  },#
+     {"name": "Zpull_hist", "variables": ["Zpull"], "nbins":100,"range": [-8, 8],  },#
     
-    {"name": "PXpull", "variables": ["PXpull"], "nbins":100,"range": [-8, 8],  },#
-     {"name": "PYpull", "variables": ["PYpull"], "nbins":100,"range": [-8, 8],  },#
-     {"name": "PZpull", "variables": ["PZpull"], "nbins":100,"range": [-8, 8],  },#
+    {"name": "PXpull_hist", "variables": ["PXpull"], "nbins":100,"range": [-8, 8],  },#
+     {"name": "PYpull_hist", "variables": ["PYpull"], "nbins":100,"range": [-8, 8],  },#
+     {"name": "PZpull_hist", "variables": ["PZpull"], "nbins":100,"range": [-8, 8],  },#
     
-    {"name": "Masspull", "variables": ["Masspull"], "nbins":100,"range": [-5, 5],  },#
-     {"name": "PTpull", "variables": ["PTpull"], "nbins":100,"range": [-8, 8],  },#
-     {"name": "Epull", "variables": ["Epull"], "nbins":100,"range": [-8, 8],  },#
-    
-    
+    {"name": "Masspull_hist", "variables": ["Masspull"], "nbins":100,"range": [-5, 5],  },#
+     {"name": "PTpull_hist", "variables": ["PTpull"], "nbins":100,"range": [-8, 8],  },#
+     {"name": "Epull_hist", "variables": ["Epull"], "nbins":100,"range": [-8, 8],  },#
     
 ]
+
 jsFunctionArray=[]
 aliasArray=[]
 
@@ -271,43 +275,36 @@ figureArray = [
     [['PT_KFAR'], ['PT_KFAR'], {"show_histogram_error": True}], #25
     [['E_KFAR'], ['E_KFAR'], {"show_histogram_error": True}], #26
     
-    # Residuals histos
-    [['Xres'], ['Xres'], {"show_histogram_error": True}], #27
-    [['Yres'], ['Yres'], {"show_histogram_error": True}], #28
-    [['Zres'], ['Zres'], {"show_histogram_error": True}], #29
+#     # Residuals histos
+     [['Xres'], ['Xres_hist'], {"show_histogram_error": True}], #27
+    [['Yres'], ['Yres_hist'], {"show_histogram_error": True}], #28
+    [['Zres'], ['Zres_hist'], {"show_histogram_error": True}], #29
     
-    [['PXres'], ['PXres'], {"show_histogram_error": True}], #30
-    [['PYres'], ['PYres'], {"show_histogram_error": True}], #31
-    [['PZres'], ['PZres'], {"show_histogram_error": True}], #32
+    [['PXres'], ['PXres_hist'], {"show_histogram_error": True}], #30
+    [['PYres'], ['PYres_hist'], {"show_histogram_error": True}], #31
+    [['PZres'], ['PZres_hist'], {"show_histogram_error": True}], #32
     
-    [['Massres'], ['Massres'], {"show_histogram_error": True}], #33
-    [['PTres'], ['PTres'], {"show_histogram_error": True}], #34
-    [['Eres'], ['Eres'], {"show_histogram_error": True}], #35
+    [['Massres'], ['Massres_hist'], {"show_histogram_error": True}], #33
+    [['PTres'], ['PTres_hist'], {"show_histogram_error": True}], #34
+    [['Eres'], ['Eres_hist'], {"show_histogram_error": True}], #35
     
      # Pulls histos
-    [['Xpull'], ['Xpull'], {"show_histogram_error": True}], #36
-    [['Ypull'], ['Ypull'], {"show_histogram_error": True}], #37
-    [['Zpull'], ['Zpull'], {"show_histogram_error": True}], #38
+    [['Xpull'], ['Xpull_hist'], {"show_histogram_error": True}], #36
+    [['Ypull'], ['Ypull_hist'], {"show_histogram_error": True}], #37
+    [['Zpull'], ['Zpull_hist'], {"show_histogram_error": True}], #38
     
-    [['PXpull'], ['PXpull'], {"show_histogram_error": True}], #39
-    [['PYpull'], ['PYpull'], {"show_histogram_error": True}], #40
-    [['PZpull'], ['PZpull'], {"show_histogram_error": True}], #41
+    [['PXpull'], ['PXpull_hist'], {"show_histogram_error": True}], #39
+    [['PYpull'], ['PYpull_hist'], {"show_histogram_error": True}], #40
+    [['PZpull'], ['PZpull_hist'], {"show_histogram_error": True}], #41
     
-    [['Masspull'], ['Masspull'], {"show_histogram_error": True}], #42
-    [['PTpull'], ['PTpull'], {"show_histogram_error": True}], #43
-    [['Epull'], ['Epull'], {"show_histogram_error": True}], #44
+    [['Masspull'], ['Masspull_hist'], {"show_histogram_error": True}], #42
+    [['PTpull'], ['PTpull_hist'], {"show_histogram_error": True}], #43
+    [['Epull'], ['Epull_hist'], {"show_histogram_error": True}], #44
     
     # Histo tables
-    ["tableHisto", {"rowwise": True}], #45
+    ["tableHisto", {"rowwise": False}], #45
     
 
-    #[["bin_center"],["itsFindable","itsRefit","entries"],{"source":"histoPt","yAxisTitle":"N", "xAxisTitle":"pt (Gev)"}],
-    #[["bin_center"],["trdFindable","trdRefit","entries"],{"source":"histoPt","yAxisTitle":"N", "xAxisTitle":"pt (Gev)"}],
-    #[["bin_center"],["tofFindable","tofRefit","entries"],{"source":"histoPt","yAxisTitle":"N", "xAxisTitle":"pt (Gev)"}], 
-    #[["bin_center"],["eff_itsFindable","eff_itsRefit"],{"source":"histoPt","yAxisTitle":"eff", "xAxisTitle":"pt (Gev)","errY":["eff_itsFindableErr","eff_itsRefitErr"]}],
-    #[["bin_center"],["eff_trdFindable","eff_trdRefit"],{"source":"histoPt","yAxisTitle":"eff", "xAxisTitle":"pt (Gev)","errY":["eff_trdFindableErr","eff_trdRefitErr"]}],
-    #[["bin_center"],["eff_tofFindable","eff_tofRefit"],{"source":"histoPt","yAxisTitle":"eff", "xAxisTitle":"pt (Gev)","errY":["eff_tofFindableErr","eff_tofRefitErr"]}],
-    #figureGlobalOption
     
 ]
 
@@ -330,7 +327,7 @@ figureLayoutDesc={
         [24,25,26,   {  'plot_height': 250}],        
         {'plot_height': 200, 'sizing_mode': 'scale_width'} 
     ],
-    "Residuals histograms": [
+     "Residuals histograms": [
         [27,28,29,   {  'plot_height': 250}],
         [30,31,32,   {  'plot_height': 250}],
         [33,34,35,   {  'plot_height': 250}],        
@@ -339,7 +336,7 @@ figureLayoutDesc={
     "Pulls histograms": [
         [36,37,38,   {  'plot_height': 250}],
         [39,40,41,   {  'plot_height': 250}],
-        [42,43,4,   {  'plot_height': 250}],        
+        [42,43,44,   {  'plot_height': 250}],        
         {'plot_height': 200, 'sizing_mode': 'scale_width'} 
     ],
     "Histogram statistics": [
