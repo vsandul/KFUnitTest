@@ -45,8 +45,8 @@ OutputMap::OutputMap(TFile& outFile){
     transportCheckOutput = new TransportMethodCheck(outFile);
     map["transportCheckOutput"] = transportCheckOutput;
 
-    //exampleOutput = new ExampleOutput(outFile);
-    //map["exampleOutput"] = exampleOutput;
+    /*exampleOutput = new ExampleOutput(outFile);
+    map["exampleOutput"] = exampleOutput;*/
 }
 
 

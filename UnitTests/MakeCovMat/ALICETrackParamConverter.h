@@ -120,11 +120,7 @@ ALICETrackParamsConverter::ALICETrackParamsConverter(double params_[5], double l
 }
 
 ALICETrackParamsConverter::~ALICETrackParamsConverter(){
-   /* delete xyz; xyz = NULL;
-    delete pxpypz; pxpypz = NULL;
-    delete globCV; globCV = NULL;
-    delete localParams; localParams = NULL;
-    delete locCV; locCV = NULL;*/
+   
 }
 
 double ALICETrackParamsConverter::Alpha(){

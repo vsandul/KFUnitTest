@@ -20,6 +20,18 @@ void MakeKFParticleTreesForRootInteractive(){
 
     srand (time(NULL));
 
+    std::cout << "Reconstruction settings settings:\n";
+    std::cout << "  - Construct method = " << CONSTRUCT_METHOD_NUMBER << "\n";
+    std::cout << "  - Mother Mass constraint = " << SET_MASS_CONSTRAINT_MOTHER << "\n";
+    std::cout << "  - Daughters mass constraint = " << SET_MASS_CONSTRAINT_DAUGHTERS << "\n";
+    std::cout << "  - Mother topological constraint = " << SET_TOPOLOGICAL_CONSTRAINT_MOTHER << "\n";
+    std::cout << "  - Daughters topological constraint = " << SET_TOPOLOGICAL_CONSTRAINT_DAUGHTERS << "\n";
+    
+    #ifndef MAKE_VERTEX_COV_MAT
+        if (SET_TOPOLOGICAL_CONSTRAINT_MOTHER)
+            std::cout << "\nNo method to smear primary vertex is provided. Smearing will be done according to MC mother track vertex.\n\n";
+    #endif
+
     //get magnetic field from file......
 
     #define HomogeneousField
@@ -375,7 +387,19 @@ void MakeKFParticleTreesForRootInteractive(){
         int topoConstrMother = rand()%2; //0 for no, 1 for yes
         topoConstraint[0] = topoConstrMother;
         if (topoConstrMother==1){
-            // IMPLEMENT CODE HERE...      
+            KFPVertex vert;
+            vert.SetXYZ(mother_MC.initialX, mother_MC.initialY, mother_MC.initialZ);
+            vert.SetCovarianceMatrix(1.,0.,1.,0.,0.,1.); // ????
+            #ifdef MAKE_VERTEX_COV_MAT
+                std::vector<float> covmat_vec_vertex_ = MakeVertexCovMatrix(mother_MC);
+                float covmat_vec_vertex_array_[6];
+                std::copy(covmat_vec_vertex_.begin(), covmat_vec_vertex_.end(), covmat_vec_vertex_array_);
+                vert.SetCovarianceMatrix(covmat_vec_vertex_array_);
+                SmearVertex(vert);
+            #endif
+            float decay_point[] = {mother_KF.GetX(),mother_KF.GetY(),mother_KF.GetZ()};
+            mother_KF.SetProductionVertex(KFVertex(vert));
+            mother_KF.TransportToPoint(decay_point);  
         } else {
             ///
         }

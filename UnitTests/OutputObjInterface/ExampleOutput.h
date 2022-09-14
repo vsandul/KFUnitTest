@@ -41,9 +41,9 @@ void ExampleOutput::Create(){
 }
 
 void ExampleOutput::Fill(const MCParticleStruct& mcPart){
-    fHistX -> Fill(mcPart.x);
-    fHistY -> Fill(mcPart.y);
-    fHistZ -> Fill(mcPart.z);
+    fHistX -> Fill(mcPart.initialX);
+    fHistY -> Fill(mcPart.initialX);
+    fHistZ -> Fill(mcPart.initialX);
 }
 
 void ExampleOutput::Fill(const KFParticleStruct& kfPart){

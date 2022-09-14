@@ -2,9 +2,19 @@
 
 #include <vector>
 
-// header file with function to produce covariance matrix for particle
+// header file with function std::vector<float> MakeCovMatrix(const MCParticleStruct& part){ .... }
+// to produce covariance matrix for particle
 // Leave only one of the files uncommented
 #include "MakeCovMat/MakeCovMatALICE.h"
+// #include ...
+
+// header file with function std::vector<float> MakeVertexCovMatrix(const MCParticleStruct& part){ .... }
+// to produce covariance matrix for particles' vertexes
+// Leave only one of the files uncommented
+// If there is no uncommented headers, topological constraint for mother will be 
+// set according to MC vertex (non-smeared).
+//#include "MakeCovMat/MakeVertexCovMatALICE.h"
+// #include ...
 
 // Settings of KFParticle version 
 #define TESTSUITE  // uncomment if you are using Testsuite branch of KFParticle
@@ -43,7 +53,7 @@ const int CONSTRUCT_METHOD_NUMBER = 2; // 0 or 2
 const bool SET_MASS_CONSTRAINT_MOTHER = false;// 
 const bool SET_MASS_CONSTRAINT_DAUGHTERS = true;//
 
-const bool SET_TOPOLOGICAL_CONSTRAINT_MOTHER = false;//must know covmat of primary vertex
+const bool SET_TOPOLOGICAL_CONSTRAINT_MOTHER = true;//must know covmat of primary vertex
 const bool SET_TOPOLOGICAL_CONSTRAINT_DAUGHTERS = true;//
 
 // Settings of input and output files

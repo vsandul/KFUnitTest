@@ -26,9 +26,9 @@
 // σxpy  σypy   σzpy    σpxpy   σpypy
 // σxpz  σypz   σzpz    σpxpz   σpypz   σpzpz
 //
-// xx, yy, zz,... - in microns^2
+// xx, yy, zz,... - in cm^2
 // pxpx, pypy, ... - in GeV^2
-// xpx, ypy, zpz, ... - in microns*GeV
+// xpx, ypy, zpz, ... - in cm*GeV
 
 std::vector<float> MakeCovMatrix(const MCParticleStruct& part){
     // 6x6 matrix has 21 indep. elements. Lets define all of them.

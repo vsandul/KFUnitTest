@@ -58,7 +58,7 @@ The result of the script work is 2 `.html` files: `InterTest_pulls.html` and `In
 # Extra KFUnitTest settings
 ## Additional histograms and plots
 To provide user with the ability to add his/her own histograms, `OutputObjInterface` was written.
-Shortly, user has to write his/her own class inherited from `OutputObjInterface` class (in the `<UnitTests/OutputObjInterface>` folder); then put the instance of the created class into `OutputMap` structure.
+Shortly, user has to write his/her own class inherited from `OutputObjInterface` class (in the `<UnitTests/OutputObjInterface>` folder); then put the instance of the created class into `OutputMap` structure (`OutputMap.h` file).
 More detailed for more detailed example you can find `ExampleOutput.h` file in the `<UnitTests/OutputObjInterface>` folder. Don't foreget to add your class object into `OutputMap.h`! (as it is done for example).
 
 ## Covariance matrix generation
