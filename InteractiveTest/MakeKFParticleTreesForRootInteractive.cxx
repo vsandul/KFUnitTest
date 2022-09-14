@@ -389,7 +389,10 @@ void MakeKFParticleTreesForRootInteractive(){
         if (topoConstrMother==1){
             KFPVertex vert;
             vert.SetXYZ(mother_MC.initialX, mother_MC.initialY, mother_MC.initialZ);
-            vert.SetCovarianceMatrix(1.,0.,1.,0.,0.,1.); // ????
+            //vert.SetCovarianceMatrix(1.,0.,1.,0.,0.,1.); // ????
+            vert.SetCovarianceMatrix(mother_KF.GetCovariance(0),
+                                     mother_KF.GetCovariance(1),mother_KF.GetCovariance(2),
+                                     mother_KF.GetCovariance(3),mother_KF.GetCovariance(4),mother_KF.GetCovariance(5)); // ????         
             #ifdef MAKE_VERTEX_COV_MAT
                 std::vector<float> covmat_vec_vertex_ = MakeVertexCovMatrix(mother_MC);
                 float covmat_vec_vertex_array_[6];
