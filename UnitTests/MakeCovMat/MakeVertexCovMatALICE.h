@@ -38,16 +38,16 @@ std::vector<float> MakeVertexCovMatrix(const MCParticleStruct& part){
     else
         pt = part.initialPT();*/
 
-/*
-    covmat[0] = ....; // σxx
-    covmat[1] = ....; // σxy
-    covmat[2] = ....; // σyy
-    covmat[3] = ....; // σxz
-    covmat[4] = ....; // σyz
-    covmat[5] = ....; // σzz
+
+    covmat[0] = 4e-5; // σxx
+    covmat[1] = 2e-5 * (-1 + (double)rand() / RAND_MAX * 2); // σxy
+    covmat[2] = 4e-5; // σyy
+    covmat[3] = 1e-6 * (-1 + (double)rand() / RAND_MAX * 2); // σxz
+    covmat[4] = 1e-6; // σyz
+    covmat[5] = 0.1 * (-1 + (double)rand() / RAND_MAX * 2); // σzz
 
 
-    */
+    
 
     return covmat;
 }
